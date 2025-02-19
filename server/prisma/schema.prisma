@@ -40,9 +40,8 @@ model Category {
 }
 
 model Transaction {
-  id        Int             @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  type      TransactionType
   amount    Float
   notes     String?
   createdAt DateTime
