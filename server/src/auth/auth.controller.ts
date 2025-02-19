@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -27,5 +28,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async signIn(@CurrentUser() user: User) {
     return await this.authService.signIn(user);
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  async getMe(@CurrentUser() user: User) {
+    return user;
   }
 }
