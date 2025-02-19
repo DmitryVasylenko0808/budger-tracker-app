@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUser } from './types/create.user';
+import { EditUserDto } from './dto/edit.user.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,5 +45,17 @@ export class UsersService {
     return user;
   }
 
-  async edit(dto: unknown) {}
+  async edit(id: number, dto: EditUserDto) {
+    await this.getByIdOrThrow(id);
+
+    const user = await this.prismaService.user.update({
+      where: { id },
+      data: dto,
+      omit: {
+        passwordHash: true,
+      },
+    });
+
+    return user;
+  }
 }
