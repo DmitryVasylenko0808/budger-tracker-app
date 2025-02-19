@@ -15,11 +15,15 @@ import { CurrentUser } from 'src/auth/decorators';
 import { TokenPayload } from 'src/auth/types/token.payload';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
+import { TransactionsService } from './transactions.service';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly transactionsService: TransactionsService,
+  ) {}
 
   @Get()
   async get(@CurrentUser() user: TokenPayload) {
@@ -50,5 +54,10 @@ export class CategoriesController {
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     return await this.categoriesService.delete(id);
+  }
+
+  @Get(':id/transactions')
+  async getTransactionsByCategory(@Param('id', ParseIntPipe) id: number) {
+    return await this.transactionsService.getByCategoryId(id);
   }
 }
