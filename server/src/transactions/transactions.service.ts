@@ -90,11 +90,15 @@ export class TransactionsService {
     return transaction;
   }
 
-  async delete(id: number) {
-    await this.getOneOrThrow(id);
+  async delete(ids: string) {
+    const numberIds = ids.split(',').map((id) => Number(id));
 
-    const transaction = await this.prismaService.transaction.delete({
-      where: { id },
+    const transaction = await this.prismaService.transaction.deleteMany({
+      where: {
+        id: {
+          in: numberIds,
+        },
+      },
     });
 
     return transaction;

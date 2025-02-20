@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
@@ -50,8 +51,8 @@ export class TransactionsController {
     return await this.transactionsService.edit(id, editTransactionDto);
   }
 
-  @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    return await this.transactionsService.delete(id);
+  @Delete()
+  async delete(@Query('ids') ids: string) {
+    return await this.transactionsService.delete(ids);
   }
 }
