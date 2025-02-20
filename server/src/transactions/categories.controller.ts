@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
@@ -16,6 +17,7 @@ import { TokenPayload } from 'src/auth/types/token.payload';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
 import { TransactionsService } from './transactions.service';
+import { TransactionType } from '@prisma/client';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('categories')
@@ -26,8 +28,12 @@ export class CategoriesController {
   ) {}
 
   @Get()
-  async get(@CurrentUser() user: TokenPayload) {
-    return await this.categoriesService.get(user.userId);
+  async get(
+    @Query('type') type: TransactionType,
+    @Query('search') search: string,
+    @CurrentUser() user: TokenPayload,
+  ) {
+    return await this.categoriesService.get(user.userId, type, search);
   }
 
   @Get(':id')

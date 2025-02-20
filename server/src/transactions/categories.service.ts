@@ -6,15 +6,21 @@ import {
 import { PrismaService } from 'src/prisma.service';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
+import { TransactionType } from '@prisma/client';
 
 @Injectable()
 export class CategoriesService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async get(userId: number) {
+  async get(userId: number, type: TransactionType, search: string = '') {
     const categories = await this.prismaService.category.findMany({
       where: {
         userId: userId,
+        type,
+        name: {
+          startsWith: search,
+          mode: 'insensitive',
+        },
       },
     });
 
