@@ -63,7 +63,11 @@ export class CategoriesController {
   }
 
   @Get(':id/transactions')
-  async getTransactionsByCategory(@Param('id', ParseIntPipe) id: number) {
-    return await this.transactionsService.getByCategoryId(id);
+  async getTransactionsByCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('limit', ParseIntPipe) limit: number,
+  ) {
+    return await this.transactionsService.getByCategoryId(id, page, limit);
   }
 }

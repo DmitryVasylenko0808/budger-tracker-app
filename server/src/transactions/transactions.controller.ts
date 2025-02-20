@@ -23,8 +23,18 @@ export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
   @Get()
-  async get(@CurrentUser() user: TokenPayload) {
-    return await this.transactionsService.get(user.userId);
+  async get(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('limit', ParseIntPipe) limit: number,
+    @Query('category_ids') categoryIds: string,
+    @CurrentUser() user: TokenPayload,
+  ) {
+    return await this.transactionsService.get(
+      user.userId,
+      page,
+      limit,
+      categoryIds,
+    );
   }
 
   @Get(':id')
