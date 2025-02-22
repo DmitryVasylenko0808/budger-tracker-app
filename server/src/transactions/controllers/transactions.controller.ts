@@ -10,12 +10,12 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
+import { TransactionsService } from '../services/transactions.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
 import { TokenPayload } from 'src/auth/types/token.payload';
-import { CreateTransactionDto } from './dto/create.transaction.dto';
-import { EditTransactionDto } from './dto/edit.transaction.dto';
+import { CreateTransactionDto } from '../dto/create.transaction.dto';
+import { EditTransactionDto } from '../dto/edit.transaction.dto';
 
 @Controller('transactions')
 @UseGuards(AuthGuard('jwt'))

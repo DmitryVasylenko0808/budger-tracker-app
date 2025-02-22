@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
+import { TransactionsService } from './services/transactions.service';
 import { CategoriesService } from './categories.service';
-import { TransactionsController } from './transactions.controller';
-import { CategoriesController } from './categories.controller';
+import { TransactionsController } from './controllers/transactions.controller';
+import { CategoriesController } from './services/categories.controller';
 import { PrismaService } from 'src/prisma.service';
-import { StatsController } from './stats.controller';
-import { StatsService } from './stats.service';
+import { StatsController } from './controllers/stats.controller';
+import { StatsService } from './services/stats.service';
 
 @Module({
   controllers: [TransactionsController, CategoriesController, StatsController],

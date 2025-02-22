@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateTransactionDto } from './dto/create.transaction.dto';
-import { EditTransactionDto } from './dto/edit.transaction.dto';
-import { TransactionsPagination } from './types/transactions.pagination';
+import { CreateTransactionDto } from '../dto/create.transaction.dto';
+import { EditTransactionDto } from '../dto/edit.transaction.dto';
+import { TransactionsPagination } from '../types/transactions.pagination';
 
 @Injectable()
 export class TransactionsService {

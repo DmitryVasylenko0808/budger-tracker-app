@@ -1,5 +1,5 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { StatsService } from './stats.service';
+import { StatsService } from '../services/stats.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
 import { TokenPayload } from 'src/auth/types/token.payload';
@@ -13,6 +13,11 @@ export class StatsController {
   @Get('summary')
   async getSummary(@CurrentUser() user: TokenPayload) {
     return await this.statsService.getSummary(user.userId);
+  }
+
+  @Get('monthly')
+  async getMonthly(@CurrentUser() user: TokenPayload) {
+    return await this.statsService.getMonthly(user.userId);
   }
 
   @Get('breakdown')
