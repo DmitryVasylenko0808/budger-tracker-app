@@ -37,23 +37,23 @@ const generateUsers = async () => {
 
 const generateCategories = async () => {
   const firstUserCategories: Prisma.CategoryCreateManyInput[] = [
-    { name: 'Salary', type: 'INCOME', userId: 1 },
-    { name: 'Rental Income', type: 'INCOME', userId: 1 },
-    { name: 'Gifts', type: 'INCOME', userId: 1 },
+    { name: 'Salary', color: '#D20103', type: 'INCOME', userId: 1 },
+    { name: 'Rental Income', color: '#FE9900', type: 'INCOME', userId: 1 },
+    { name: 'Gifts', color: '#FFDE59', type: 'INCOME', userId: 1 },
 
-    { name: 'Groceries', type: 'EXPENSE', userId: 1 },
-    { name: 'Rent', type: 'EXPENSE', userId: 1 },
-    { name: 'Transportation', type: 'EXPENSE', userId: 1 },
-    { name: 'Fitness', type: 'EXPENSE', userId: 1 },
+    { name: 'Groceries', color: '#7DDA58', type: 'EXPENSE', userId: 1 },
+    { name: 'Rent', color: '#5DE2E7', type: 'EXPENSE', userId: 1 },
+    { name: 'Transportation', color: '#060270', type: 'EXPENSE', userId: 1 },
+    { name: 'Fitness', color: '#CC6CE7', type: 'EXPENSE', userId: 1 },
   ];
 
   const secondUserCategories: Prisma.CategoryCreateManyInput[] = [
-    { name: 'Salary', type: 'INCOME', userId: 2 },
+    { name: 'Salary', color: '#7DDA58', type: 'INCOME', userId: 2 },
 
-    { name: 'Groceries', type: 'EXPENSE', userId: 2 },
-    { name: 'Housing', type: 'EXPENSE', userId: 2 },
-    { name: 'Transportation', type: 'EXPENSE', userId: 2 },
-    { name: 'Healthcare', type: 'EXPENSE', userId: 2 },
+    { name: 'Groceries', color: '#FFECA1', type: 'EXPENSE', userId: 2 },
+    { name: 'Housing', color: '#FE9900', type: 'EXPENSE', userId: 2 },
+    { name: 'Transportation', color: '#FE9900', type: 'EXPENSE', userId: 2 },
+    { name: 'Healthcare', color: '#EFC3CA', type: 'EXPENSE', userId: 2 },
   ];
 
   await prisma.category.createMany({

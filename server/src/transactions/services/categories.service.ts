@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateCategoryDto } from './dto/create.category.dto';
-import { EditCategoryDto } from './dto/edit.category.dto';
+import { CreateCategoryDto } from '../dto/create.category.dto';
+import { EditCategoryDto } from '../dto/edit.category.dto';
 import { TransactionType } from '@prisma/client';
 
 @Injectable()
@@ -56,9 +56,12 @@ export class CategoriesService {
       );
     }
 
+    const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
     const category = await this.prismaService.category.create({
       data: {
         name,
+        color,
         type,
         userId,
       },

@@ -27,9 +27,10 @@ model User {
 }
 
 model Category {
-  id   Int             @id @default(autoincrement())
-  name String
-  type TransactionType
+  id    Int             @id @default(autoincrement())
+  name  String
+  type  TransactionType
+  color String          @default("#000000")
 
   transactions Transaction[]
 
