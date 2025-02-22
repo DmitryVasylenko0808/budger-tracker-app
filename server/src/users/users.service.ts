@@ -45,12 +45,15 @@ export class UsersService {
     return user;
   }
 
-  async edit(id: number, dto: EditUserDto) {
+  async edit(id: number, dto: EditUserDto, avatar?: string) {
     await this.getByIdOrThrow(id);
 
     const user = await this.prismaService.user.update({
       where: { id },
-      data: dto,
+      data: {
+        ...dto,
+        avatar,
+      },
       omit: {
         passwordHash: true,
       },
