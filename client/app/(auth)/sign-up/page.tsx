@@ -1,3 +1,10 @@
+import { SignUpForm, WithAccount } from "@/features/auth/components";
+
 export default function SignUpPage() {
-  return <div>SignUpPage</div>;
+  return (
+    <>
+      <SignUpForm />
+      <WithAccount />
+    </>
+  );
 }

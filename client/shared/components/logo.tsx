@@ -9,7 +9,7 @@ export const Logo = ({ size = "sm" }: LogoProps) => {
 
   return (
     <span className="text-primary-100">
-      <CircleDollarSign size={sizes[size]} />
+      <CircleDollarSign size={sizes[size]} className="text-primary-100" />
     </span>
   );
 };
