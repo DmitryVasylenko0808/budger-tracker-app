@@ -11,6 +11,7 @@ export default {
       colors: {
         black: "#000",
         gray: {
+          50: "#f5f5f5",
           100: "#808080",
           200: "#333333b3",
         },
@@ -18,6 +19,12 @@ export default {
           100: "#007aff",
           200: "#0274ee",
         },
+      },
+      width: {
+        auth: "390px",
+      },
+      maxWidth: {
+        container: "1200px",
       },
     },
   },
