@@ -1,3 +1,5 @@
 import { Logo } from "./logo";
+import { Header } from "./header";
+import { NavBar } from "./navbar";
 
-export { Logo };
+export { Logo, Header, NavBar };

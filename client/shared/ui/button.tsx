@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
 type ButtonProps = ComponentProps<"button"> & {
-  variant: "primary" | "secondary" | "text";
+  variant: "primary" | "secondary" | "text" | "menu";
   size?: "sm" | "lg";
   fullWidth?: boolean;
 };
@@ -26,7 +26,9 @@ export const Button = ({
             variant === "primary",
           "border-2 border-gray-100/30 text-black disabled:opacity-50":
             variant === "secondary",
-          "text-black disabled:opacity-50": variant === "text",
+          "min-w-fit text-black disabled:opacity-50": variant === "text",
+          "w-full justify-start font-normal text-black hover:bg-gray-200/5":
+            variant === "menu",
           "w-full": fullWidth === true,
         },
         className
