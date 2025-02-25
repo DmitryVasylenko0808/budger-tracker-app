@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 import { signIn } from "../api";
+import { createSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 const signInSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email").trim(),
@@ -35,6 +37,7 @@ export const signInAction = async (
       success: false,
     };
   }
+
   const res = await signIn(validatedFields.data);
 
   if (res.error) {
@@ -46,5 +49,6 @@ export const signInAction = async (
     };
   }
 
-  return { success: true };
+  await createSession(res.access_token);
+  redirect("/");
 };

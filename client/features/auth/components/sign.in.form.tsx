@@ -1,20 +1,12 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 import { signInAction } from "../actions/sign.in";
 import { TextField, Button } from "@/shared/ui";
 import { LoaderCircle } from "lucide-react";
 
 export const SignInForm = () => {
   const [state, formAction, isPending] = useActionState(signInAction, null);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state?.success) {
-      router.push("/");
-    }
-  }, [state]);
 
   return (
     <form action={formAction}>
