@@ -1,3 +1,4 @@
 import { Account } from "./account";
+import { UserProfile } from "./user.profile";
 
-export { Account };
+export { Account, UserProfile };

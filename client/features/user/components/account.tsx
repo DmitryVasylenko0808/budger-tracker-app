@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks";
 import { logOut } from "@/features/auth/actions/log.out";
@@ -12,11 +13,13 @@ type AccountProps = {
 
 export const Account = ({ user }: AccountProps) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
 
   useClickOutside(ref, () => setOpenMenu(false));
 
   const handleToggleMenu = () => setOpenMenu((openMenu) => !openMenu);
+  const handleClickMyProfile = () => router.push("/profile");
   const handleClickLogOut = () => logOut();
 
   const avatarUrl = user.avatar
@@ -40,7 +43,9 @@ export const Account = ({ user }: AccountProps) => {
         content={
           <ul className="w-32">
             <li>
-              <Button variant="menu">My Profile</Button>
+              <Button variant="menu" onClick={handleClickMyProfile}>
+                My Profile
+              </Button>
             </li>
             <li>
               <Button variant="menu" onClick={handleClickLogOut}>

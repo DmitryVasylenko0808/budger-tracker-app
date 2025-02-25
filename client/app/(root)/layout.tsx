@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`h-full ${inter.className} antialiased`}>
+      <body className={`min-h-screen ${inter.className} antialiased`}>
         <Header />
-        {children}
+        <main className="min-h-[calc(100vh-4rem)]">{children}</main>
       </body>
     </html>
   );

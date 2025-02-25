@@ -1,0 +1,41 @@
+"use client";
+
+import { Button, Container } from "@/shared/ui";
+import Image from "next/image";
+
+type UserProfileProps = {
+  user: User;
+};
+
+export const UserProfile = ({ user }: UserProfileProps) => {
+  const avatarUrl = user.avatar
+    ? `http://localhost:3000/avatars/${user?.avatar}`
+    : `http://localhost:3000/avatars/nullavatar.jpg`;
+
+  return (
+    <section className="py-10">
+      <Container>
+        <div className="mb-4">
+          <div className="flex items-center gap-4">
+            <Image
+              src={avatarUrl}
+              alt="user avatar"
+              width={128}
+              height={128}
+              className="w-32 h-32 rounded-full"
+            />
+            <div>
+              <h1 className="mb-1.5 text-2xl font-semibold">{user.name}</h1>
+              <p className="text-gray-200">{user.email}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button variant="secondary" size="lg">
+            Edit
+          </Button>
+        </div>
+      </Container>
+    </section>
+  );
+};
