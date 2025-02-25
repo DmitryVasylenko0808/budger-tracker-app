@@ -25,9 +25,13 @@ export default {
       },
       width: {
         auth: "320px",
+        modal: "460px",
       },
       maxWidth: {
         container: "1200px",
+      },
+      maxHeight: {
+        modal: "800px",
       },
     },
   },

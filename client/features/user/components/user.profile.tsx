@@ -1,15 +1,19 @@
 "use client";
 
-import { Button, Container } from "@/shared/ui";
 import Image from "next/image";
+import { Button, Container } from "@/shared/ui";
+import { EditProfileModal } from "./edit.profile.modal";
+import { useModal } from "@/hooks";
 
 type UserProfileProps = {
   user: User;
 };
 
 export const UserProfile = ({ user }: UserProfileProps) => {
+  const modal = useModal();
+
   const avatarUrl = user.avatar
-    ? `http://localhost:3000/avatars/${user?.avatar}`
+    ? `http://localhost:3000/avatars/${user.avatar}`
     : `http://localhost:3000/avatars/nullavatar.jpg`;
 
   return (
@@ -31,11 +35,17 @@ export const UserProfile = ({ user }: UserProfileProps) => {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button variant="secondary" size="lg">
+          <Button variant="secondary" size="lg" onClick={modal.onOpen}>
             Edit
           </Button>
         </div>
       </Container>
+      <EditProfileModal
+        open={modal.open}
+        onClose={modal.onClose}
+        title="Editing Profile"
+        user={user}
+      />
     </section>
   );
 };

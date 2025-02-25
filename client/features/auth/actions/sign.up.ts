@@ -5,10 +5,7 @@ import { signUp } from "../api";
 
 const signUpSchema = z
   .object({
-    name: z
-      .string()
-      .min(2, "Username must contain at least 2 characters")
-      .trim(),
+    name: z.string().min(2, "Name must contain at least 2 characters").trim(),
     email: z.string().min(1, "Email is required").email("Invalid email").trim(),
     password: z
       .string()
