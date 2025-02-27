@@ -1,15 +1,19 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getUser } from "@/features/user/api";
 import { verifySession } from "@/lib/session";
 import { UserProfile } from "@/features/user/components";
 
 export default async function ProfilePage() {
   const session = await verifySession();
-  const user = await getUser({ id: session?.userId as string });
+  const data = await getUser({ id: Number(session?.userId) });
 
-  if (!user.id) {
+  if (data.statusCode === 404) {
     notFound();
   }
 
-  return <UserProfile user={user} />;
+  if (data.statusCode === 401) {
+    redirect("/sign-in");
+  }
+
+  return <UserProfile user={data} />;
 }

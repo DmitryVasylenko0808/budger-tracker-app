@@ -1,6 +1,6 @@
 "use client";
 
-import { TextField, Button } from "@/shared/ui";
+import { TextField, Button, FileSelect } from "@/shared/ui";
 import { ModalProps, Modal } from "@/shared/ui/modal";
 import { editProfileAction } from "../actions/edit.user";
 import { LoaderCircle } from "lucide-react";
@@ -42,6 +42,12 @@ export const EditProfileModal = ({
           name="email"
           defaultValue={user.email}
           error={state?.errors?.email?.[0]}
+          className="mb-6"
+        />
+        <FileSelect
+          label="Avatar"
+          name="avatar"
+          error={state?.errors?.avatar?.[0]}
           className="mb-6"
         />
         {state?.errors?.server && (

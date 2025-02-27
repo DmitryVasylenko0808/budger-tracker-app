@@ -1,28 +1,20 @@
-import { getSession } from "@/lib/session";
 import axios from "axios";
+import { instance } from "../../lib/instance";
 
 type GetUserParams = {
-  id: string;
+  id: number;
 };
 
 type EditUserParams = {
   id: number;
   name: string;
   email: string;
+  avatar?: File;
 };
 
 export const getUser = async (params: GetUserParams) => {
-  const access_token = await getSession();
-
   try {
-    const res = await axios.get(
-      `http://localhost:3000/api/users/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    );
+    const res = await instance.get(`/users/${params.id}`);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -38,19 +30,12 @@ export const editUser = async (params: EditUserParams) => {
 
   Object.entries(data).forEach(([k, v]) => formData.append(k, v));
 
-  const access_token = await getSession();
-
   try {
-    const res = await axios.patch(
-      `http://localhost:3000/api/users/${id}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const res = await instance.patch(`/users/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

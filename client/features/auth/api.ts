@@ -1,4 +1,5 @@
 import axios from "axios";
+import { instance } from "../../lib/instance";
 
 type SignUpParams = {
   name: string;
@@ -13,7 +14,7 @@ type SignInParams = {
 
 export const signUp = async (data: SignUpParams) => {
   try {
-    const res = await axios.post(
+    const res = await instance.post(
       "http://localhost:3000/api/auth/sign-up",
       data
     );
@@ -27,7 +28,7 @@ export const signUp = async (data: SignUpParams) => {
 
 export const signIn = async (data: SignInParams) => {
   try {
-    const res = await axios.post(
+    const res = await instance.post(
       "http://localhost:3000/api/auth/sign-in",
       data
     );
