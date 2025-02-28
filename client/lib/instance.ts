@@ -2,7 +2,7 @@ import { getAccessToken } from "@/features/auth/actions/get.access.token";
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: "http://localhost:3000/api",
 });
 
 instance.interceptors.request.use(async (cfg) => {

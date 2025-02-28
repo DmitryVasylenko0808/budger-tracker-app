@@ -2,8 +2,8 @@ import { ComponentProps } from "react";
 
 type TextFieldProps = ComponentProps<"input"> & {
   label?: string;
-  leftAddon?: string;
-  rightAddon?: string;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
   error?: string;
 };
 
