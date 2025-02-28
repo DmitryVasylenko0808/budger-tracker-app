@@ -13,8 +13,8 @@ export const UserProfile = ({ user }: UserProfileProps) => {
   const modal = useModal();
 
   const avatarUrl = user.avatar
-    ? `http://localhost:3000/avatars/${user.avatar}`
-    : `http://localhost:3000/avatars/nullavatar.jpg`;
+    ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`
+    : `${process.env.NEXT_PUBLIC_AVATARS_URL}/nullavatar.jpg`;
 
   return (
     <section className="py-10">
