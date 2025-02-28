@@ -1,26 +1,31 @@
 "use client";
 
 import { Button, TextField } from "@/shared/ui";
-import { Plus, Search } from "lucide-react";
+import { LoaderCircle, Plus, Search } from "lucide-react";
 import { CategoriesList } from "./categories.list";
 import { useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@/hooks";
+import { useState } from "react";
 import { getCategories } from "../api";
 
 type CategoriesProps = {
   type: TransactionType;
+  categories: Category[];
 };
 
-export const Categories = ({ type }: CategoriesProps) => {
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["categories", type],
-    queryFn: () => getCategories({ type }),
+export const Categories = ({ type, categories }: CategoriesProps) => {
+  const [search, setSearch] = useState<string>("");
+  const debouncedValue = useDebounce(search, 500);
+  const { data, isFetching } = useQuery({
+    queryKey: ["categories", type, debouncedValue],
+    queryFn: () => getCategories({ type, search: debouncedValue }),
+    initialData: categories,
+    enabled: !!search,
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 h-80 bg-gray-100/15 rounded-lg animate-pulse" />
-    );
-  }
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   const titleType = type === "INCOME" ? "Income" : "Expense";
 
@@ -37,10 +42,18 @@ export const Categories = ({ type }: CategoriesProps) => {
       </div>
       <TextField
         placeholder="Search"
-        leftAddon={<Search size={20} className="text-gray-100" />}
+        leftAddon={
+          isFetching ? (
+            <LoaderCircle size={20} className="text-gray-100 animate-spin" />
+          ) : (
+            <Search size={20} className="text-gray-100" />
+          )
+        }
         className="mb-4"
+        onChange={handleSearch}
+        value={search}
       />
-      <CategoriesList data={data} />
+      {<CategoriesList data={data} />}
     </div>
   );
 };
