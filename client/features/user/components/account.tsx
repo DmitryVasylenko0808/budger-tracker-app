@@ -1,24 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { useClickOutside } from "@/hooks";
-import { logOut } from "@/features/auth/actions/log.out";
 import { Button, Menu } from "@/shared/ui";
+import { useRouter } from "next/navigation";
+import { useToggleMenu } from "@/hooks";
+import { logOut } from "@/features/auth/actions/log.out";
 
 type AccountProps = {
   user: User;
 };
 
 export const Account = ({ user }: AccountProps) => {
-  const [openMenu, setOpenMenu] = useState(false);
   const router = useRouter();
-  const ref = useRef<HTMLDivElement>(null);
+  const { open, ref, onToggle } = useToggleMenu();
 
-  useClickOutside(ref, () => setOpenMenu(false));
-
-  const handleToggleMenu = () => setOpenMenu((openMenu) => !openMenu);
   const handleClickMyProfile = () => router.push("/profile");
   const handleClickLogOut = () => logOut();
 
@@ -30,7 +25,7 @@ export const Account = ({ user }: AccountProps) => {
     <div>
       <Menu
         trigger={
-          <Button variant="text" onClick={handleToggleMenu}>
+          <Button variant="text" onClick={onToggle}>
             <Image
               width={32}
               height={32}
@@ -54,7 +49,7 @@ export const Account = ({ user }: AccountProps) => {
             </li>
           </ul>
         }
-        open={openMenu}
+        open={open}
         ref={ref}
       />
     </div>

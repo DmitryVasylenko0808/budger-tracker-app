@@ -1,17 +1,9 @@
 "use client";
 
-import { CategoryItem } from "./category.item";
+import { PropsWithChildren } from "react";
 
-type CategoriesListProps = {
-  data: Category[];
-};
+type CategoriesListProps = PropsWithChildren;
 
-export const CategoriesList = ({ data }: CategoriesListProps) => {
-  return (
-    <ul className="flex flex-col space-y-1">
-      {data.map((c) => (
-        <CategoryItem category={c} key={c.id} />
-      ))}
-    </ul>
-  );
+export const CategoriesList = ({ children }: CategoriesListProps) => {
+  return <ul className="flex flex-col space-y-1">{children}</ul>;
 };

@@ -20,7 +20,7 @@ export const Modal = ({ children, open, title, onClose }: ModalProps) => {
       <div className="fixed top-0 left-0 z-50 w-full min-h-screen flex items-center justify-center bg-black/30">
         <div className="w-modal max-h-modal p-5 bg-white rounded-lg shadow-xl overflow-auto">
           <div className="mb-7 flex items-center">
-            <span className="flex-1 text-lg font-semibold">{title}</span>
+            <h3 className="flex-1 text-lg font-semibold">{title}</h3>
             <Button variant="text" onClick={onClose}>
               <X size={32} className="text-gray-200" />
             </Button>
