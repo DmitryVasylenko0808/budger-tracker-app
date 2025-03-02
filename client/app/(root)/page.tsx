@@ -1,4 +1,9 @@
-import { Summary, SummarySkeleton } from "@/features/transactions/components";
+import {
+  IncomeExpenseReport,
+  IncomeExpenseSkeleton,
+  Summary,
+  SummarySkeleton,
+} from "@/features/transactions/components";
 import { Container } from "@/shared/ui";
 import { Suspense } from "react";
 
@@ -13,6 +18,9 @@ export default async function Home() {
       </section>
       <Suspense fallback={<SummarySkeleton />}>
         <Summary />
+      </Suspense>
+      <Suspense fallback={<IncomeExpenseSkeleton />}>
+        <IncomeExpenseReport />
       </Suspense>
     </>
   );

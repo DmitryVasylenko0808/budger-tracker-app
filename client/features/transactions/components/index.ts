@@ -7,6 +7,9 @@ import { DeleteCategoryModal } from "./delete.category.modal";
 import { DashboardBlock } from "./dashboard.block";
 import { Summary } from "./summary";
 import { SummarySkeleton } from "./summary.skeleton";
+import { IncomeExpenseReport } from "./income.expense.report";
+import { IncomeExpenseChart } from "./income.expense.chart";
+import { IncomeExpenseSkeleton } from "./income.expense.skeleton";
 
 export { Categories };
 export { CategoriesList };
@@ -17,3 +20,6 @@ export { DeleteCategoryModal };
 export { DashboardBlock };
 export { Summary };
 export { SummarySkeleton };
+export { IncomeExpenseReport };
+export { IncomeExpenseChart };
+export { IncomeExpenseSkeleton };

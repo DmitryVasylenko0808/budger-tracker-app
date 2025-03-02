@@ -88,3 +88,15 @@ export const getSummary = async () => {
     }
   }
 };
+
+export const getMonthly = async () => {
+  try {
+    const res = await instance.get(`/stats/monthly`);
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
