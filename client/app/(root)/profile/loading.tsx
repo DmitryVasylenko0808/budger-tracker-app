@@ -1,9 +1,9 @@
-import { LoaderCircle } from "lucide-react";
+import { Loader } from "@/shared/ui";
 
 const LoadingProfilePage = () => {
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
-      <LoaderCircle size={48} className="text-primary-100 animate-spin" />
+      <Loader size="lg" />
     </div>
   );
 };

@@ -3,8 +3,7 @@
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signUpAction } from "../actions/sign.up";
-import { TextField, Button } from "@/shared/ui";
-import { LoaderCircle } from "lucide-react";
+import { TextField, Button, Loader } from "@/shared/ui";
 
 export const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(signUpAction, null);
@@ -60,11 +59,7 @@ export const SignUpForm = () => {
         disabled={isPending}
         fullWidth
       >
-        {isPending ? (
-          <LoaderCircle size={20} className="text-white animate-spin" />
-        ) : (
-          "Sign Up"
-        )}
+        {isPending ? <Loader variant="secondary" /> : "Sign Up"}
       </Button>
     </form>
   );

@@ -1,8 +1,7 @@
 "use client";
 
-import { Button, TextField } from "@/shared/ui";
+import { Button, Loader, TextField } from "@/shared/ui";
 import { Modal, ModalProps } from "@/shared/ui/modal";
-import { LoaderCircle } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { editCategoryAction } from "../actions";
 
@@ -52,11 +51,7 @@ export const EditCategoryModal = ({
             size="lg"
             disabled={isPending}
           >
-            {isPending ? (
-              <LoaderCircle size={20} className="text-white animate-spin" />
-            ) : (
-              "Edit"
-            )}
+            {isPending ? <Loader variant="secondary" /> : "Edit"}
           </Button>
         </div>
       </form>

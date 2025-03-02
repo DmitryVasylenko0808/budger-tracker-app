@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
 type TextFieldProps = ComponentProps<"input"> & {
@@ -16,7 +17,7 @@ export const TextField = ({
   ...inputProps
 }: TextFieldProps) => {
   return (
-    <div className={className}>
+    <label className={cn("block", className)}>
       {label && (
         <label className="block mb-2 text-sm font-semibold">{label}</label>
       )}
@@ -29,6 +30,6 @@ export const TextField = ({
         {rightAddon && <div className="ml-2">{rightAddon}</div>}
       </div>
       {error && <span className="text-xs text-error font-normal">{error}</span>}
-    </div>
+    </label>
   );
 };

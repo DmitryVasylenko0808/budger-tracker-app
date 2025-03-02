@@ -2,8 +2,7 @@
 
 import { useActionState } from "react";
 import { signInAction } from "../actions/sign.in";
-import { TextField, Button } from "@/shared/ui";
-import { LoaderCircle } from "lucide-react";
+import { TextField, Button, Loader } from "@/shared/ui";
 
 export const SignInForm = () => {
   const [state, formAction, isPending] = useActionState(signInAction, null);
@@ -39,11 +38,7 @@ export const SignInForm = () => {
         disabled={isPending}
         fullWidth
       >
-        {isPending ? (
-          <LoaderCircle size={20} className="text-white animate-spin" />
-        ) : (
-          "Sign In"
-        )}
+        {isPending ? <Loader variant="secondary" /> : "Sign In"}
       </Button>
     </form>
   );
