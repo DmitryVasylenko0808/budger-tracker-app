@@ -76,3 +76,15 @@ export const deleteCategory = async (params: DeleteCategoryParams) => {
     }
   }
 };
+
+export const getSummary = async () => {
+  try {
+    const res = await instance.get(`/stats/summary`);
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
