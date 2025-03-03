@@ -20,6 +20,12 @@ type DeleteCategoryParams = {
   id: number;
 };
 
+type GetBreakdownParams = {
+  type: TransactionType;
+  from?: string;
+  to?: string;
+};
+
 export const getCategories = async (params: GetCategoriesParams) => {
   const { type, search } = params;
 
@@ -92,6 +98,18 @@ export const getSummary = async () => {
 export const getMonthly = async () => {
   try {
     const res = await instance.get(`/stats/monthly`);
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const getBreakdown = async (params: GetBreakdownParams) => {
+  try {
+    const res = await instance.get(`/stats/breakdown`, { params });
 
     return res.data;
   } catch (err) {

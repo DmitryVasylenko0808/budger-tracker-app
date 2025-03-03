@@ -1,4 +1,7 @@
 import {
+  Breakdown,
+  BreakdownItem,
+  BreakdownItemSkeleton,
   IncomeExpenseReport,
   IncomeExpenseSkeleton,
   Summary,
@@ -22,6 +25,14 @@ export default async function Home() {
       <Suspense fallback={<IncomeExpenseSkeleton />}>
         <IncomeExpenseReport />
       </Suspense>
+      <Breakdown>
+        <Suspense fallback={<BreakdownItemSkeleton />}>
+          <BreakdownItem type="INCOME" />
+        </Suspense>
+        <Suspense fallback={<BreakdownItemSkeleton />}>
+          <BreakdownItem type="EXPENSE" />
+        </Suspense>
+      </Breakdown>
     </>
   );
 }

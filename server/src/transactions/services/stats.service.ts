@@ -153,6 +153,7 @@ export class StatsService {
     const res = breakdown.map((group) => ({
       categoryId: group.categoryId,
       categoryName: categoriesObj[group.categoryId].name,
+      categoryColor: categoriesObj[group.categoryId].color,
       value: Math.round(group._sum.amount * 100) / 100,
     }));
 
