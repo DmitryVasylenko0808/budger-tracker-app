@@ -69,13 +69,14 @@ export class TransactionsService {
   }
 
   async add(createTransactionDto: CreateTransactionDto, userId: number) {
-    const { name, amount, createdAt, categoryId } = createTransactionDto;
+    const { name, amount, createdAt, categoryId, notes } = createTransactionDto;
 
     const transaction = await this.prismaService.transaction.create({
       data: {
         name,
         amount,
         createdAt,
+        notes,
         category: {
           connect: {
             id: categoryId,
@@ -96,7 +97,7 @@ export class TransactionsService {
   }
 
   async edit(id: number, editTransactionDto: EditTransactionDto) {
-    const { name, amount, createdAt, categoryId } = editTransactionDto;
+    const { name, amount, createdAt, categoryId, notes } = editTransactionDto;
 
     await this.getOneOrThrow(id);
 
@@ -106,6 +107,7 @@ export class TransactionsService {
         name,
         amount,
         createdAt,
+        notes,
         category: {
           connect: {
             id: categoryId,
