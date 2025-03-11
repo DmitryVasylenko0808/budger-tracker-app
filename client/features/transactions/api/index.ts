@@ -6,6 +6,10 @@ type GetCategoriesParams = {
   search?: string;
 };
 
+type GetOneCategoryParams = {
+  id: number;
+};
+
 type AddCategoryParams = {
   name: string;
   type: TransactionType;
@@ -24,6 +28,12 @@ type GetTransactionsParams = {
   page: number;
   limit: number;
   category_ids?: number[];
+};
+
+type GetTransactionsByCategoryParams = {
+  id: number;
+  page: number;
+  limit: number;
 };
 
 type GetOneTransactionParams = {
@@ -66,6 +76,36 @@ export const getCategories = async (params: GetCategoriesParams) => {
         type,
         search,
       },
+    });
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const getOneCategory = async (params: GetOneCategoryParams) => {
+  try {
+    const res = await instance.get(`/categories/${params.id}`);
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const getTransactionsByCategory = async (
+  params: GetTransactionsByCategoryParams
+) => {
+  try {
+    const { id, page, limit } = params;
+
+    const res = await instance.get(`/categories/${id}/transactions`, {
+      params: { page, limit },
     });
 
     return res.data;

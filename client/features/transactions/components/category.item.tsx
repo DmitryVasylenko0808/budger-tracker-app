@@ -5,6 +5,7 @@ import { Ellipsis } from "lucide-react";
 import { DeleteCategoryModal } from "./delete.category.modal";
 import { EditCategoryModal } from "./edit.category.modal";
 import { useModal, useToggleMenu } from "@/hooks";
+import { useRouter } from "next/navigation";
 
 type CategoryItemProps = {
   category: Category;
@@ -20,9 +21,23 @@ export const CategoryItem = ({
   const { open, ref, onToggle } = useToggleMenu();
   const editModal = useModal();
   const deleteModal = useModal();
+  const router = useRouter();
+
+  const handleClick = () =>
+    router.push(`/categories/${category.id}/transactions`);
+
+  const handleToggleMenu = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    onToggle();
+  };
 
   return (
-    <li className="p-2 bg-gray-50 duration-100 hover:bg-gray-100/15 first:rounded-t-lg last:rounded-b-lg">
+    <li
+      className="p-2 bg-gray-50 cursor-pointer duration-100 hover:bg-gray-100/15 first:rounded-t-lg last:rounded-b-lg"
+      onClick={handleClick}
+    >
       <div className="flex items-center">
         <div className="flex-1">
           <h3 className="font-semibold text-black">{category.name}</h3>
@@ -31,7 +46,7 @@ export const CategoryItem = ({
           <Menu
             open={open}
             trigger={
-              <Button variant="text" onClick={onToggle}>
+              <Button variant="text" onClick={handleToggleMenu}>
                 <Ellipsis size={20} />
               </Button>
             }

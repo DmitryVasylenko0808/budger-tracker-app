@@ -7,6 +7,7 @@ import { FileSelect } from "./file.select";
 import { Loader } from "./loader";
 import { Select } from "./select";
 import { RadioGroup } from "./radio.group";
+import { BreadCrumbs } from "./breadcrumbs";
 
 export {
   Container,
@@ -18,4 +19,5 @@ export {
   Loader,
   Select,
   RadioGroup,
+  BreadCrumbs,
 };
