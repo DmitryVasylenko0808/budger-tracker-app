@@ -15,7 +15,9 @@ type IncomeExpenseChartProps = {
   data: any[];
 };
 
-export const IncomeExpenseChart = ({ data }: IncomeExpenseChartProps) => {
+export const IncomeExpenseChart = ({
+  data,
+}: Readonly<IncomeExpenseChartProps>) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} width={500} height={500}>
@@ -52,8 +54,8 @@ export const IncomeExpenseChart = ({ data }: IncomeExpenseChartProps) => {
           labelStyle={{ fontSize: 12, fontWeight: 600 }}
           itemStyle={{ fontSize: 12, fontWeight: 500 }}
         />
-        <Bar dataKey="incomes" fill="#007aff" />
-        <Bar dataKey="expenses" fill="#808080" />
+        <Bar dataKey="incomes" fill="#007aff" isAnimationActive={false} />
+        <Bar dataKey="expenses" fill="#808080" isAnimationActive={false} />
       </BarChart>
     </ResponsiveContainer>
   );

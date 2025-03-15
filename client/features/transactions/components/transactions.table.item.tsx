@@ -20,7 +20,7 @@ type TransactionsTableItemProps =
 export const TransactionsTableItem = ({
   data,
   ...props
-}: TransactionsTableItemProps) => {
+}: Readonly<TransactionsTableItemProps>) => {
   const modal = useModal();
 
   const isSelectable = "selected" in props && "onSelect" in props;
@@ -45,7 +45,7 @@ export const TransactionsTableItem = ({
         </td>
       )}
 
-      <td className="px-3 py-1.5 text-left">
+      <td className="px-3 py-1.5 text-left truncate">
         <span onClick={modal.onOpen} className="hover:underline cursor-pointer">
           {data.name}
         </span>

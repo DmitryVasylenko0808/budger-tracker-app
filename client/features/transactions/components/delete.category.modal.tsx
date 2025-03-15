@@ -2,8 +2,8 @@
 
 import { Button, Loader } from "@/shared/ui";
 import { Modal, ModalProps } from "@/shared/ui/modal";
-import { useTransition } from "react";
-import { deleteCategoryAction } from "../actions/delete.category";
+import { useEffect } from "react";
+import { useDeleteCategory } from "../hooks";
 
 type DeleteCategoryModalProps = ModalProps & {
   category: Category;
@@ -15,22 +15,15 @@ export const DeleteCategoryModal = ({
   afterDelete,
   onClose,
   ...modalProps
-}: DeleteCategoryModalProps) => {
-  const [isPending, startTransition] = useTransition();
+}: Readonly<DeleteCategoryModalProps>) => {
+  const { state, onDelete, isPending } = useDeleteCategory(category.id);
 
-  const handleClick = () =>
-    startTransition(async () => {
-      const res = await deleteCategoryAction(category.id);
-
-      if (!res?.success) {
-        alert(res?.errors?.server);
-
-        return;
-      }
-
+  useEffect(() => {
+    if (state?.success) {
       afterDelete?.();
       onClose();
-    });
+    }
+  }, [state]);
 
   return (
     <Modal title="Delete Category" onClose={onClose} {...modalProps}>
@@ -43,7 +36,7 @@ export const DeleteCategoryModal = ({
         <Button
           variant="primary"
           size="lg"
-          onClick={handleClick}
+          onClick={onDelete}
           disabled={isPending}
         >
           {isPending ? <Loader variant="secondary" /> : "Delete"}

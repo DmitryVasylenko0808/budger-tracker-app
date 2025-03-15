@@ -6,7 +6,7 @@ type DashboardBlockProps = ComponentProps<"div">;
 export const DashboardBlock = ({
   children,
   className,
-}: DashboardBlockProps) => {
+}: Readonly<DashboardBlockProps>) => {
   return (
     <div
       className={cn("py-4 px-5 border-2 rounded-lg border-gray-50", className)}

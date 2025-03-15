@@ -2,10 +2,12 @@ import { cn } from "@/utils/cn";
 import { LoaderCircle } from "lucide-react";
 import { ComponentProps } from "react";
 
-type LoaderProps = ComponentProps<"div"> & {
-  variant?: "primary" | "secondary" | "tertiary";
-  size?: "sm" | "lg";
-};
+type LoaderProps = Readonly<
+  ComponentProps<"div"> & {
+    variant?: "primary" | "secondary" | "tertiary";
+    size?: "sm" | "lg";
+  }
+>;
 
 export const Loader = ({
   variant = "primary",

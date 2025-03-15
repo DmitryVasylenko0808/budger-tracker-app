@@ -1,11 +1,13 @@
 import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
-type ButtonProps = ComponentProps<"button"> & {
-  variant: "primary" | "secondary" | "text" | "menu";
-  size?: "sm" | "lg";
-  fullWidth?: boolean;
-};
+type ButtonProps = Readonly<
+  ComponentProps<"button"> & {
+    variant: "primary" | "secondary" | "text" | "menu";
+    size?: "sm" | "lg";
+    fullWidth?: boolean;
+  }
+>;
 
 export const Button = ({
   children,

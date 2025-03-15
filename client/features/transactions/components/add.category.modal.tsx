@@ -2,8 +2,8 @@
 
 import { Button, Loader, TextField } from "@/shared/ui";
 import { Modal, ModalProps } from "@/shared/ui/modal";
-import { useActionState, useEffect } from "react";
-import { addCategoryAction } from "../actions/add.category";
+import { useEffect } from "react";
+import { useAddCategory } from "../hooks";
 
 type AddCategoryModalProps = ModalProps & {
   type: TransactionType;
@@ -15,12 +15,8 @@ export const AddCategoryModal = ({
   afterSubmit,
   onClose,
   ...props
-}: AddCategoryModalProps) => {
-  const addCategoryActionWithType = addCategoryAction.bind(null, type);
-  const [state, formAction, isPending] = useActionState(
-    addCategoryActionWithType,
-    null
-  );
+}: Readonly<AddCategoryModalProps>) => {
+  const { state, formAction, isPending } = useAddCategory(type);
 
   useEffect(() => {
     if (state?.success) {

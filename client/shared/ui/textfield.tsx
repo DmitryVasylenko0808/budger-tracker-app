@@ -1,12 +1,14 @@
 import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
-type TextFieldProps = ComponentProps<"input"> & {
-  label?: string;
-  leftAddon?: React.ReactNode;
-  rightAddon?: React.ReactNode;
-  error?: string;
-};
+type TextFieldProps = Readonly<
+  ComponentProps<"input"> & {
+    label?: string;
+    leftAddon?: React.ReactNode;
+    rightAddon?: React.ReactNode;
+    error?: string;
+  }
+>;
 
 export const TextField = ({
   label,
@@ -21,7 +23,10 @@ export const TextField = ({
       {label && (
         <label className="block mb-2 text-sm font-semibold">{label}</label>
       )}
-      <div className="mb-1 px-3 py-2 flex items-center bg-gray-100/20 border-2 border-gray-100/5 rounded-lg duration-100 hover:border-gray-100/20">
+      <div
+        className="mb-1 px-3 py-2 flex items-center bg-gray-100/20 border-2 border-gray-100/5 rounded-lg duration-100 hover:border-gray-100/20
+      focus-within:border-primary-200 focus-within:hover:border-primary-200"
+      >
         {leftAddon && <div className="mr-2">{leftAddon}</div>}
         <input
           className="block w-full bg-transparent text-sm focus:outline-0"

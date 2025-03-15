@@ -9,26 +9,17 @@ import {
   TextArea,
   TextField,
 } from "@/shared/ui";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useActionState, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useEditTransaction } from "../hooks";
 import { getCategories, getOneTransaction } from "../api";
-import { editTransactionAction } from "../actions";
 
 type EditTransactionModalProps = ModalProps & { transactionId: number };
 
 export const EditTransactionModal = ({
   transactionId,
   ...modalProps
-}: EditTransactionModalProps) => {
-  const editTransactionActionWithId = editTransactionAction.bind(
-    null,
-    transactionId
-  );
-  const [state, formAction, isPending] = useActionState(
-    editTransactionActionWithId,
-    null
-  );
-
+}: Readonly<EditTransactionModalProps>) => {
   const [currentType, setCurrentType] = useState<TransactionType>("INCOME");
   const [currentCategory, setCurrentCategory] = useState(0);
 
@@ -42,7 +33,10 @@ export const EditTransactionModal = ({
     queryFn: () => getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
-  const queryClient = useQueryClient();
+  const { state, onEdit, isPending } = useEditTransaction({
+    id: transactionId,
+    onSuccess: modalProps.onClose,
+  });
 
   useEffect(() => {
     if (transaction) {
@@ -50,16 +44,6 @@ export const EditTransactionModal = ({
       setCurrentCategory(transaction.categoryId);
     }
   }, [transaction]);
-
-  useEffect(() => {
-    if (state?.success) {
-      queryClient
-        .invalidateQueries({
-          queryKey: ["transactions"],
-        })
-        .then(() => modalProps.onClose());
-    }
-  }, [state]);
 
   const handleChangeType = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentType(e.target.value as TransactionType);
@@ -88,7 +72,7 @@ export const EditTransactionModal = ({
 
   return (
     <Modal title="Edit Transaction" {...modalProps}>
-      <form action={formAction}>
+      <form action={onEdit}>
         <TextField
           label="Name"
           name="name"

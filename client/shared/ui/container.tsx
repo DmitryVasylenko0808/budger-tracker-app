@@ -3,7 +3,7 @@
 import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
-type ContainerProps = ComponentProps<"div">;
+type ContainerProps = Readonly<ComponentProps<"div">>;
 
 export const Container = ({
   children,

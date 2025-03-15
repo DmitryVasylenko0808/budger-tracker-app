@@ -17,7 +17,7 @@ export const CategoryItem = ({
   category,
   onEdit,
   onDelete,
-}: CategoryItemProps) => {
+}: Readonly<CategoryItemProps>) => {
   const { open, ref, onToggle } = useToggleMenu();
   const editModal = useModal();
   const deleteModal = useModal();
@@ -26,27 +26,24 @@ export const CategoryItem = ({
   const handleClick = () =>
     router.push(`/categories/${category.id}/transactions`);
 
-  const handleToggleMenu = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-    onToggle();
-  };
-
   return (
-    <li
-      className="p-2 bg-gray-50 cursor-pointer duration-100 hover:bg-gray-100/15 first:rounded-t-lg last:rounded-b-lg"
-      onClick={handleClick}
-    >
+    <li className="p-2 bg-gray-50  duration-100 hover:bg-gray-100/15 first:rounded-t-lg last:rounded-b-lg">
       <div className="flex items-center">
         <div className="flex-1">
-          <h3 className="font-semibold text-black">{category.name}</h3>
+          <h3 className="font-semibold text-black">
+            <span
+              className="cursor-pointer duration-100 hover:text-primary-200"
+              onClick={handleClick}
+            >
+              {category.name}
+            </span>
+          </h3>
         </div>
         <div>
           <Menu
             open={open}
             trigger={
-              <Button variant="text" onClick={handleToggleMenu}>
+              <Button variant="text" onClick={onToggle}>
                 <Ellipsis size={20} />
               </Button>
             }

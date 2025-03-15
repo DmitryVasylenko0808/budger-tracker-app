@@ -12,7 +12,7 @@ type TransactionModalProps = ModalProps & {
 export const TransactionModal = ({
   transactionId,
   ...props
-}: TransactionModalProps) => {
+}: Readonly<TransactionModalProps>) => {
   const { data, isFetching, isError } = useQuery<Transaction>({
     queryKey: ["transactions", transactionId],
     queryFn: () => getOneTransaction({ id: transactionId }),

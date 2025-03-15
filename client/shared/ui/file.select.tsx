@@ -1,11 +1,13 @@
 import { ComponentProps } from "react";
 
-type FileSelectProps = ComponentProps<"input"> & {
-  label?: string;
-  leftAddon?: string;
-  rightAddon?: string;
-  error?: string;
-};
+type FileSelectProps = Readonly<
+  ComponentProps<"input"> & {
+    label?: string;
+    leftAddon?: string;
+    rightAddon?: string;
+    error?: string;
+  }
+>;
 
 export const FileSelect = ({
   label,

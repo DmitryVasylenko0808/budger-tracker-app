@@ -8,7 +8,7 @@ const addTransactionSchema = z.object({
     z.number().gt(0, "Amount must be greater than 0")
   ),
   categoryId: z.preprocess(
-    (val) => Number(val),
+    (val) => Number(val) || NaN,
     z.number({ message: "Invalid category" })
   ),
   createdAt: z.preprocess(
@@ -41,8 +41,6 @@ export const addTransactionAction = async (
     createdAt: formData.get("createdAt"),
     notes: formData.get("notes"),
   });
-
-  console.log(validatedFields.data);
 
   if (!validatedFields.success) {
     return {

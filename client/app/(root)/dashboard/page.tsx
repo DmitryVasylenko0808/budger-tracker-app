@@ -1,7 +1,7 @@
+import type { Metadata } from "next";
 import {
   Breakdown,
-  BreakdownItem,
-  BreakdownItemSkeleton,
+  BreakdownChart,
   IncomeExpenseReport,
   IncomeExpenseSkeleton,
   Summary,
@@ -10,7 +10,11 @@ import {
 import { Container } from "@/shared/ui";
 import { Suspense } from "react";
 
-export default async function Home() {
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
+
+export default async function DashboardPage() {
   return (
     <>
       <section className="pt-10 pb-8">
@@ -26,12 +30,8 @@ export default async function Home() {
         <IncomeExpenseReport />
       </Suspense>
       <Breakdown>
-        <Suspense fallback={<BreakdownItemSkeleton />}>
-          <BreakdownItem type="INCOME" />
-        </Suspense>
-        <Suspense fallback={<BreakdownItemSkeleton />}>
-          <BreakdownItem type="EXPENSE" />
-        </Suspense>
+        <BreakdownChart type="INCOME" />
+        <BreakdownChart type="EXPENSE" />
       </Breakdown>
     </>
   );

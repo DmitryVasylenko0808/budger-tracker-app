@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useToggleMenu } from "@/hooks";
 import { logOut } from "@/features/auth/actions/log.out";
 
-type AccountProps = {
+type AccountProps = Readonly<{
   user: User;
-};
+}>;
 
 export const Account = ({ user }: AccountProps) => {
   const router = useRouter();
@@ -16,10 +16,6 @@ export const Account = ({ user }: AccountProps) => {
 
   const handleClickMyProfile = () => router.push("/profile");
   const handleClickLogOut = () => logOut();
-
-  const avatarUrl = user.avatar
-    ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`
-    : `${process.env.NEXT_PUBLIC_AVATARS_URL}/nullavatar.jpg`;
 
   return (
     <div>
@@ -29,7 +25,7 @@ export const Account = ({ user }: AccountProps) => {
             <Image
               width={32}
               height={32}
-              src={avatarUrl}
+              src={`${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`}
               className="w-8 h-8 rounded-full duration-100 hover:w-9 hover:h-9"
               alt="avatar"
             />

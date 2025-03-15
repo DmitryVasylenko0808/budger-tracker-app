@@ -50,5 +50,5 @@ export const signInAction = async (
   }
 
   await createSession(res.access_token);
-  redirect("/");
+  redirect("/dashboard");
 };

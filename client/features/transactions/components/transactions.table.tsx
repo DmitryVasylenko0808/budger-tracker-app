@@ -18,7 +18,7 @@ export const TransactionsTable = ({
   isFetching,
   children,
   ...props
-}: TransactionsTableProps) => {
+}: Readonly<TransactionsTableProps>) => {
   const isSelectable = "selectedAll" in props && "onSelectAll" in props;
 
   return (

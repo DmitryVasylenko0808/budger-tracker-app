@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { Transactions } from "@/features/transactions/components";
 import { Container } from "@/shared/ui";
+
+export const metadata: Metadata = {
+  title: "Transactions",
+};
 
 export default async function TransactionsPage() {
   return (

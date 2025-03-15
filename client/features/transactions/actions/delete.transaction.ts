@@ -1,6 +1,6 @@
 import { deleteTransacitons } from "../api";
 
-type DeleteTransactionState = {
+export type DeleteTransactionState = {
   errors?: {
     server?: string;
   };

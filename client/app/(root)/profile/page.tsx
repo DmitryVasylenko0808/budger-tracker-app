@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getUser } from "@/features/user/api";
 import { verifySession } from "@/lib/session";
 import { UserProfile } from "@/features/user/components";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 export default async function ProfilePage() {
   const session = await verifySession();

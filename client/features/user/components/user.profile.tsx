@@ -5,16 +5,12 @@ import { Button, Container } from "@/shared/ui";
 import { EditProfileModal } from "./edit.profile.modal";
 import { useModal } from "@/hooks";
 
-type UserProfileProps = {
+type UserProfileProps = Readonly<{
   user: User;
-};
+}>;
 
 export const UserProfile = ({ user }: UserProfileProps) => {
   const modal = useModal();
-
-  const avatarUrl = user.avatar
-    ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`
-    : `${process.env.NEXT_PUBLIC_AVATARS_URL}/nullavatar.jpg`;
 
   return (
     <section className="py-10">
@@ -22,7 +18,7 @@ export const UserProfile = ({ user }: UserProfileProps) => {
         <div className="mb-4">
           <div className="flex items-center gap-4">
             <Image
-              src={avatarUrl}
+              src={`${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`}
               alt="user avatar"
               width={128}
               height={128}

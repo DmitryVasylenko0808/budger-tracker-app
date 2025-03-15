@@ -15,7 +15,7 @@ type CategoriesProps = {
   categories: Category[];
 };
 
-export const Categories = ({ type, categories }: CategoriesProps) => {
+export const Categories = ({ type, categories }: Readonly<CategoriesProps>) => {
   const [search, setSearch] = useState<string | null>(null);
   const addCategoryModal = useModal();
   const debouncedValue = useDebounce(search, 500);

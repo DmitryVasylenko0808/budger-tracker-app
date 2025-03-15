@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 type BreakdownProps = PropsWithChildren;
 
-export const Breakdown = ({ children }: BreakdownProps) => {
+export const Breakdown = ({ children }: Readonly<BreakdownProps>) => {
   return (
     <section className="pb-8">
       <Container>

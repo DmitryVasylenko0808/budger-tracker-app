@@ -9,7 +9,6 @@ type FilterBreakdownMenuProps = {
   filter: DateInterval | null;
   isFiltering: boolean;
   onClear: () => void;
-  onFilter: () => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -17,9 +16,8 @@ export const FilterBreakdownMenu = ({
   filter,
   isFiltering,
   onClear,
-  onFilter,
   onChange,
-}: FilterBreakdownMenuProps) => {
+}: Readonly<FilterBreakdownMenuProps>) => {
   const { open, ref, onToggle } = useToggleMenu();
 
   return (
@@ -54,14 +52,14 @@ export const FilterBreakdownMenu = ({
               value={filter?.to || ""}
             />
           </div>
-          <div className="flex gap-3">
-            <Button variant="secondary" className="flex-1" onClick={onClear}>
-              Clear
-            </Button>
-            <Button variant="primary" className="flex-1" onClick={onFilter}>
-              Filter
-            </Button>
-          </div>
+          <Button
+            variant="secondary"
+            className="flex-1"
+            onClick={onClear}
+            fullWidth
+          >
+            Clear
+          </Button>
         </div>
       }
       open={open}

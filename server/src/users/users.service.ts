@@ -36,7 +36,10 @@ export class UsersService {
 
   async create(dto: CreateUser) {
     const user = await this.prismaService.user.create({
-      data: dto,
+      data: {
+        ...dto,
+        avatar: 'nullavatar.jpg',
+      },
       omit: {
         passwordHash: true,
       },

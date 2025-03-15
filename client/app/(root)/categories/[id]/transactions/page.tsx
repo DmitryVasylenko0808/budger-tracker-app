@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getOneCategory } from "@/features/transactions/api";
 import { CategoryTransactions } from "@/features/transactions/components";
 import { BreadCrumbs, Container } from "@/shared/ui";
-import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Categories",
+};
 
 export default async function CategoryTransactionsPage({
   params,

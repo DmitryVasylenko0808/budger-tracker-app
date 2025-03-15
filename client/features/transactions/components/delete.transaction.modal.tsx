@@ -1,31 +1,17 @@
 import { Modal, ModalProps } from "@/shared/ui/modal";
 import { Button, Loader } from "@/shared/ui";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTransition } from "react";
-import { deleteTransactionAction } from "../actions";
+import { useDeleteTransactions } from "../hooks";
 
 type DeleteTransactionsModalProps = ModalProps & { ids: number[] };
 
 export const DeleteTransactionsModal = ({
   ids,
   ...modalProps
-}: DeleteTransactionsModalProps) => {
-  const queryClient = useQueryClient();
-  const [isPending, startTransition] = useTransition();
-
-  const handleClickDelete = () =>
-    startTransition(async () => {
-      const res = await deleteTransactionAction(ids);
-
-      if (res?.errors) {
-        alert(res.errors.server);
-
-        return;
-      }
-
-      queryClient.invalidateQueries({ queryKey: ["transactions"] });
-      modalProps.onClose();
-    });
+}: Readonly<DeleteTransactionsModalProps>) => {
+  const { state, onDelete, isPending } = useDeleteTransactions({
+    ids,
+    onSuccess: modalProps.onClose,
+  });
 
   return (
     <Modal title="Delete Transactions" {...modalProps}>
@@ -40,7 +26,7 @@ export const DeleteTransactionsModal = ({
         <Button
           variant="primary"
           size="lg"
-          onClick={handleClickDelete}
+          onClick={onDelete}
           disabled={isPending}
         >
           {isPending ? <Loader variant="secondary" /> : "Delete"}

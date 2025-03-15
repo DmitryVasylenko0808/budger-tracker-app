@@ -2,8 +2,8 @@
 
 import { Button, Loader, TextField } from "@/shared/ui";
 import { Modal, ModalProps } from "@/shared/ui/modal";
-import { useActionState, useEffect } from "react";
-import { editCategoryAction } from "../actions";
+import { useEffect } from "react";
+import { useEditCategory } from "../hooks";
 
 type EditCategoryModalProps = ModalProps & {
   category: Category;
@@ -15,12 +15,8 @@ export const EditCategoryModal = ({
   afterSubmit,
   onClose,
   ...props
-}: EditCategoryModalProps) => {
-  const editCategoryActionWithId = editCategoryAction.bind(null, category.id);
-  const [state, formAction, isPending] = useActionState(
-    editCategoryActionWithId,
-    null
-  );
+}: Readonly<EditCategoryModalProps>) => {
+  const { state, formAction, isPending } = useEditCategory(category.id);
 
   useEffect(() => {
     if (state?.success) {

@@ -13,7 +13,7 @@ type TransactionsActionsProps = {
 
 export const TransactionsActions = ({
   selectedTransactionsIds,
-}: TransactionsActionsProps) => {
+}: Readonly<TransactionsActionsProps>) => {
   const addModal = useModal();
   const editModal = useModal();
   const deleteNodal = useModal();

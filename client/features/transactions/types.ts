@@ -25,3 +25,12 @@ type TransactionPagination = {
   totalPages: number;
   currentPage: number;
 };
+
+type BreakdownStatsItem = {
+  categoryId: number;
+  categoryName: string;
+  categoryColor: string;
+  value: number;
+};
+
+type BreakdownStats = BreakdownStatsItem[];

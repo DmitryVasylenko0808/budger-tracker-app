@@ -9,9 +9,11 @@ type BreadCrumbsItem = {
   active?: boolean;
 };
 
-type BreadCrumbsProps = ComponentProps<"ul"> & {
-  items: BreadCrumbsItem[];
-};
+type BreadCrumbsProps = Readonly<
+  ComponentProps<"ul"> & {
+    items: BreadCrumbsItem[];
+  }
+>;
 
 export const BreadCrumbs = ({ items, className }: BreadCrumbsProps) => {
   const content = items.map((item, index) =>
@@ -21,13 +23,13 @@ export const BreadCrumbs = ({ items, className }: BreadCrumbsProps) => {
           className={cn("hover:underline", {
             "text-black": item.active === true,
           })}
-          key={index}
+          key={`${index} number`}
         >
           <Link href={item.href} className="inline">
             {item.title}
           </Link>
         </li>
-        <li className="">
+        <li className="" key={`${index} chevron`}>
           <ChevronRight />
         </li>
       </>

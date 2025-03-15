@@ -1,6 +1,6 @@
 import { deleteCategory } from "../api";
 
-type DeleteCategoryState = {
+export type DeleteCategoryState = {
   errors?: {
     server?: string;
   };

@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { getCategories } from "@/features/transactions/api";
 import { Categories } from "@/features/transactions/components";
 import { Container } from "@/shared/ui";
+
+export const metadata: Metadata = {
+  title: "Categories",
+};
 
 export default async function CategoriesPage() {
   const incomeCategories = await getCategories({ type: "INCOME" });

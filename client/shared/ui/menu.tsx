@@ -1,11 +1,11 @@
 import { RefObject } from "react";
 
-type MenuProps = {
+type MenuProps = Readonly<{
   trigger: React.ReactNode;
   content: React.ReactNode;
   open: boolean;
   ref: RefObject<HTMLDivElement | null>;
-};
+}>;
 
 export const Menu = ({ trigger, content, open, ref }: MenuProps) => {
   return (

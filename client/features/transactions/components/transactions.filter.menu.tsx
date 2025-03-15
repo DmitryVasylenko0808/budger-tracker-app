@@ -14,7 +14,7 @@ type TransactionsFilterMenuProps = {
 export const TransactionsFilterMenu = ({
   selectedCategoryIds,
   onSelectCategoryId,
-}: TransactionsFilterMenuProps) => {
+}: Readonly<TransactionsFilterMenuProps>) => {
   const { open, ref, onToggle } = useToggleMenu();
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories"],

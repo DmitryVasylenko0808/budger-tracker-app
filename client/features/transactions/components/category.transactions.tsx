@@ -14,7 +14,7 @@ type CategoryTransactionsProps = {
 
 export const CategoryTransactions = ({
   categoryId,
-}: CategoryTransactionsProps) => {
+}: Readonly<CategoryTransactionsProps>) => {
   const { page, limit, onClickPrevPage, onClickNextPage, onChangeLimit } =
     usePagination();
   const {
@@ -59,7 +59,7 @@ export const CategoryTransactions = ({
           />
         </div>
         <TransactionsTable isFetching={isFetching}>
-          {transactions?.data.map((tr) => (
+          {transactions?.data?.map((tr) => (
             <TransactionsTableItem data={tr} key={tr.id} />
           ))}
         </TransactionsTable>

@@ -7,37 +7,25 @@ import {
   TextArea,
   TextField,
 } from "@/shared/ui";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useActionState, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useAddTransaction } from "../hooks";
 import { getCategories } from "../api";
-import { addTransactionAction } from "../actions";
 
 type AddTransactionModalProps = ModalProps;
 
 export const AddTransactionModal = ({
   ...modalProps
-}: AddTransactionModalProps) => {
+}: Readonly<AddTransactionModalProps>) => {
   const [currentType, setCurrentType] = useState<TransactionType>("INCOME");
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories", currentType],
     queryFn: () => getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
-  const [state, formAction, isPending] = useActionState(
-    addTransactionAction,
-    null
-  );
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (state?.success) {
-      queryClient
-        .invalidateQueries({
-          queryKey: ["transactions"],
-        })
-        .then(() => modalProps.onClose());
-    }
-  }, [state]);
+  const { state, onAdd, isPending } = useAddTransaction({
+    onSuccess: modalProps.onClose,
+  });
 
   const handleChangeType = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentType(e.target.value as TransactionType);
@@ -51,7 +39,7 @@ export const AddTransactionModal = ({
 
   return (
     <Modal title="Add Transaction" {...modalProps}>
-      <form action={formAction}>
+      <form action={onAdd}>
         <TextField
           label="Name"
           name="name"

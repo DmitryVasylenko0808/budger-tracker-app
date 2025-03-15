@@ -2,13 +2,14 @@
 
 import { TextField, Button, FileSelect } from "@/shared/ui";
 import { ModalProps, Modal } from "@/shared/ui/modal";
-import { editProfileAction } from "../actions/edit.user";
 import { LoaderCircle } from "lucide-react";
+import { editProfileAction } from "../actions/edit.user";
 import { useActionState, useEffect } from "react";
 
-type EditProfileModalProps = ModalProps & {
-  user: User;
-};
+type EditProfileModalProps = ModalProps &
+  Readonly<{
+    user: User;
+  }>;
 
 export const EditProfileModal = ({
   user,

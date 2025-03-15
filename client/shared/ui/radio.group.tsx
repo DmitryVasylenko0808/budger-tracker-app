@@ -1,14 +1,14 @@
 import { cn } from "@/utils/cn";
 import { ComponentProps } from "react";
 
-type RadioGroupProps = {
+type RadioGroupProps = Readonly<{
   name: string;
   items: { value: ComponentProps<"input">["value"]; label: string }[];
   value: ComponentProps<"input">["value"];
   onChange: ComponentProps<"input">["onChange"];
   label?: string;
   className?: string;
-};
+}>;
 
 export const RadioGroup = ({
   name,

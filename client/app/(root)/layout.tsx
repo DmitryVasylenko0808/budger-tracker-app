@@ -9,7 +9,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Budget Tracker",
+  title: {
+    default: "Budget Tracker",
+    template: "%s | Budget Tracker",
+  },
 };
 
 export default function RootLayout({

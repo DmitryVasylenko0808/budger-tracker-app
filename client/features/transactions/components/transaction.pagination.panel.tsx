@@ -17,7 +17,7 @@ export const TransactionsPaginationPanel = ({
   onClickPrevPage,
   onClickNextPage,
   onSelectLimit,
-}: TransactionsPaginationPanelProps) => {
+}: Readonly<TransactionsPaginationPanelProps>) => {
   return (
     <div className="mb-3 flex items-center justify-end gap-4">
       <div className="inline-flex items-center gap-1">
