@@ -23,11 +23,7 @@ export const FilterBreakdownMenu = ({
   return (
     <Menu
       trigger={
-        <Button
-          variant="text"
-          className="relative bg-gray-75 text-gray-200"
-          onClick={onToggle}
-        >
+        <Button variant="filled" className="relative " onClick={onToggle}>
           <ListFilter size={20} />
           {isFiltering && (
             <span className="absolute top-0 right-0 z-10 w-2 h-2 bg-primary-100 rounded-full" />

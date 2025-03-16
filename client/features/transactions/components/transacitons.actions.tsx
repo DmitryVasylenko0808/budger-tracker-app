@@ -18,6 +18,9 @@ export const TransactionsActions = ({
   const editModal = useModal();
   const deleteNodal = useModal();
 
+  const isOpenEdit = editModal.open && !!selectedTransactionsIds[0];
+  const isOpenDelete = deleteNodal.open && !!selectedTransactionsIds.length;
+
   return (
     <div className="flex gap-2">
       <Button variant="primary" onClick={addModal.onOpen}>
@@ -44,12 +47,12 @@ export const TransactionsActions = ({
       <AddTransactionModal open={addModal.open} onClose={addModal.onClose} />
       <EditTransactionModal
         transactionId={selectedTransactionsIds[0]}
-        open={editModal.open}
+        open={isOpenEdit}
         onClose={editModal.onClose}
       />
       <DeleteTransactionsModal
         ids={selectedTransactionsIds}
-        open={deleteNodal.open}
+        open={isOpenDelete}
         onClose={deleteNodal.onClose}
       />
     </div>

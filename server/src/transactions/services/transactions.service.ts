@@ -23,6 +23,9 @@ export class TransactionsService {
           in: numberCategoryIds,
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       skip: (page - 1) * limit,
       take: limit,
       include: {
@@ -144,6 +147,9 @@ export class TransactionsService {
     const transactions = await this.prismaService.transaction.findMany({
       where: {
         categoryId,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
       skip: (page - 1) * limit,
       take: limit,
