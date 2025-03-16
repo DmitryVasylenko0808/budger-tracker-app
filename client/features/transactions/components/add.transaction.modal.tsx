@@ -36,6 +36,7 @@ export const AddTransactionModal = ({
     value: cat.id,
     title: cat.name,
   }));
+  const defaultDate = new Date(Date.now()).toISOString().slice(0, 16);
 
   return (
     <Modal title="Add Transaction" {...modalProps}>
@@ -75,6 +76,7 @@ export const AddTransactionModal = ({
           type="datetime-local"
           name="createdAt"
           error={state?.errors?.createdAt?.[0]}
+          defaultValue={defaultDate}
           className="mb-6"
         />
         <TextArea label="Notes" name="notes" className="mb-6" />
