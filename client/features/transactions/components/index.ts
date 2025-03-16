@@ -24,6 +24,7 @@ import { TransactionsFilterMenu } from "./transactions.filter.menu";
 import { TransactionsPaginationPanel } from "./transaction.pagination.panel";
 import { TransactionsActions } from "./transacitons.actions";
 import { EditTransactionModal } from "./edit.transaction.modal";
+import { ExportingTransactions } from "./exporting.transactions";
 
 export { Categories };
 export { CategoriesList };
@@ -51,3 +52,4 @@ export { TransactionsPaginationPanel };
 export { TransactionsFilterMenu };
 export { TransactionsActions };
 export { EditTransactionModal };
+export { ExportingTransactions };

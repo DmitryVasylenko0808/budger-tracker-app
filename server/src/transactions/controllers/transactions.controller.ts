@@ -8,8 +8,10 @@ import {
   Patch,
   Post,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { TransactionsService } from '../services/transactions.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
@@ -35,6 +37,24 @@ export class TransactionsController {
       limit,
       categoryIds,
     );
+  }
+
+  @Get('export')
+  async exportAsCsv(
+    @Query('category_ids') categoryIds: string,
+    @Res() res: Response,
+    @CurrentUser() user: TokenPayload,
+  ) {
+    const csvData = await this.transactionsService.exportAsCsv(
+      user.userId,
+      categoryIds,
+    );
+
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-Disposition': 'attachment; filename="transactions.csv"',
+    });
+    res.send(csvData);
   }
 
   @Get(':id')

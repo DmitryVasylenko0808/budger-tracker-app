@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 import { CreateTransactionDto } from '../dto/create.transaction.dto';
 import { EditTransactionDto } from '../dto/edit.transaction.dto';
 import { TransactionsPagination } from '../types/transactions.pagination';
+import { createObjectCsvStringifier } from 'csv-writer';
 
 @Injectable()
 export class TransactionsService {
@@ -176,5 +177,48 @@ export class TransactionsService {
     };
 
     return res;
+  }
+
+  async exportAsCsv(userId: number, categoryIds?: string) {
+    const numberCategoryIds = categoryIds?.split(',').map((id) => Number(id));
+
+    const data = await this.prismaService.transaction.findMany({
+      where: {
+        userId,
+        categoryId: {
+          in: numberCategoryIds,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    const cvsStringifier = createObjectCsvStringifier({
+      header: [
+        { id: 'name', title: 'Name' },
+        { id: 'type', title: 'Type' },
+        { id: 'amount', title: 'Amount' },
+        { id: 'category', title: 'Category' },
+        { id: 'date', title: 'Date' },
+      ],
+    });
+
+    const records = data.map((tr) => ({
+      name: tr.name,
+      type: tr.category.type,
+      amount: tr.amount,
+      category: tr.category.name,
+      date: tr.createdAt.toLocaleString(),
+    }));
+
+    const csvData =
+      cvsStringifier.getHeaderString() +
+      cvsStringifier.stringifyRecords(records);
+
+    return csvData;
   }
 }

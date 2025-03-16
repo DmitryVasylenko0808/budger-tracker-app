@@ -4,6 +4,7 @@ import { Container, Loader } from "@/shared/ui";
 import { TransactionsTable } from "./transactions.table";
 import { TransactionsTableItem } from "./transactions.table.item";
 import { TransactionsPaginationPanel } from "./transaction.pagination.panel";
+import { ExportingTransactions } from "./exporting.transactions";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { usePagination } from "@/hooks";
 import { getTransactionsByCategory } from "../api";
@@ -42,12 +43,15 @@ export const CategoryTransactions = ({
   }
 
   if (isError) {
-    alert("Oopsss... something went wrong");
+    alert("Ooops... something went wrong");
   }
 
   return (
     <section className="pb-10">
       <Container>
+        <div className="mb-4 flex justify-end">
+          <ExportingTransactions categoryIds={[categoryId]} />
+        </div>
         <div className="mb-2 flex justify-end gap-3">
           <TransactionsPaginationPanel
             page={page}

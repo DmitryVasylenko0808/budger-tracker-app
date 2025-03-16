@@ -61,6 +61,10 @@ type DeleteTransactionsParama = {
   ids: number[];
 };
 
+type GetExportParams = {
+  categoryIds: number[];
+};
+
 type GetBreakdownParams = {
   type: TransactionType;
   from?: string;
@@ -217,6 +221,24 @@ export const deleteTransacitons = async (params: DeleteTransactionsParama) => {
     const res = await instance.delete("/transactions", {
       params: {
         ids,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const getExport = async (params: GetExportParams) => {
+  try {
+    const res = await instance.get(`/transactions/export`, {
+      responseType: "blob",
+      params: {
+        category_ids:
+          params.categoryIds.map((item) => item.toString()).join(",") || null,
       },
     });
 

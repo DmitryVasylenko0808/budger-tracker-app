@@ -1,16 +1,16 @@
 "use client";
 
-import { Button, Container, Loader } from "@/shared/ui";
+import { Container, Loader } from "@/shared/ui";
 import { TransactionsTable } from "./transactions.table";
 import { TransactionsTableItem } from "./transactions.table.item";
 import { TransactionsPaginationPanel } from "./transaction.pagination.panel";
 import { TransactionsFilterMenu } from "./transactions.filter.menu";
 import { TransactionsActions } from "./transacitons.actions";
+import { ExportingTransactions } from "./exporting.transactions";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { usePagination } from "@/hooks";
 import { useFilterTransactions, useSelectableTransactions } from "../hooks";
 import { getTransactions } from "../api";
-import { FileDown } from "lucide-react";
 
 export const Transactions = () => {
   const { selectedCategoryIds, onSelectCategoryId } = useFilterTransactions();
@@ -55,9 +55,7 @@ export const Transactions = () => {
             selectedCategoryIds={selectedCategoryIds}
             onSelectCategoryId={onSelectCategoryId}
           />
-          <Button variant="filled" className="relative">
-            <FileDown size={20} /> Export CSV
-          </Button>
+          <ExportingTransactions categoryIds={selectedCategoryIds} />
           <TransactionsActions
             selectedTransactionsIds={selectedTransactionsIds}
           />
