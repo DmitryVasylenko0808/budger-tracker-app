@@ -12,12 +12,17 @@ type SignInParams = {
   password: string;
 };
 
+type ConfirmEmailParams = {
+  token: string;
+};
+
+type ResendConfirmEmailParams = {
+  email: string;
+};
+
 export const signUp = async (data: SignUpParams) => {
   try {
-    const res = await instance.post(
-      "http://localhost:3000/api/auth/sign-up",
-      data
-    );
+    const res = await instance.post("/auth/sign-up", data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -28,10 +33,31 @@ export const signUp = async (data: SignUpParams) => {
 
 export const signIn = async (data: SignInParams) => {
   try {
-    const res = await instance.post(
-      "http://localhost:3000/api/auth/sign-in",
-      data
-    );
+    const res = await instance.post("/auth/sign-in", data);
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const confirmEmail = async (data: ConfirmEmailParams) => {
+  try {
+    const res = await instance.post("/auth/email-confirmation/confirm", data);
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const resendConfirmationEmail = async (
+  data: ResendConfirmEmailParams
+) => {
+  try {
+    const res = await instance.post("/auth/email-confirmation/resend", data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

@@ -18,6 +18,7 @@ type SignInState = {
     email?: string[];
     password?: string[];
     server?: string;
+    isNotVerifiedUser?: boolean;
   };
   success?: boolean;
 } | null;
@@ -47,6 +48,10 @@ export const signInAction = async (
       },
       success: false,
     };
+  }
+
+  if (res.isNotVerifiedUser) {
+    redirect(`/email-confirm?email=${res.email}`);
   }
 
   await createSession(res.access_token);

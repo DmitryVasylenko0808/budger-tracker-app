@@ -19,11 +19,22 @@ model User {
   passwordHash String? @map("password_hash")
   name         String
   avatar       String?
+  verified     Boolean @default(false)
 
   categories   Category[]
   transactions Transaction[]
 
   @@map("users")
+}
+
+model ConfirmationToken {
+  id        Int                   @id @default(autoincrement())
+  email     String
+  value     String                @unique
+  expiresAt DateTime              @map("expires_at")
+  type      ConfirmationTokenType
+
+  @@map("confirmation_tokens")
 }
 
 model Category {
@@ -54,6 +65,11 @@ model Transaction {
   user   User @relation(fields: [userId], references: [id])
 
   @@map("transactions")
+}
+
+enum ConfirmationTokenType {
+  EMAIL_CONFIRMATION
+  RESET_PASSWORD
 }
 
 enum TransactionType {

@@ -1,19 +1,11 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 import { signUpAction } from "../actions/sign.up";
 import { TextField, Button, Loader } from "@/shared/ui";
 
 export const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(signUpAction, null);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state?.success) {
-      router.push("/sign-in");
-    }
-  }, [state?.success]);
 
   return (
     <form action={formAction}>

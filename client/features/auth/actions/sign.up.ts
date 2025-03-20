@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { signUp } from "../api";
+import { redirect } from "next/navigation";
 
 const signUpSchema = z
   .object({
@@ -59,5 +60,5 @@ export const signUpAction = async (
     };
   }
 
-  return { success: true };
+  redirect(`/email-confirm?email=${res.email}`);
 };

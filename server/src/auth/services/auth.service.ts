@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { SignUpDto } from './dto/sign.up.dto';
-import { TokenPayload } from './types/token.payload';
+import { EmailConfirmationService } from './email.confirmation.service';
+import { SignUpDto } from '../dto/sign.up.dto';
+import { TokenPayload } from '../types/token.payload';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
@@ -11,6 +12,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly emailConfirmationService: EmailConfirmationService,
   ) {}
 
   async signUp(dto: SignUpDto) {
@@ -29,6 +31,8 @@ export class AuthService {
       passwordHash,
       name,
     });
+
+    await this.emailConfirmationService.sendLink(createdUser.email);
 
     return createdUser;
   }

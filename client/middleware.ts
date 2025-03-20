@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySession } from "./lib/session";
 
-const authRoutes = ["/sign-in", "/sign-up"];
+const authRoutes = [
+  "/sign-in",
+  "/sign-up",
+  "/email-confirm",
+  "/verifying-email",
+];
 const privateRoutes = [
   "/dashboard",
   "/transactions",

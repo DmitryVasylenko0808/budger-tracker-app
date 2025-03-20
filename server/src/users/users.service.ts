@@ -64,4 +64,15 @@ export class UsersService {
 
     return user;
   }
+
+  async markAsVerified(id: number) {
+    const user = await this.prismaService.user.update({
+      where: { id },
+      data: {
+        verified: true,
+      },
+    });
+
+    return user;
+  }
 }
