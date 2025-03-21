@@ -20,6 +20,15 @@ type ResendConfirmEmailParams = {
   email: string;
 };
 
+type ResetPasswordParams = {
+  email: string;
+};
+
+type ChangePasswordParams = {
+  password: string;
+  token: string;
+};
+
 export const signUp = async (data: SignUpParams) => {
   try {
     const res = await instance.post("/auth/sign-up", data);
@@ -58,6 +67,31 @@ export const resendConfirmationEmail = async (
 ) => {
   try {
     const res = await instance.post("/auth/email-confirmation/resend", data);
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const resetPassword = async (data: ResetPasswordParams) => {
+  try {
+    const res = await instance.post("/auth/password-recovery/reset", data);
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const changePassword = async (data: ChangePasswordParams) => {
+  try {
+    const res = await instance.post(
+      "/auth/password-recovery/change-password",
+      data
+    );
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

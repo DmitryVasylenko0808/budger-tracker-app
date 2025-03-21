@@ -4,6 +4,8 @@ import { WithAccount } from "./with.account";
 import { WithoutAccount } from "./without.account";
 import { EmailConfirmation } from "./email.confirmation";
 import { VerifyingUserEmail } from "./verifying.user.email";
+import { ResetPasswordForm } from "./reset.password.form";
+import { ChangePasswordForm } from "./change.password.form";
 
 export {
   SignUpForm,
@@ -12,4 +14,6 @@ export {
   WithoutAccount,
   EmailConfirmation,
   VerifyingUserEmail,
+  ResetPasswordForm,
+  ChangePasswordForm,
 };

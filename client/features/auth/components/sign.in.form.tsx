@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { signInAction } from "../actions/sign.in";
 import { TextField, Button, Loader } from "@/shared/ui";
+import Link from "next/link";
 
 export const SignInForm = () => {
   const [state, formAction, isPending] = useActionState(signInAction, null);
@@ -30,6 +31,12 @@ export const SignInForm = () => {
           {state.errors.server}
         </p>
       )}
+
+      <div className="mb-6 flex justify-center">
+        <Link href="/reset-password" className="text-primary-100 underline">
+          Forgot Password
+        </Link>
+      </div>
 
       <Button
         className="mb-5"

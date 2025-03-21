@@ -6,6 +6,8 @@ const authRoutes = [
   "/sign-up",
   "/email-confirm",
   "/verifying-email",
+  "/reset-password",
+  "/change-password",
 ];
 const privateRoutes = [
   "/dashboard",

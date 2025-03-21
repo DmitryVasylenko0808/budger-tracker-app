@@ -25,4 +25,25 @@ export class EmailService {
         `,
     });
   }
+
+  async sendEmailChangePasswordLink(
+    email: string,
+    name: string,
+    token: string,
+  ) {
+    const href = `${this.configService.get('CLIENT_CHANGE_PASSWORD_URL')}?token=${token}`;
+
+    await this.resendService.send({
+      from: 'budget-tracker@resend.dev',
+      to: email,
+      subject: 'Reset Password',
+      html: `
+        <p>Hello, ${name}!</p> 
+
+        <a href=${href}>Here is your link for changing your password</a>
+
+        <p>This code will expire in 1 hour.</p>
+        `,
+    });
+  }
 }

@@ -11,6 +11,8 @@ import { ConfirmationTokensService } from './services/confirmation.tokens.servic
 import { EmailConfirmationService } from './services/email.confirmation.service';
 import { EmailConfirmationController } from './controllers/email.confirmation.controller';
 import { EmailModule } from 'src/email/email.module';
+import { PasswordRecoveryService } from './services/password.recovery.service';
+import { PasswordRecoveryController } from './controllers/password.recovery.controller';
 
 @Module({
   imports: [
@@ -26,7 +28,11 @@ import { EmailModule } from 'src/email/email.module';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController, EmailConfirmationController],
+  controllers: [
+    AuthController,
+    EmailConfirmationController,
+    PasswordRecoveryController,
+  ],
   providers: [
     PrismaService,
     AuthService,
@@ -34,6 +40,7 @@ import { EmailModule } from 'src/email/email.module';
     JwtStrategy,
     ConfirmationTokensService,
     EmailConfirmationService,
+    PasswordRecoveryService,
   ],
 })
 export class AuthModule {}
