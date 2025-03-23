@@ -11,16 +11,16 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
-import { TokenPayload } from 'src/auth/types/token.payload';
 import { CreateCategoryDto } from '../dto/create.category.dto';
 import { EditCategoryDto } from '../dto/edit.category.dto';
 import { TransactionsService } from './transactions.service';
 import { TransactionType } from '@prisma/client';
+import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
+import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
 
-@UseGuards(AuthGuard('jwt'))
 @Controller('categories')
+@UseGuards(JwtAuthGuard)
 export class CategoriesController {
   constructor(
     private readonly categoriesService: CategoriesService,

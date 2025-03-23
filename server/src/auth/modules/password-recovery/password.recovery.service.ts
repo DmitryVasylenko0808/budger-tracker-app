@@ -22,7 +22,7 @@ export class PasswordRecoveryService {
 
     const existedUser = await this.usersService.getByEmail(email);
 
-    if (!existedUser) {
+    if (!existedUser || !existedUser.passwordHash) {
       throw new NotFoundException('User is not found');
     }
 
@@ -60,7 +60,7 @@ export class PasswordRecoveryService {
 
     const user = await this.usersService.getByEmail(existedToken.email);
 
-    if (!user) {
+    if (!user || !user.passwordHash) {
       throw new NotFoundException('User is not found');
     }
 

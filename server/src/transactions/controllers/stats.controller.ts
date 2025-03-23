@@ -1,12 +1,12 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { StatsService } from '../services/stats.service';
-import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
-import { TokenPayload } from 'src/auth/types/token.payload';
 import { TransactionType } from '@prisma/client';
+import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
+import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
 
 @Controller('stats')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 

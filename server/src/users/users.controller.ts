@@ -13,22 +13,21 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { EditUserDto } from './dto/edit.user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { uploadsStorage } from 'src/multer';
+import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
 
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
   async getOne(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.getByIdOrThrow(id);
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('avatar', { storage: uploadsStorage }))
   async edit(
     @Param('id', ParseIntPipe) id: number,

@@ -7,16 +7,21 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { SignUpDto } from './dto/sign.up.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { CurrentUser } from './decorators';
 import { User } from '@prisma/client';
-import { VerifiedUserGuard } from './verified.user.guard';
+import { AuthService } from './auth.service';
+import { AccessTokensService } from './modules/access-tokens/access-tokens.service';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './modules/access-tokens/jwt-auth.guard';
+import { VerifiedUserGuard } from './guards/verified-user.guard';
+import { CurrentUser } from './decorators';
+import { SignUpDto } from './dto/sign.up.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly accessTokensService: AccessTokensService,
+  ) {}
 
   @Post('sign-up')
   async signUp(@Body() signUpDto: SignUpDto) {
@@ -24,14 +29,14 @@ export class AuthController {
   }
 
   @Post('sign-in')
-  @UseGuards(AuthGuard('local'), VerifiedUserGuard)
+  @UseGuards(LocalAuthGuard, VerifiedUserGuard)
   @HttpCode(HttpStatus.OK)
   async signIn(@CurrentUser() user: User) {
-    return await this.authService.signIn(user);
+    return await this.accessTokensService.genererate(user);
   }
 
   @Get('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   async getMe(@CurrentUser() user: User) {
     return user;
   }

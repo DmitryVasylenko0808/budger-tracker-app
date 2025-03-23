@@ -14,12 +14,14 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
-  passwordHash String? @map("password_hash")
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  passwordHash String?       @map("password_hash")
+  provider     ProviderType?
+  providerId   String?       @map("provider_id")
   name         String
   avatar       String?
-  verified     Boolean @default(false)
+  verified     Boolean       @default(false)
 
   categories   Category[]
   transactions Transaction[]
@@ -65,6 +67,11 @@ model Transaction {
   user   User @relation(fields: [userId], references: [id])
 
   @@map("transactions")
+}
+
+enum ProviderType {
+  GOOGLE
+  GITHUB
 }
 
 enum ConfirmationTokenType {

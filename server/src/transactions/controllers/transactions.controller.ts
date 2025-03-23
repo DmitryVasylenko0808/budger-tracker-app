@@ -13,14 +13,14 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { TransactionsService } from '../services/transactions.service';
-import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/auth/decorators';
-import { TokenPayload } from 'src/auth/types/token.payload';
 import { CreateTransactionDto } from '../dto/create.transaction.dto';
 import { EditTransactionDto } from '../dto/edit.transaction.dto';
+import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
+import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
 
 @Controller('transactions')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 

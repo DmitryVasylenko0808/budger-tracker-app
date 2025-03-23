@@ -2,32 +2,24 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
-import { LocalStrategy } from './strategies/local.strategy';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { JwtStrategy } from './strategies/jwt.strategy';
+import { LocalStrategy } from './local.strategy';
 import { PrismaService } from 'src/prisma.service';
 import { EmailConfirmationModule } from './modules/email-confirmation/email-confirmation.module';
 import { PasswordRecoveryModule } from './modules/password-recovery/password-recovery.module';
 import { ConfirmationTokensModule } from './modules/confirmation-tokens/confirmation-tokens.module';
+import { GoogleOauthModule } from './modules/google-oauth/google-oauth.module';
+import { AccessTokensModule } from './modules/access-tokens/access-tokens.module';
 
 @Module({
   imports: [
-    JwtModule.registerAsync({
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET'),
-        signOptions: {
-          expiresIn: configService.get('JWT_EXPIRES'),
-        },
-      }),
-      inject: [ConfigService],
-    }),
     UsersModule,
+    AccessTokensModule,
     ConfirmationTokensModule,
     EmailConfirmationModule,
     PasswordRecoveryModule,
+    GoogleOauthModule,
   ],
   controllers: [AuthController],
-  providers: [PrismaService, AuthService, LocalStrategy, JwtStrategy],
+  providers: [PrismaService, AuthService, LocalStrategy],
 })
 export class AuthModule {}
