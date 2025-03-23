@@ -9,6 +9,7 @@ import { PasswordRecoveryModule } from './modules/password-recovery/password-rec
 import { ConfirmationTokensModule } from './modules/confirmation-tokens/confirmation-tokens.module';
 import { GoogleOauthModule } from './modules/google-oauth/google-oauth.module';
 import { AccessTokensModule } from './modules/access-tokens/access-tokens.module';
+import { GithubOauthModule } from './modules/github-oauth/github-oauth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AccessTokensModule } from './modules/access-tokens/access-tokens.module
     EmailConfirmationModule,
     PasswordRecoveryModule,
     GoogleOauthModule,
+    GithubOauthModule,
   ],
   controllers: [AuthController],
   providers: [PrismaService, AuthService, LocalStrategy],
