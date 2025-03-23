@@ -7,12 +7,12 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from '../services/auth.service';
-import { SignUpDto } from '../dto/sign.up.dto';
+import { AuthService } from './auth.service';
+import { SignUpDto } from './dto/sign.up.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { CurrentUser } from '../decorators';
+import { CurrentUser } from './decorators';
 import { User } from '@prisma/client';
-import { VerifiedUserGuard } from '../verified.user.guard';
+import { VerifiedUserGuard } from './verified.user.guard';
 
 @Controller('auth')
 export class AuthController {

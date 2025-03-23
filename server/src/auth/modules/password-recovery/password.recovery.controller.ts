@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { PasswordRecoveryService } from '../services/password.recovery.service';
-import { ResetPasswordDto } from '../dto/reset.password.dto';
-import { ChangePasswordDto } from '../dto/change.password.dto';
+import { PasswordRecoveryService } from './password.recovery.service';
+import { ResetPasswordDto } from './dto/reset.password.dto';
+import { ChangePasswordDto } from './dto/change.password.dto';
 
 @Controller('auth/password-recovery')
 export class PasswordRecoveryController {
@@ -12,6 +12,7 @@ export class PasswordRecoveryController {
   @Post('reset')
   @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    console.log(resetPasswordDto);
     return await this.passwordRecoveryService.resetPassword(resetPasswordDto);
   }
 

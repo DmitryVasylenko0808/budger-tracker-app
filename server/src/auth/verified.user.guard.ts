@@ -5,7 +5,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { EmailConfirmationService } from './services/email.confirmation.service';
+import { EmailConfirmationService } from './modules/email-confirmation/email.confirmation.service';
 
 @Injectable()
 export class VerifiedUserGuard implements CanActivate {

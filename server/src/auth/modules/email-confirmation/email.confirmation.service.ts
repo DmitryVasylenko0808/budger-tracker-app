@@ -4,48 +4,45 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { ConfirmationTokensService } from './confirmation.tokens.service';
-import { ResetPasswordDto } from '../dto/reset.password.dto';
 import { EmailService } from 'src/email/email.service';
-import { ChangePasswordDto } from '../dto/change.password.dto';
+import { ConfirmationTokensService } from '../confirmation-tokens/confirmation.tokens.service';
 
 @Injectable()
-export class PasswordRecoveryService {
+export class EmailConfirmationService {
   constructor(
-    private readonly usersService: UsersService,
     private readonly confirmationTokensService: ConfirmationTokensService,
     private readonly emailService: EmailService,
+    private readonly usersService: UsersService,
   ) {}
 
-  async resetPassword(data: ResetPasswordDto) {
-    const { email } = data;
+  async sendLink(email: string) {
+    const user = await this.usersService.getByEmail(email);
 
-    const existedUser = await this.usersService.getByEmail(email);
-
-    if (!existedUser) {
+    if (!user) {
       throw new NotFoundException('User is not found');
     }
 
-    await this.confirmationTokensService.deleteTokens(email, 'RESET_PASSWORD');
-
-    const token = await this.confirmationTokensService.generateToken(
-      email,
-      'RESET_PASSWORD',
+    await this.confirmationTokensService.deleteTokens(
+      user.email,
+      'EMAIL_CONFIRMATION',
     );
 
-    await this.emailService.sendEmailChangePasswordLink(
-      existedUser.email,
-      existedUser.name,
+    const token = await this.confirmationTokensService.generateToken(
+      user.email,
+      'EMAIL_CONFIRMATION',
+    );
+
+    await this.emailService.sendEmailConfirmationLink(
+      user.email,
+      user.name,
       token.value,
     );
   }
 
-  async changePassword(data: ChangePasswordDto) {
-    const { password, token } = data;
-
+  async confirmEmail(token: string) {
     const existedToken = await this.confirmationTokensService.findToken(
       token,
-      'RESET_PASSWORD',
+      'EMAIL_CONFIRMATION',
     );
 
     if (!existedToken) {
@@ -64,10 +61,13 @@ export class PasswordRecoveryService {
       throw new NotFoundException('User is not found');
     }
 
-    await this.usersService.changePassword(user.id, password);
+    const verifiedUser = await this.usersService.markAsVerified(user.id);
+
     await this.confirmationTokensService.deleteTokens(
-      user.email,
-      'RESET_PASSWORD',
+      existedToken.email,
+      'EMAIL_CONFIRMATION',
     );
+
+    return verifiedUser;
   }
 }

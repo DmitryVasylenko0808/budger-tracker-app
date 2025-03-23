@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { EmailConfirmationService } from './email.confirmation.service';
-import { SignUpDto } from '../dto/sign.up.dto';
-import { TokenPayload } from '../types/token.payload';
+import { SignUpDto } from './dto/sign.up.dto';
+import { TokenPayload } from './types/token.payload';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { EmailConfirmationService } from './modules/email-confirmation/email.confirmation.service';
 
 @Injectable()
 export class AuthService {
@@ -41,7 +41,7 @@ export class AuthService {
     const tokenPayload: TokenPayload = {
       userId: user.id,
     };
-    const access_token = await this.generateAccessToken(tokenPayload);
+    const access_token = await this.jwtService.signAsync(tokenPayload);
 
     return { access_token };
   }
@@ -60,11 +60,5 @@ export class AuthService {
     }
 
     return user;
-  }
-
-  private async generateAccessToken(tokenPayload: TokenPayload) {
-    const access_token = await this.jwtService.signAsync(tokenPayload);
-
-    return access_token;
   }
 }

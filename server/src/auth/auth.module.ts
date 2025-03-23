@@ -1,23 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './services/auth.service';
-import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PrismaService } from 'src/prisma.service';
-import { ConfirmationTokensService } from './services/confirmation.tokens.service';
-import { EmailConfirmationService } from './services/email.confirmation.service';
-import { EmailConfirmationController } from './controllers/email.confirmation.controller';
-import { EmailModule } from 'src/email/email.module';
-import { PasswordRecoveryService } from './services/password.recovery.service';
-import { PasswordRecoveryController } from './controllers/password.recovery.controller';
+import { EmailConfirmationModule } from './modules/email-confirmation/email-confirmation.module';
+import { PasswordRecoveryModule } from './modules/password-recovery/password-recovery.module';
+import { ConfirmationTokensModule } from './modules/confirmation-tokens/confirmation-tokens.module';
 
 @Module({
   imports: [
-    UsersModule,
-    EmailModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
@@ -27,20 +22,12 @@ import { PasswordRecoveryController } from './controllers/password.recovery.cont
       }),
       inject: [ConfigService],
     }),
+    UsersModule,
+    ConfirmationTokensModule,
+    EmailConfirmationModule,
+    PasswordRecoveryModule,
   ],
-  controllers: [
-    AuthController,
-    EmailConfirmationController,
-    PasswordRecoveryController,
-  ],
-  providers: [
-    PrismaService,
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    ConfirmationTokensService,
-    EmailConfirmationService,
-    PasswordRecoveryService,
-  ],
+  controllers: [AuthController],
+  providers: [PrismaService, AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}
