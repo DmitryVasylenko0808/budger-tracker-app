@@ -20,7 +20,7 @@ export const Button = ({
   return (
     <button
       className={cn(
-        "inline-flex justify-center items-center gap-1 font-semibold rounded-lg duration-100",
+        "inline-flex justify-center items-center gap-1.5 font-semibold rounded-lg duration-100",
         {
           "min-w-20 h-9 px-2": size === "sm",
           "min-w-24 h-10 px-4": size === "lg",

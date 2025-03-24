@@ -9,16 +9,19 @@ const generateUsers = async () => {
       email: 'pmuckloe0@adobe.com',
       password: '11111111',
       name: 'Philippine Muckloe',
+      avatar: '1741960070316.jpg',
     },
     {
       email: 'shighway1@people.com.cn',
       password: '22222222',
       name: 'Suzette Highway',
+      avatar: '1741960495147.jpg',
     },
     {
       email: 'lbroek2@hibu.com',
       password: '33333333',
       name: 'Lilli Broek',
+      avatar: 'nullavatar.jpg',
     },
   ].map((item) => {
     const passwordHash = bcrypt.hashSync(item.password, 10);
@@ -26,6 +29,7 @@ const generateUsers = async () => {
     return {
       email: item.email,
       name: item.name,
+      avatar: item.avatar,
       passwordHash,
     };
   });

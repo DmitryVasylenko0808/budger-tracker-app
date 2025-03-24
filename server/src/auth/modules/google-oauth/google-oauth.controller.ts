@@ -1,12 +1,17 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { GoogleOuathGuard } from './google-oauth.guard';
 import { CurrentUser } from 'src/auth/decorators';
 import { User } from '@prisma/client';
 import { AccessTokensService } from '../access-tokens/access-tokens.service';
+import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth/google')
 export class GoogleOauthController {
-  constructor(private readonly accessTokensService: AccessTokensService) {}
+  constructor(
+    private readonly accessTokensService: AccessTokensService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get()
   @UseGuards(GoogleOuathGuard)
@@ -14,7 +19,11 @@ export class GoogleOauthController {
 
   @Get('redirect')
   @UseGuards(GoogleOuathGuard)
-  async googleAuthRedirec(@CurrentUser() user: User) {
-    return await this.accessTokensService.genererate(user);
+  async googleAuthRedirect(@CurrentUser() user: User, @Res() res: Response) {
+    const { access_token } = await this.accessTokensService.genererate(user);
+
+    return res.redirect(
+      `${this.configService.get<string>('CLIENT_LOGIN_URL')}?token=${access_token}`,
+    );
   }
 }

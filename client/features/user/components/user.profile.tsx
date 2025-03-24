@@ -18,8 +18,8 @@ export const UserProfile = ({ user }: UserProfileProps) => {
         <div className="mb-4">
           <div className="flex items-center gap-4">
             <Image
-              src={`${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`}
-              alt="user avatar"
+              src={user.avatar}
+              alt="user-avatar"
               width={128}
               height={128}
               className="w-32 h-32 rounded-full"

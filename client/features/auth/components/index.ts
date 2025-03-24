@@ -6,6 +6,7 @@ import { EmailConfirmation } from "./email.confirmation";
 import { VerifyingUserEmail } from "./verifying.user.email";
 import { ResetPasswordForm } from "./reset.password.form";
 import { ChangePasswordForm } from "./change.password.form";
+import { SocialsSignIn } from "./socials.sign.in";
 
 export {
   SignUpForm,
@@ -16,4 +17,5 @@ export {
   VerifyingUserEmail,
   ResetPasswordForm,
   ChangePasswordForm,
+  SocialsSignIn,
 };

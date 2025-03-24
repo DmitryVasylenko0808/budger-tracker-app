@@ -25,7 +25,7 @@ export const Account = ({ user }: AccountProps) => {
             <Image
               width={32}
               height={32}
-              src={`${process.env.NEXT_PUBLIC_AVATARS_URL}/${user.avatar}`}
+              src={user.avatar}
               className="w-8 h-8 rounded-full duration-100 hover:w-9 hover:h-9"
               alt="avatar"
             />

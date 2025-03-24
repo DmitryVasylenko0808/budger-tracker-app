@@ -10,6 +10,20 @@ const nextConfig: NextConfig = {
         pathname: "/avatars/**",
         search: "",
       },
+      {
+        protocol: "https",
+        port: "",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
+        search: "?v=4",
+      },
+      {
+        protocol: "https",
+        port: "",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/a/**",
+        search: "",
+      },
     ],
   },
 };

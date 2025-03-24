@@ -3,10 +3,14 @@ import { PrismaService } from 'src/prisma.service';
 import { EditUserDto } from './dto/edit.user.dto';
 import * as bcrypt from 'bcrypt';
 import { ProviderType, Prisma } from '@prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async getByIdOrThrow(id: number) {
     const user = await this.prismaService.user.findUnique({
@@ -21,6 +25,12 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User is not found');
     }
+
+    const regexUrl = /^(https?:\/\/[^\s]+)/i;
+
+    user.avatar = regexUrl.test(user.avatar)
+      ? user.avatar
+      : `${this.configService.get('SERVER_AVATARS_URL')}/${user.avatar}`;
 
     return user;
   }
