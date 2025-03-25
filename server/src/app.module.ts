@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { EmailModule } from './email/email.module';
 import { BudgetModule } from './budget/budget.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './logging.interceptor';
 
 @Module({
   imports: [
@@ -14,6 +16,9 @@ import { BudgetModule } from './budget/budget.module';
     EmailModule,
     BudgetModule,
   ],
-  providers: [PrismaService],
+  providers: [
+    PrismaService,
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+  ],
 })
 export class AppModule {}
