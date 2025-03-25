@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { EditUserDto } from './dto/edit.user.dto';
 import * as bcrypt from 'bcrypt';
 import { ProviderType, Prisma } from '@prisma/client';

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from './prisma/prisma.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
@@ -7,6 +7,7 @@ import { EmailModule } from './email/email.module';
 import { BudgetModule } from './budget/budget.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -15,10 +16,8 @@ import { LoggingInterceptor } from './logging.interceptor';
     UsersModule,
     EmailModule,
     BudgetModule,
+    PrismaModule,
   ],
-  providers: [
-    PrismaService,
-    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
-  ],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
 })
 export class AppModule {}
