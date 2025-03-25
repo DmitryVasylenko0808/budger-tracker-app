@@ -11,9 +11,9 @@ import { User } from '@prisma/client';
 import { AuthService } from './auth.service';
 import { AccessTokensService } from './modules/access-tokens/access-tokens.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { JwtAuthGuard } from './modules/access-tokens/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { VerifiedUserGuard } from './guards/verified-user.guard';
-import { CurrentUser } from './decorators';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { SignUpDto } from './dto/sign.up.dto';
 
 @Controller('auth')

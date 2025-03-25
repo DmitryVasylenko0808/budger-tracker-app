@@ -1,6 +1,6 @@
 import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { GoogleOuathGuard } from './google-oauth.guard';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { AccessTokensService } from '../access-tokens/access-tokens.service';
 import { Response } from 'express';

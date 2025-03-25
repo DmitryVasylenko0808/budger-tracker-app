@@ -1,7 +1,7 @@
 import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { GithubOauthGuard } from './github-oauth.guard';
 import { AccessTokensService } from '../access-tokens/access-tokens.service';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';

@@ -12,9 +12,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
-import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { CreateTransactionDto } from './dto/create.transaction.dto';
 import { EditTransactionDto } from './dto/edit.transaction.dto';
 import { TransactionsService } from './transactions.service';

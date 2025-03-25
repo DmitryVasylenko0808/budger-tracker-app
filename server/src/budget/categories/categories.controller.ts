@@ -11,10 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { TransactionType } from '@prisma/client';
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
-import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { TransactionsService } from '../transactions/transactions.service';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
