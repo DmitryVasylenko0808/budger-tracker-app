@@ -1,9 +1,9 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { StatsService } from '../services/stats.service';
 import { CurrentUser } from 'src/auth/decorators';
-import { TransactionType } from '@prisma/client';
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
+import { TransactionType } from '@prisma/client';
+import { StatsService } from './stats.service';
 
 @Controller('stats')
 @UseGuards(JwtAuthGuard)

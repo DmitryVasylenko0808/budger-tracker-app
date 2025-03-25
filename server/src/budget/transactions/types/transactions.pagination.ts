@@ -1,4 +1,4 @@
-import { Category, Transaction } from '@prisma/client';
+import { Transaction } from '@prisma/client';
 
 type TransactionsPaginationItem = Omit<Transaction, 'notes'>;
 

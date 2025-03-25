@@ -12,12 +12,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { TransactionsService } from '../services/transactions.service';
 import { CurrentUser } from 'src/auth/decorators';
-import { CreateTransactionDto } from '../dto/create.transaction.dto';
-import { EditTransactionDto } from '../dto/edit.transaction.dto';
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 import { JwtAuthGuard } from 'src/auth/modules/access-tokens/jwt-auth.guard';
+import { CreateTransactionDto } from './dto/create.transaction.dto';
+import { EditTransactionDto } from './dto/edit.transaction.dto';
+import { TransactionsService } from './transactions.service';
 
 @Controller('transactions')
 @UseGuards(JwtAuthGuard)
