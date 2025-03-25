@@ -31,12 +31,7 @@ export class UsersController {
   async edit(
     @Param('id', ParseIntPipe) id: number,
     @Body() editUserDto: EditUserDto,
-    @UploadedFile(
-      new ParseFilePipeBuilder().build({
-        fileIsRequired: false,
-      }),
-    )
-    avatarFile?: Express.Multer.File,
+    @UploadedFile() avatarFile: Express.Multer.File,
   ) {
     return await this.usersService.edit(id, editUserDto, avatarFile?.filename);
   }
