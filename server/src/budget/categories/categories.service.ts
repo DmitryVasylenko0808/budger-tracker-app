@@ -26,6 +26,17 @@ export class CategoriesService {
     return categories;
   }
 
+  async getAll(userId: number, type: TransactionType) {
+    const data = await this.prismaService.category.findMany({
+      where: {
+        userId,
+        type,
+      },
+    });
+
+    return data;
+  }
+
   async getOneOrThrow(id: number) {
     const category = await this.prismaService.category.findUnique({
       where: { id },

@@ -2,37 +2,19 @@ import { TransactionType } from '@prisma/client';
 
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CategoriesService } from '../categories/categories.service';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable()
 export class StatsService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly transactionsService: TransactionsService,
+    private readonly categoriesService: CategoriesService
+  ) {}
 
   async getSummary(userId: number) {
-    const summaryIncomes = await this.prismaService.transaction.aggregate({
-      where: {
-        userId,
-        category: {
-          type: 'INCOME',
-        },
-      },
-      _sum: {
-        amount: true,
-      },
-    });
-
-    const summaryExpenses = await this.prismaService.transaction.aggregate({
-      where: {
-        userId,
-        category: {
-          type: 'EXPENSE',
-        },
-        createdAt: {},
-      },
-      _sum: {
-        amount: true,
-      },
-    });
+    const summaryIncomes = await this.transactionsService.getSum(userId, 'INCOME');
+    const summaryExpenses = await this.transactionsService.getSum(userId, 'EXPENSE');
 
     const totalIncomes = Math.round(summaryIncomes._sum.amount * 100) / 100;
     const totalExpenses = Math.round(summaryExpenses._sum.amount * 100) / 100;
@@ -57,17 +39,7 @@ export class StatsService {
       'December',
     ];
 
-    const data = await this.prismaService.transaction.findMany({
-      where: {
-        userId,
-      },
-      orderBy: {
-        createdAt: 'asc',
-      },
-      include: {
-        category: true,
-      },
-    });
+    const data = await this.transactionsService.getAll(userId);
 
     const firstYear = data[0].createdAt.getFullYear();
     const firstMonth = data[0].createdAt.getMonth();
@@ -115,29 +87,12 @@ export class StatsService {
     const lastDate = to?.split('-').map((item) => Number(item));
     const dateTo = lastDate && new Date(lastDate[0], lastDate[1] - 1, lastDate[2] + 1);
 
-    const breakdown = await this.prismaService.transaction.groupBy({
-      by: ['categoryId'],
-      where: {
-        userId,
-        category: {
-          type,
-        },
-        createdAt: {
-          gte: dateFrom,
-          lte: dateTo,
-        },
-      },
-      _sum: {
-        amount: true,
-      },
+    const breakdown = await this.transactionsService.getSumByCategories(userId, type, {
+      dateFrom,
+      dateTo,
     });
 
-    const categories = await this.prismaService.category.findMany({
-      where: {
-        userId,
-        type,
-      },
-    });
+    const categories = await this.categoriesService.getAll(userId, type);
 
     const categoriesObj = categories.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {});
 

@@ -1,3 +1,4 @@
+import { Prisma, TransactionType } from '@prisma/client';
 import { createObjectCsvStringifier } from 'csv-writer';
 
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -6,6 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 import { CreateTransactionDto } from './dto/create.transaction.dto';
 import { EditTransactionDto } from './dto/edit.transaction.dto';
+import { Period } from './types/period';
 import { TransactionsPagination } from './types/transactions.pagination';
 
 @Injectable()
@@ -53,6 +55,25 @@ export class TransactionsService {
     };
 
     return res;
+  }
+
+  async getAll(userId: number, sortDate: Prisma.SortOrder = 'asc', categoryIds?: number[]) {
+    const data = await this.prismaService.transaction.findMany({
+      where: {
+        userId,
+        categoryId: {
+          in: categoryIds,
+        },
+      },
+      orderBy: {
+        createdAt: sortDate,
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    return data;
   }
 
   async getOneOrThrow(id: number) {
@@ -138,6 +159,43 @@ export class TransactionsService {
     return transaction;
   }
 
+  async getSum(userId: number, type: TransactionType) {
+    const sum = await this.prismaService.transaction.aggregate({
+      where: {
+        userId,
+        category: {
+          type,
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    return sum;
+  }
+
+  async getSumByCategories(userId: number, type: TransactionType, period: Period) {
+    const data = await this.prismaService.transaction.groupBy({
+      by: ['categoryId'],
+      where: {
+        userId,
+        category: {
+          type,
+        },
+        createdAt: {
+          gte: period.dateFrom,
+          lte: period.dateTo,
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    return data;
+  }
+
   async getByCategoryId(categoryId: number, page: number = 1, limit: number = 30) {
     const transactions = await this.prismaService.transaction.findMany({
       where: {
@@ -176,20 +234,7 @@ export class TransactionsService {
   async exportAsCsv(userId: number, categoryIds?: string) {
     const numberCategoryIds = categoryIds?.split(',').map((id) => Number(id));
 
-    const data = await this.prismaService.transaction.findMany({
-      where: {
-        userId,
-        categoryId: {
-          in: numberCategoryIds,
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        category: true,
-      },
-    });
+    const data = await this.getAll(userId, 'desc', numberCategoryIds);
 
     const cvsStringifier = createObjectCsvStringifier({
       header: [
