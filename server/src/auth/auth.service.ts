@@ -1,14 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
-import { EmailConfirmationService } from './modules/email-confirmation/email.confirmation.service';
-import { SignUpDto } from './dto/sign.up.dto';
 import * as bcrypt from 'bcrypt';
+
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { UsersService } from 'src/users/users.service';
+
+import { SignUpDto } from './dto/sign.up.dto';
+import { EmailConfirmationService } from './modules/email-confirmation/email.confirmation.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly emailConfirmationService: EmailConfirmationService,
+    private readonly emailConfirmationService: EmailConfirmationService
   ) {}
 
   async signUp(dto: SignUpDto) {

@@ -1,20 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { createObjectCsvStringifier } from 'csv-writer';
-import { TransactionsPagination } from './types/transactions.pagination';
+
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+
 import { CreateTransactionDto } from './dto/create.transaction.dto';
 import { EditTransactionDto } from './dto/edit.transaction.dto';
+import { TransactionsPagination } from './types/transactions.pagination';
 
 @Injectable()
 export class TransactionsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async get(
-    userId: number,
-    page: number = 1,
-    limit: number = 30,
-    categoryIds?: string,
-  ) {
+  async get(userId: number, page: number = 1, limit: number = 30, categoryIds?: string) {
     const numberCategoryIds = categoryIds?.split(',').map((id) => Number(id));
 
     const transactions = await this.prismaService.transaction.findMany({
@@ -140,11 +138,7 @@ export class TransactionsService {
     return transaction;
   }
 
-  async getByCategoryId(
-    categoryId: number,
-    page: number = 1,
-    limit: number = 30,
-  ) {
+  async getByCategoryId(categoryId: number, page: number = 1, limit: number = 30) {
     const transactions = await this.prismaService.transaction.findMany({
       where: {
         categoryId,
@@ -215,9 +209,7 @@ export class TransactionsService {
       date: tr.createdAt.toLocaleString(),
     }));
 
-    const csvData =
-      cvsStringifier.getHeaderString() +
-      cvsStringifier.stringifyRecords(records);
+    const csvData = cvsStringifier.getHeaderString() + cvsStringifier.stringifyRecords(records);
 
     return csvData;
   }

@@ -1,20 +1,18 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
+import { EmailService } from 'src/email/email.service';
+import { UsersService } from 'src/users/users.service';
+
+import { ConfirmationTokensService } from '../confirmation-tokens/confirmation.tokens.service';
 import { ChangePasswordDto } from './dto/change.password.dto';
 import { ResetPasswordDto } from './dto/reset.password.dto';
-import { UsersService } from 'src/users/users.service';
-import { EmailService } from 'src/email/email.service';
-import { ConfirmationTokensService } from '../confirmation-tokens/confirmation.tokens.service';
 
 @Injectable()
 export class PasswordRecoveryService {
   constructor(
     private readonly usersService: UsersService,
     private readonly confirmationTokensService: ConfirmationTokensService,
-    private readonly emailService: EmailService,
+    private readonly emailService: EmailService
   ) {}
 
   async resetPassword(data: ResetPasswordDto) {
@@ -28,25 +26,19 @@ export class PasswordRecoveryService {
 
     await this.confirmationTokensService.deleteTokens(email, 'RESET_PASSWORD');
 
-    const token = await this.confirmationTokensService.generateToken(
-      email,
-      'RESET_PASSWORD',
-    );
+    const token = await this.confirmationTokensService.generateToken(email, 'RESET_PASSWORD');
 
     await this.emailService.sendEmailChangePasswordLink(
       existedUser.email,
       existedUser.name,
-      token.value,
+      token.value
     );
   }
 
   async changePassword(data: ChangePasswordDto) {
     const { password, token } = data;
 
-    const existedToken = await this.confirmationTokensService.findToken(
-      token,
-      'RESET_PASSWORD',
-    );
+    const existedToken = await this.confirmationTokensService.findToken(token, 'RESET_PASSWORD');
 
     if (!existedToken) {
       throw new NotFoundException("This token doesn't exist");
@@ -65,9 +57,6 @@ export class PasswordRecoveryService {
     }
 
     await this.usersService.changePassword(user.id, password);
-    await this.confirmationTokensService.deleteTokens(
-      user.email,
-      'RESET_PASSWORD',
-    );
+    await this.confirmationTokensService.deleteTokens(user.email, 'RESET_PASSWORD');
   }
 }

@@ -1,14 +1,16 @@
+import { Profile, Strategy } from 'passport-github2';
+
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from 'src/users/users.service';
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy } from 'passport-github2';
+
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class GithubOauthStrategy extends PassportStrategy(Strategy, 'github') {
   constructor(
     private readonly configService: ConfigService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UsersService
   ) {
     super({
       clientID: configService.get<string>('GITHUB_CLIENT_ID'),
@@ -18,11 +20,7 @@ export class GithubOauthStrategy extends PassportStrategy(Strategy, 'github') {
     });
   }
 
-  async validate(
-    _accessToken: string,
-    _refreshToken: string,
-    profile: Profile,
-  ) {
+  async validate(_accessToken: string, _refreshToken: string, profile: Profile) {
     const { id, username, emails, photos } = profile;
 
     let user = await this.usersService.getByProvider('GITHUB', id);

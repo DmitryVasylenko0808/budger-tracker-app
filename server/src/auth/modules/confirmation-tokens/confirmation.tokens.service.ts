@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import { ConfirmationTokenType } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 as uuidv4 } from 'uuid';
+
+import { Injectable } from '@nestjs/common';
+
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ConfirmationTokensService {

@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
 import { TransactionType } from '@prisma/client';
+
+import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -85,9 +87,7 @@ export class StatsService {
         }
 
         const tMonths = data.filter(
-          (t) =>
-            t.createdAt.getFullYear() === year &&
-            t.createdAt.getMonth() === month,
+          (t) => t.createdAt.getFullYear() === year && t.createdAt.getMonth() === month
         );
         const monthIncomes = tMonths
           .filter((t) => t.category.type === 'INCOME')
@@ -109,17 +109,11 @@ export class StatsService {
     return monthlyStats;
   }
 
-  async getBreakdown(
-    userId: number,
-    type: TransactionType,
-    from?: string,
-    to?: string,
-  ) {
+  async getBreakdown(userId: number, type: TransactionType, from?: string, to?: string) {
     const dateFrom = from && new Date(from);
 
     const lastDate = to?.split('-').map((item) => Number(item));
-    const dateTo =
-      lastDate && new Date(lastDate[0], lastDate[1] - 1, lastDate[2] + 1);
+    const dateTo = lastDate && new Date(lastDate[0], lastDate[1] - 1, lastDate[2] + 1);
 
     const breakdown = await this.prismaService.transaction.groupBy({
       by: ['categoryId'],
@@ -145,10 +139,7 @@ export class StatsService {
       },
     });
 
-    const categoriesObj = categories.reduce(
-      (acc, curr) => ({ ...acc, [curr.id]: curr }),
-      {},
-    );
+    const categoriesObj = categories.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {});
 
     const res = breakdown.map((group) => ({
       categoryId: group.categoryId,

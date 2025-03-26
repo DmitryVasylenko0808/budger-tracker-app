@@ -6,6 +6,7 @@ import {
   Logger,
   NestInterceptor,
 } from '@nestjs/common';
+
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable()
@@ -14,10 +15,7 @@ export class LoggingInterceptor implements NestInterceptor {
     timestamp: true,
   });
 
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler<any>,
-  ): Observable<any> {
+  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> {
     const req = context.switchToHttp().getRequest();
     const startTime = Date.now();
 
@@ -26,19 +24,15 @@ export class LoggingInterceptor implements NestInterceptor {
         const resTime = Date.now() - startTime;
         const res = context.switchToHttp().getResponse();
 
-        this.logger.log(
-          `${req.method} ${req.originalUrl} ${res.statusCode} ${resTime}ms`,
-        );
+        this.logger.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${resTime}ms`);
       }),
       catchError((err: HttpException) => {
         const resTime = Date.now() - startTime;
 
-        this.logger.error(
-          `${req.method} ${req.originalUrl} ${err.getStatus()} ${resTime}ms`,
-        );
+        this.logger.error(`${req.method} ${req.originalUrl} ${err.getStatus()} ${resTime}ms`);
 
         return throwError(() => err);
-      }),
+      })
     );
   }
 }

@@ -1,15 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { EditUserDto } from './dto/edit.user.dto';
+import { Prisma, ProviderType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { ProviderType, Prisma } from '@prisma/client';
+
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+
+import { EditUserDto } from './dto/edit.user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService
   ) {}
 
   async getByIdOrThrow(id: number) {

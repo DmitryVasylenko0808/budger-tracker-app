@@ -1,26 +1,20 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
 import { User } from '@prisma/client';
-import { AuthService } from './auth.service';
-import { AccessTokensService } from './modules/access-tokens/access-tokens.service';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-import { VerifiedUserGuard } from './guards/verified-user.guard';
+
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign.up.dto';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { VerifiedUserGuard } from './guards/verified-user.guard';
+import { AccessTokensService } from './modules/access-tokens/access-tokens.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly accessTokensService: AccessTokensService,
+    private readonly accessTokensService: AccessTokensService
   ) {}
 
   @Post('sign-up')

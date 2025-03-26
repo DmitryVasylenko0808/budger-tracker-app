@@ -1,7 +1,9 @@
-import { Module } from '@nestjs/common';
-import { EmailService } from './email.service';
-import { ConfigService } from '@nestjs/config';
 import { ResendModule } from 'nestjs-resend';
+
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+import { EmailService } from './email.service';
 
 @Module({
   imports: [

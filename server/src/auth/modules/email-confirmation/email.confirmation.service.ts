@@ -1,10 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
 import { EmailService } from 'src/email/email.service';
+import { UsersService } from 'src/users/users.service';
+
 import { ConfirmationTokensService } from '../confirmation-tokens/confirmation.tokens.service';
 
 @Injectable()
@@ -12,7 +10,7 @@ export class EmailConfirmationService {
   constructor(
     private readonly confirmationTokensService: ConfirmationTokensService,
     private readonly emailService: EmailService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UsersService
   ) {}
 
   async sendLink(email: string) {
@@ -22,27 +20,20 @@ export class EmailConfirmationService {
       throw new NotFoundException('User is not found');
     }
 
-    await this.confirmationTokensService.deleteTokens(
-      user.email,
-      'EMAIL_CONFIRMATION',
-    );
+    await this.confirmationTokensService.deleteTokens(user.email, 'EMAIL_CONFIRMATION');
 
     const token = await this.confirmationTokensService.generateToken(
       user.email,
-      'EMAIL_CONFIRMATION',
+      'EMAIL_CONFIRMATION'
     );
 
-    await this.emailService.sendEmailConfirmationLink(
-      user.email,
-      user.name,
-      token.value,
-    );
+    await this.emailService.sendEmailConfirmationLink(user.email, user.name, token.value);
   }
 
   async confirmEmail(token: string) {
     const existedToken = await this.confirmationTokensService.findToken(
       token,
-      'EMAIL_CONFIRMATION',
+      'EMAIL_CONFIRMATION'
     );
 
     if (!existedToken) {
@@ -63,10 +54,7 @@ export class EmailConfirmationService {
 
     const verifiedUser = await this.usersService.markAsVerified(user.id);
 
-    await this.confirmationTokensService.deleteTokens(
-      existedToken.email,
-      'EMAIL_CONFIRMATION',
-    );
+    await this.confirmationTokensService.deleteTokens(existedToken.email, 'EMAIL_CONFIRMATION');
 
     return verifiedUser;
   }

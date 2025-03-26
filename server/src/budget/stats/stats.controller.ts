@@ -1,8 +1,12 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { TransactionType } from '@prisma/client';
+
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+
+import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
+
 import { StatsService } from './stats.service';
 
 @Controller('stats')
@@ -25,7 +29,7 @@ export class StatsController {
     @CurrentUser() user: TokenPayload,
     @Query('type') type: TransactionType,
     @Query('from') from?: string,
-    @Query('to') to?: string,
+    @Query('to') to?: string
   ) {
     return await this.statsService.getBreakdown(user.userId, type, from, to);
   }

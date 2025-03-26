@@ -1,6 +1,8 @@
+import { User } from '@prisma/client';
+
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
+
 import { TokenPayload } from './types/token.payload';
 
 @Injectable()

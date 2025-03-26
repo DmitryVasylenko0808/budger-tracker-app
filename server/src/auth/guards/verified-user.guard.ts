@@ -1,17 +1,12 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
 import { User } from '@prisma/client';
+
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
+
 import { EmailConfirmationService } from '../modules/email-confirmation/email.confirmation.service';
 
 @Injectable()
 export class VerifiedUserGuard implements CanActivate {
-  constructor(
-    private readonly emailConfirmationService: EmailConfirmationService,
-  ) {}
+  constructor(private readonly emailConfirmationService: EmailConfirmationService) {}
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const req = ctx.switchToHttp().getRequest();

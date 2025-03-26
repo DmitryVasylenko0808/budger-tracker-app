@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { ConfirmationTokensService } from './confirmation.tokens.service';
 
 @Module({

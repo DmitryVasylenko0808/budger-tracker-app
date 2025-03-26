@@ -1,7 +1,8 @@
-import { UnprocessableEntityException } from '@nestjs/common';
-import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+
+import { UnprocessableEntityException } from '@nestjs/common';
+import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 
 export const storageDestination = './uploads/avatars';
 export const allowedFileTypes = ['image/jpeg', 'image/png'];
@@ -27,10 +28,7 @@ export const multerOptions: MulterOptions = {
   },
   fileFilter: (req, file, cb) => {
     if (!allowedFileTypes.includes(file.mimetype)) {
-      return cb(
-        new UnprocessableEntityException('Unsupported file type'),
-        false,
-      );
+      return cb(new UnprocessableEntityException('Unsupported file type'), false);
     }
 
     cb(null, true);

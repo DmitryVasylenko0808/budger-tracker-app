@@ -1,10 +1,9 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { TransactionType } from '@prisma/client';
+
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
 
@@ -51,9 +50,7 @@ export class CategoriesService {
     });
 
     if (existedCategory) {
-      throw new BadRequestException(
-        'The category with this name is already exists',
-      );
+      throw new BadRequestException('The category with this name is already exists');
     }
 
     const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -76,9 +73,7 @@ export class CategoriesService {
     const existedCategory = await this.getOneOrThrow(id);
 
     if (existedCategory.name === name) {
-      throw new BadRequestException(
-        'The category with this name is already exists',
-      );
+      throw new BadRequestException('The category with this name is already exists');
     }
 
     const updatedCategory = await this.prismaService.category.update({

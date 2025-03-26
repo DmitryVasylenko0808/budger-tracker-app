@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { EmailModule } from './email/email.module';
-import { BudgetModule } from './budget/budget.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+
+import { AuthModule } from './auth/auth.module';
+import { BudgetModule } from './budget/budget.module';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { EmailModule } from './email/email.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [

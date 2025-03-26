@@ -1,12 +1,13 @@
+import { ResendService } from 'nestjs-resend';
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ResendService } from 'nestjs-resend';
 
 @Injectable()
 export class EmailService {
   constructor(
     private readonly configService: ConfigService,
-    private readonly resendService: ResendService,
+    private readonly resendService: ResendService
   ) {}
 
   async sendEmailConfirmationLink(email: string, name: string, code: string) {
@@ -26,11 +27,7 @@ export class EmailService {
     });
   }
 
-  async sendEmailChangePasswordLink(
-    email: string,
-    name: string,
-    token: string,
-  ) {
+  async sendEmailChangePasswordLink(email: string, name: string, token: string) {
     const href = `${this.configService.get('CLIENT_CHANGE_PASSWORD_URL')}?token=${token}`;
 
     await this.resendService.send({

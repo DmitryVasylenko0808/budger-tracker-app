@@ -1,3 +1,5 @@
+import { Response } from 'express';
+
 import {
   Body,
   Controller,
@@ -11,10 +13,12 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
+
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+
+import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
+
 import { CreateTransactionDto } from './dto/create.transaction.dto';
 import { EditTransactionDto } from './dto/edit.transaction.dto';
 import { TransactionsService } from './transactions.service';
@@ -29,26 +33,18 @@ export class TransactionsController {
     @Query('page', ParseIntPipe) page: number,
     @Query('limit', ParseIntPipe) limit: number,
     @Query('category_ids') categoryIds: string,
-    @CurrentUser() user: TokenPayload,
+    @CurrentUser() user: TokenPayload
   ) {
-    return await this.transactionsService.get(
-      user.userId,
-      page,
-      limit,
-      categoryIds,
-    );
+    return await this.transactionsService.get(user.userId, page, limit, categoryIds);
   }
 
   @Get('export')
   async exportAsCsv(
     @Query('category_ids') categoryIds: string,
     @Res() res: Response,
-    @CurrentUser() user: TokenPayload,
+    @CurrentUser() user: TokenPayload
   ) {
-    const csvData = await this.transactionsService.exportAsCsv(
-      user.userId,
-      categoryIds,
-    );
+    const csvData = await this.transactionsService.exportAsCsv(user.userId, categoryIds);
 
     res.set({
       'Content-Type': 'text/csv',
@@ -63,20 +59,14 @@ export class TransactionsController {
   }
 
   @Post()
-  async add(
-    @Body() createTransactionDto: CreateTransactionDto,
-    @CurrentUser() user: TokenPayload,
-  ) {
-    return await this.transactionsService.add(
-      createTransactionDto,
-      user.userId,
-    );
+  async add(@Body() createTransactionDto: CreateTransactionDto, @CurrentUser() user: TokenPayload) {
+    return await this.transactionsService.add(createTransactionDto, user.userId);
   }
 
   @Patch(':id')
   async edit(
     @Param('id', ParseIntPipe) id: number,
-    @Body() editTransactionDto: EditTransactionDto,
+    @Body() editTransactionDto: EditTransactionDto
   ) {
     return await this.transactionsService.edit(id, editTransactionDto);
   }

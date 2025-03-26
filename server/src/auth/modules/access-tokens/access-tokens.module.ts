@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AccessTokensService } from './access-tokens.service';
-import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+
+import { AccessTokensService } from './access-tokens.service';
 import { JwtStrategy } from './jwt.strategy';
 
 @Module({
