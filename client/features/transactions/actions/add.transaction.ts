@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { createTransaction } from '../api';
+import { TransactionsApi } from '../api';
 
 const addTransactionSchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
@@ -44,7 +44,7 @@ export const addTransactionAction = async (
     };
   }
 
-  const res = await createTransaction(validatedFields.data);
+  const res = await TransactionsApi.createTransaction(validatedFields.data);
 
   if (res.error) {
     return {

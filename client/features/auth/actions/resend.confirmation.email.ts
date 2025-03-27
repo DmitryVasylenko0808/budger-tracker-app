@@ -1,6 +1,6 @@
 'use server';
 
-import { resendConfirmationEmail } from '../api';
+import { AuthApi } from '../api';
 
 type ResendConfirmationEmailState = {
   success: boolean;
@@ -17,7 +17,7 @@ export const resendConfirmationEmailAction = async (
     };
   }
 
-  const res = await resendConfirmationEmail({ email });
+  const res = await AuthApi.resendConfirmationEmail({ email });
 
   if (res.error) {
     return {

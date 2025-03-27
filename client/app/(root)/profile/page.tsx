@@ -1,4 +1,4 @@
-import { getUser } from '@/features/user/api';
+import { UsersApi } from '@/features/user/api';
 import { UserProfile } from '@/features/user/components';
 import type { Metadata } from 'next';
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await verifySession();
-  const data = await getUser({ id: Number(session?.userId) });
+  const data = await UsersApi.getUser({ id: Number(session?.userId) });
 
   if (data.statusCode === 404) {
     notFound();

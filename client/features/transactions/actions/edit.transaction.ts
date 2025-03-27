@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { editTransaction } from '../api';
+import { TransactionsApi } from '../api';
 
 const editTransactionSchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
@@ -45,7 +45,7 @@ export const editTransactionAction = async (
     };
   }
 
-  const res = await editTransaction({ id, ...validatedFields.data });
+  const res = await TransactionsApi.editTransaction({ id, ...validatedFields.data });
 
   if (res.error) {
     return {

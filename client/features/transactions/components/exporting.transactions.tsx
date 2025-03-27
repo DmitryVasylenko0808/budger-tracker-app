@@ -5,7 +5,7 @@ import { FileDown } from 'lucide-react';
 
 import { Button } from '@/shared/ui';
 
-import { exportTransactions } from '../api';
+import { ExportApi } from '../api';
 
 type ExportingTransactionsProps = {
   categoryIds: number[];
@@ -13,7 +13,7 @@ type ExportingTransactionsProps = {
 
 export const ExportingTransactions = ({ categoryIds }: Readonly<ExportingTransactionsProps>) => {
   const { mutate } = useMutation({
-    mutationFn: exportTransactions,
+    mutationFn: ExportApi.exportTransactions,
     onSuccess: (data) => {
       const blob = new Blob([data], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);

@@ -6,7 +6,7 @@ import { usePagination } from '@/hooks';
 
 import { Container, Loader } from '@/shared/ui';
 
-import { getTransactionsByCategory } from '../api';
+import { CategoriesApi } from '../api';
 import { ExportingTransactions } from './exporting.transactions';
 import { TransactionsPaginationPanel } from './transaction.pagination.panel';
 import { TransactionsTable } from './transactions.table';
@@ -26,7 +26,7 @@ export const CategoryTransactions = ({ categoryId }: Readonly<CategoryTransactio
   } = useQuery<TransactionPagination>({
     queryKey: ['transactions', categoryId, page, limit],
     queryFn: () =>
-      getTransactionsByCategory({
+      CategoriesApi.getTransactionsByCategory({
         id: categoryId,
         page,
         limit,

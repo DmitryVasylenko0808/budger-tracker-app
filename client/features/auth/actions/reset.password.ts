@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-import { resetPassword } from '../api';
+import { AuthApi } from '../api';
 
 const resetPasswordSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
@@ -32,7 +32,7 @@ export const resetPasswordAction = async (
     };
   }
 
-  const res = await resetPassword(validatedFields.data);
+  const res = await AuthApi.resetPassword(validatedFields.data);
 
   if (res.error) {
     return {

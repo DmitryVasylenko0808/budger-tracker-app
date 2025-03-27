@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader } from '@/shared/ui';
 import { Modal, ModalProps } from '@/shared/ui/modal';
 
-import { getOneTransaction } from '../api';
+import { TransactionsApi } from '../api';
 
 type TransactionModalProps = ModalProps & {
   transactionId: number;
@@ -14,7 +14,7 @@ type TransactionModalProps = ModalProps & {
 export const TransactionModal = ({ transactionId, ...props }: Readonly<TransactionModalProps>) => {
   const { data, isFetching, isError } = useQuery<Transaction>({
     queryKey: ['transactions', transactionId],
-    queryFn: () => getOneTransaction({ id: transactionId }),
+    queryFn: () => TransactionsApi.getOneTransaction({ id: transactionId }),
     enabled: !!props.open,
   });
 

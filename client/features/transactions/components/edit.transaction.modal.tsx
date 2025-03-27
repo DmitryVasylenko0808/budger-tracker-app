@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Button, Loader, RadioGroup, Select, TextArea, TextField } from '@/shared/ui';
 import { Modal, ModalProps } from '@/shared/ui/modal';
 
-import { getCategories, getOneTransaction } from '../api';
+import { CategoriesApi, TransactionsApi } from '../api';
 import { useEditTransaction } from '../hooks';
 
 type EditTransactionModalProps = ModalProps & { transactionId: number };
@@ -21,12 +21,12 @@ export const EditTransactionModal = ({
 
   const { data: transaction, isLoading } = useQuery<Transaction>({
     queryKey: ['transactions', transactionId],
-    queryFn: () => getOneTransaction({ id: transactionId }),
+    queryFn: () => TransactionsApi.getOneTransaction({ id: transactionId }),
     enabled: !!modalProps.open,
   });
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['categories', currentType],
-    queryFn: () => getCategories({ type: currentType }),
+    queryFn: () => CategoriesApi.getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
   const { state, onEdit, isPending } = useEditTransaction({

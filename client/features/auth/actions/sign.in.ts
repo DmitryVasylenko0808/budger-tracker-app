@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 import { createSession } from '@/lib/session';
 
-import { signIn } from '../api';
+import { AuthApi } from '../api';
 
 const signInSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
@@ -39,7 +39,7 @@ export const signInAction = async (
     };
   }
 
-  const res = await signIn(validatedFields.data);
+  const res = await AuthApi.signIn(validatedFields.data);
 
   if (res.error) {
     return {

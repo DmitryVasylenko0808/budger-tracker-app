@@ -1,11 +1,11 @@
 import { Container } from '@/shared/ui';
 
-import { getMonthly } from '../api';
+import { StatsApi } from '../api';
 import { DashboardBlock } from './dashboard.block';
 import { IncomeExpenseChart } from './income.expense.chart';
 
 export const IncomeExpenseReport = async () => {
-  const data = await getMonthly();
+  const data = await StatsApi.getMonthly();
 
   const isNoData = !data || !data.length;
 

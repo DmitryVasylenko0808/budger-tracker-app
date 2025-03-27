@@ -1,4 +1,4 @@
-import { getOneCategory } from '@/features/transactions/api';
+import { CategoriesApi } from '@/features/transactions/api';
 import { CategoryTransactions } from '@/features/transactions/components';
 import type { Metadata } from 'next';
 
@@ -17,7 +17,7 @@ export default async function CategoryTransactionsPage({
 }) {
   const { id } = await params;
 
-  const data = await getOneCategory({ id: Number(id) });
+  const data = await CategoriesApi.getOneCategory({ id: Number(id) });
 
   if (data.statusCode === 404) {
     notFound();

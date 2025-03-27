@@ -30,68 +30,70 @@ type ChangePasswordParams = {
   token: string;
 };
 
-export const signUp = async (data: SignUpParams) => {
-  try {
-    const res = await instance.post('/auth/sign-up', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+export class AuthApi {
+  static async signUp(data: SignUpParams) {
+    try {
+      const res = await instance.post('/auth/sign-up', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
 
-export const signIn = async (data: SignInParams) => {
-  try {
-    const res = await instance.post('/auth/sign-in', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+  static async signIn(data: SignInParams) {
+    try {
+      const res = await instance.post('/auth/sign-in', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
 
-export const confirmEmail = async (data: ConfirmEmailParams) => {
-  try {
-    const res = await instance.post('/auth/email-confirmation/confirm', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+  static async confirmEmail(data: ConfirmEmailParams) {
+    try {
+      const res = await instance.post('/auth/email-confirmation/confirm', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
 
-export const resendConfirmationEmail = async (data: ResendConfirmEmailParams) => {
-  try {
-    const res = await instance.post('/auth/email-confirmation/resend', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+  static async resendConfirmationEmail(data: ResendConfirmEmailParams) {
+    try {
+      const res = await instance.post('/auth/email-confirmation/resend', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
 
-export const resetPassword = async (data: ResetPasswordParams) => {
-  try {
-    const res = await instance.post('/auth/password-recovery/reset', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+  static async resetPassword(data: ResetPasswordParams) {
+    try {
+      const res = await instance.post('/auth/password-recovery/reset', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
 
-export const changePassword = async (data: ChangePasswordParams) => {
-  try {
-    const res = await instance.post('/auth/password-recovery/change-password', data);
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
+  static async changePassword(data: ChangePasswordParams) {
+    try {
+      const res = await instance.post('/auth/password-recovery/change-password', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   }
-};
+}

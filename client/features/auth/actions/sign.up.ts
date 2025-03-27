@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { redirect } from 'next/navigation';
 
-import { signUp } from '../api';
+import { AuthApi } from '../api';
 
 const signUpSchema = z
   .object({
@@ -48,7 +48,7 @@ export const signUpAction = async (
   }
 
   const { confirmPassword, ...data } = validatedFields.data;
-  const res = await signUp(data);
+  const res = await AuthApi.signUp(data);
 
   if (res.error) {
     return {

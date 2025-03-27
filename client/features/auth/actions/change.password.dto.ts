@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-import { changePassword } from '../api';
+import { AuthApi } from '../api';
 
 const changePasswordSchema = z
   .object({
@@ -48,7 +48,7 @@ export const changePasswordAction = async (
 
   const data = { password: validatedFields.data.password, token };
 
-  const res = await changePassword(data);
+  const res = await AuthApi.changePassword(data);
 
   if (res.error) {
     return {

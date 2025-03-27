@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button, Loader, RadioGroup, Select, TextArea, TextField } from '@/shared/ui';
 import { Modal, ModalProps } from '@/shared/ui/modal';
 
-import { getCategories } from '../api';
+import { CategoriesApi } from '../api';
 import { useAddTransaction } from '../hooks';
 
 type AddTransactionModalProps = ModalProps;
@@ -14,7 +14,7 @@ export const AddTransactionModal = ({ ...modalProps }: Readonly<AddTransactionMo
   const [currentType, setCurrentType] = useState<TransactionType>('INCOME');
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['categories', currentType],
-    queryFn: () => getCategories({ type: currentType }),
+    queryFn: () => CategoriesApi.getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
   const { state, onAdd, isPending } = useAddTransaction({

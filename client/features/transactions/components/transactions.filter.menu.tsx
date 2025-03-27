@@ -7,7 +7,7 @@ import { useToggleMenu } from '@/hooks';
 
 import { Button, Menu } from '@/shared/ui';
 
-import { getCategories } from '../api';
+import { CategoriesApi } from '../api';
 
 type TransactionsFilterMenuProps = {
   selectedCategoryIds: number[];
@@ -21,7 +21,7 @@ export const TransactionsFilterMenu = ({
   const { open, ref, onToggle } = useToggleMenu();
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['categories'],
-    queryFn: () => getCategories({}),
+    queryFn: () => CategoriesApi.getCategories({}),
     placeholderData: keepPreviousData,
   });
 

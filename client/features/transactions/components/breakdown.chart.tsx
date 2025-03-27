@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 
 import { cn } from '@/utils/cn';
 
-import { getBreakdown } from '../api';
+import { StatsApi } from '../api';
 import { BreakdownItemSkeleton } from './breakdown.item.skeleton';
 import { DashboardBlock } from './dashboard.block';
 import { FilterBreakdownMenu } from './filter.breakdown.menu';
@@ -32,7 +32,7 @@ export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
   const [fromTo, setFromTo] = useState<DateInterval | null>(null);
   const { data, isLoading, isFetching } = useQuery<BreakdownStats>({
     queryKey: ['breakdown-chart', fromTo, type],
-    queryFn: () => getBreakdown({ type, ...fromTo }),
+    queryFn: () => StatsApi.getBreakdown({ type, ...fromTo }),
     placeholderData: keepPreviousData,
   });
 

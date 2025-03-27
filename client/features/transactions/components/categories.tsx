@@ -9,7 +9,7 @@ import { useDebounce, useModal } from '@/hooks';
 
 import { Button, TextField } from '@/shared/ui';
 
-import { getCategories } from '../api';
+import { CategoriesApi } from '../api';
 import { AddCategoryModal } from './add.category.modal';
 import { CategoriesList } from './categories.list';
 import { CategoryItem } from './category.item';
@@ -25,7 +25,7 @@ export const Categories = ({ type, categories }: Readonly<CategoriesProps>) => {
   const debouncedValue = useDebounce(search, 500);
   const { data, isFetching, refetch } = useQuery({
     queryKey: ['categories', type, debouncedValue],
-    queryFn: () => getCategories({ type, search: debouncedValue }),
+    queryFn: () => CategoriesApi.getCategories({ type, search: debouncedValue }),
     initialData: categories,
     enabled: search !== null,
   });

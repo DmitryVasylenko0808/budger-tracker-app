@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { editCategory } from '../api';
+import { CategoriesApi } from '../api';
 
 const editCategorySchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
@@ -30,7 +30,7 @@ export const editCategoryAction = async (
     };
   }
 
-  const res = await editCategory({ id, ...validatedFields.data });
+  const res = await CategoriesApi.editCategory({ id, ...validatedFields.data });
 
   if (res.error) {
     return {

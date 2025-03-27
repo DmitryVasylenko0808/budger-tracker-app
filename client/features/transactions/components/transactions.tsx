@@ -6,7 +6,7 @@ import { usePagination } from '@/hooks';
 
 import { Container, Loader } from '@/shared/ui';
 
-import { getTransactions } from '../api';
+import { TransactionsApi } from '../api';
 import { useFilterTransactions, useSelectableTransactions } from '../hooks';
 import { ExportingTransactions } from './exporting.transactions';
 import { TransactionsActions } from './transacitons.actions';
@@ -26,7 +26,7 @@ export const Transactions = () => {
   } = useQuery<TransactionPagination>({
     queryKey: ['transactions', page, limit, selectedCategoryIds],
     queryFn: () =>
-      getTransactions({
+      TransactionsApi.getTransactions({
         page: page,
         limit: limit,
         category_ids: selectedCategoryIds,

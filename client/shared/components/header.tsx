@@ -1,4 +1,4 @@
-import { getUser } from '@/features/user/api';
+import { UsersApi } from '@/features/user/api';
 import { Account } from '@/features/user/components';
 
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import { NavBar } from './navbar';
 
 export const Header = async () => {
   const session = await verifySession();
-  const user = await getUser({ id: Number(session?.userId) });
+  const user = await UsersApi.getUser({ id: Number(session?.userId) });
 
   return (
     <header className="h-16 border-b border-gray-100/15">

@@ -1,10 +1,10 @@
 import { Container } from '@/shared/ui';
 
-import { getSummary } from '../api';
+import { StatsApi } from '../api';
 import { DashboardBlock } from './dashboard.block';
 
 export const Summary = async () => {
-  const data = await getSummary();
+  const data = await StatsApi.getSummary();
 
   return (
     <section className="pb-8">

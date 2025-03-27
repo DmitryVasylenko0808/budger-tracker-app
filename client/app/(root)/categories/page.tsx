@@ -1,4 +1,4 @@
-import { getCategories } from '@/features/transactions/api';
+import { CategoriesApi } from '@/features/transactions/api';
 import { Categories } from '@/features/transactions/components';
 import type { Metadata } from 'next';
 
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default async function CategoriesPage() {
-  const incomeCategories = await getCategories({ type: 'INCOME' });
-  const expenseCategories = await getCategories({ type: 'EXPENSE' });
+  const incomeCategories = await CategoriesApi.getCategories({ type: 'INCOME' });
+  const expenseCategories = await CategoriesApi.getCategories({ type: 'EXPENSE' });
 
   return (
     <section className="py-10">

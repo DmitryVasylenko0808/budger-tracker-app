@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { revalidatePath } from 'next/cache';
 
-import { editUser } from '../api';
+import { UsersApi } from '../api';
 
 const editProfileSchema = z.object({
   name: z.string().min(2, 'Name must contain at least 2 characters').trim(),
@@ -43,7 +43,7 @@ export const editProfileAction = async (
   const { avatar, ...textData } = validatedFields.data;
   const rawData = avatar.size ? validatedFields.data : textData;
 
-  const res = await editUser({ id, ...rawData });
+  const res = await UsersApi.editUser({ id, ...rawData });
 
   if (res.error) {
     return {

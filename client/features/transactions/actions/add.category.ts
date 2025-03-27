@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { addCategory } from '../api';
+import { CategoriesApi } from '../api';
 
 const addCategorySchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
@@ -30,7 +30,7 @@ export const addCategoryAction = async (
     };
   }
 
-  const res = await addCategory({ type, ...validatedFields.data });
+  const res = await CategoriesApi.addCategory({ type, ...validatedFields.data });
 
   if (res.error) {
     return {

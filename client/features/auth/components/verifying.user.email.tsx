@@ -8,14 +8,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Loader } from '@/shared/ui';
 
-import { confirmEmail } from '../api';
+import { AuthApi } from '../api';
 
 export const VerifyingUserEmail = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationKey: ['verifying'],
-    mutationFn: () => confirmEmail({ token: searchParams.get('token') as string }),
+    mutationFn: () => AuthApi.confirmEmail({ token: searchParams.get('token') as string }),
     onSettled: (data) => {
       if (data.error) {
         alert(data.message);
