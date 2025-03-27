@@ -3,7 +3,7 @@ import { TransactionType } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 
 import { CategoriesService } from '../categories/categories.service';
-import { TransactionsService } from '../transactions/services/transactions.service';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable()
 export class StatsService {

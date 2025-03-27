@@ -2,7 +2,7 @@ import { createObjectCsvStringifier } from 'csv-writer';
 
 import { Injectable } from '@nestjs/common';
 
-import { TransactionsService } from './transactions.service';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable()
 export class ExportService {

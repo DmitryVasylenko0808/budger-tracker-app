@@ -3,7 +3,7 @@
 import { Button } from "@/shared/ui";
 import { FileDown } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { getExport } from "../api";
+import { exportTransactions } from "../api";
 
 type ExportingTransactionsProps = {
   categoryIds: number[];
@@ -13,7 +13,7 @@ export const ExportingTransactions = ({
   categoryIds,
 }: Readonly<ExportingTransactionsProps>) => {
   const { mutate } = useMutation({
-    mutationFn: getExport,
+    mutationFn: exportTransactions,
     onSuccess: (data) => {
       const blob = new Blob([data], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);

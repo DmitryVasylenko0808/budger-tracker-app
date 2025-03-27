@@ -21,16 +21,12 @@ import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload
 
 import { CreateTransactionDto } from './dto/create.transaction.dto';
 import { EditTransactionDto } from './dto/edit.transaction.dto';
-import { ExportService } from './services/export.service';
-import { TransactionsService } from './services/transactions.service';
+import { TransactionsService } from './transactions.service';
 
 @Controller('transactions')
 @UseGuards(JwtAuthGuard)
 export class TransactionsController {
-  constructor(
-    private readonly transactionsService: TransactionsService,
-    private readonly exportService: ExportService
-  ) {}
+  constructor(private readonly transactionsService: TransactionsService) {}
 
   @Get()
   async get(
@@ -40,21 +36,6 @@ export class TransactionsController {
     @CurrentUser() user: TokenPayload
   ) {
     return await this.transactionsService.get(user.userId, page, limit, categoryIds);
-  }
-
-  @Get('export')
-  async exportAsCsv(
-    @Query('category_ids') categoryIds: string,
-    @Res() res: Response,
-    @CurrentUser() user: TokenPayload
-  ) {
-    const csvData = await this.exportService.exportTransactions(user.userId, categoryIds);
-
-    res.set({
-      'Content-Type': 'text/csv',
-      'Content-Disposition': 'attachment; filename="transactions.csv"',
-    });
-    res.send(csvData);
   }
 
   @Get(':id')

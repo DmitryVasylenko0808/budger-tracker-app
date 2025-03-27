@@ -232,24 +232,6 @@ export const deleteTransacitons = async (params: DeleteTransactionsParama) => {
   }
 };
 
-export const getExport = async (params: GetExportParams) => {
-  try {
-    const res = await instance.get(`/transactions/export`, {
-      responseType: "blob",
-      params: {
-        category_ids:
-          params.categoryIds.map((item) => item.toString()).join(",") || null,
-      },
-    });
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
-    }
-  }
-};
-
 export const getSummary = async () => {
   try {
     const res = await instance.get(`/stats/summary`);
@@ -277,6 +259,24 @@ export const getMonthly = async () => {
 export const getBreakdown = async (params: GetBreakdownParams) => {
   try {
     const res = await instance.get(`/stats/breakdown`, { params });
+
+    return res.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
+};
+
+export const exportTransactions = async (params: GetExportParams) => {
+  try {
+    const res = await instance.get(`/export/transactions`, {
+      responseType: "blob",
+      params: {
+        category_ids:
+          params.categoryIds.map((item) => item.toString()).join(",") || null,
+      },
+    });
 
     return res.data;
   } catch (err) {

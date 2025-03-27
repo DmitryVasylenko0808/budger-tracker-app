@@ -18,7 +18,7 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 
-import { TransactionsService } from '../transactions/services/transactions.service';
+import { TransactionsService } from '../transactions/transactions.service';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { EditCategoryDto } from './dto/edit.category.dto';
