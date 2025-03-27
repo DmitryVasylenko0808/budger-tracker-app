@@ -1,4 +1,4 @@
-import { deleteCategory } from "../api";
+import { deleteCategory } from '../api';
 
 export type DeleteCategoryState = {
   errors?: {
@@ -7,9 +7,7 @@ export type DeleteCategoryState = {
   success?: boolean;
 } | null;
 
-export const deleteCategoryAction = async (
-  id: number
-): Promise<DeleteCategoryState> => {
+export const deleteCategoryAction = async (id: number): Promise<DeleteCategoryState> => {
   const res = await deleteCategory({ id });
 
   if (res.error) {

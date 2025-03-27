@@ -1,29 +1,21 @@
-import { cn } from "@/utils/cn";
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
+
+import { cn } from '@/utils/cn';
 
 type SelectProps = Readonly<
-  ComponentProps<"select"> & {
+  ComponentProps<'select'> & {
     label?: string;
-    options?: ComponentProps<"option">[];
+    options?: ComponentProps<'option'>[];
     error?: string;
   }
 >;
 
-export const Select = ({
-  label,
-  options,
-  error,
-  className,
-  ...selectProps
-}: SelectProps) => {
+export const Select = ({ label, options, error, className, ...selectProps }: SelectProps) => {
   return (
-    <label className={cn("block", className)}>
-      {label && (
-        <label className="block mb-2 text-sm font-semibold">{label}</label>
-      )}
+    <label className={cn('block', className)}>
+      {label && <label className="mb-2 block text-sm font-semibold">{label}</label>}
       <select
-        className="block w-full mb-1 px-3 py-2 bg-gray-100/20 border-2 border-gray-100/5 rounded-lg duration-100 hover:border-gray-100/20 text-sm 
-        focus:outline-0 focus-within:border-primary-200 focus-within:hover:border-primary-200"
+        className="mb-1 block w-full rounded-lg border-2 border-gray-100/5 bg-gray-100/20 px-3 py-2 text-sm duration-100 focus-within:border-primary-200 hover:border-gray-100/20 focus-within:hover:border-primary-200 focus:outline-0"
         {...selectProps}
       >
         {options?.map((opt) => (
@@ -32,7 +24,7 @@ export const Select = ({
           </option>
         ))}
       </select>
-      {error && <span className="text-xs text-error font-normal">{error}</span>}
+      {error && <span className="text-xs font-normal text-error">{error}</span>}
     </label>
   );
 };

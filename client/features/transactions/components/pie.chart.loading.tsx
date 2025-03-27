@@ -1,7 +1,7 @@
 export const PieChartLoading = () => {
   return (
-    <div className="w-full flex justify-center">
-      <div className="w-[350px] h-[350px] bg-gray-100/15 rounded-full" />
+    <div className="flex w-full justify-center">
+      <div className="h-[350px] w-[350px] rounded-full bg-gray-100/15" />
     </div>
   );
 };

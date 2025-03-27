@@ -1,11 +1,15 @@
-"use client";
+'use client';
 
-import { Button, Menu } from "@/shared/ui";
-import { Ellipsis } from "lucide-react";
-import { DeleteCategoryModal } from "./delete.category.modal";
-import { EditCategoryModal } from "./edit.category.modal";
-import { useModal, useToggleMenu } from "@/hooks";
-import { useRouter } from "next/navigation";
+import { Ellipsis } from 'lucide-react';
+
+import { useRouter } from 'next/navigation';
+
+import { useModal, useToggleMenu } from '@/hooks';
+
+import { Button, Menu } from '@/shared/ui';
+
+import { DeleteCategoryModal } from './delete.category.modal';
+import { EditCategoryModal } from './edit.category.modal';
 
 type CategoryItemProps = {
   category: Category;
@@ -13,21 +17,16 @@ type CategoryItemProps = {
   onDelete?: () => void;
 };
 
-export const CategoryItem = ({
-  category,
-  onEdit,
-  onDelete,
-}: Readonly<CategoryItemProps>) => {
+export const CategoryItem = ({ category, onEdit, onDelete }: Readonly<CategoryItemProps>) => {
   const { open, ref, onToggle } = useToggleMenu();
   const editModal = useModal();
   const deleteModal = useModal();
   const router = useRouter();
 
-  const handleClick = () =>
-    router.push(`/categories/${category.id}/transactions`);
+  const handleClick = () => router.push(`/categories/${category.id}/transactions`);
 
   return (
-    <li className="p-2 bg-gray-50  duration-100 hover:bg-gray-100/15 first:rounded-t-lg last:rounded-b-lg">
+    <li className="bg-gray-50 p-2 duration-100 first:rounded-t-lg last:rounded-b-lg hover:bg-gray-100/15">
       <div className="flex items-center">
         <div className="flex-1">
           <h3 className="font-semibold text-black">

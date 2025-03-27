@@ -1,8 +1,9 @@
-import { z } from "zod";
-import { addCategory } from "../api";
+import { z } from 'zod';
+
+import { addCategory } from '../api';
 
 const addCategorySchema = z.object({
-  name: z.string().min(1, "Name is required").trim(),
+  name: z.string().min(1, 'Name is required').trim(),
 });
 
 type AddCategoryState = {
@@ -19,7 +20,7 @@ export const addCategoryAction = async (
   formData: FormData
 ): Promise<AddCategoryState> => {
   const validatedFields = addCategorySchema.safeParse({
-    name: formData.get("name"),
+    name: formData.get('name'),
   });
 
   if (!validatedFields.success) {

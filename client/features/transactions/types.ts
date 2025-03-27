@@ -1,4 +1,4 @@
-type TransactionType = "INCOME" | "EXPENSE";
+type TransactionType = 'INCOME' | 'EXPENSE';
 
 type Category = {
   id: number;

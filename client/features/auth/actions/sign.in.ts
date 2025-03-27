@@ -1,16 +1,16 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { signIn } from "../api";
-import { createSession } from "@/lib/session";
-import { redirect } from "next/navigation";
+import { z } from 'zod';
+
+import { redirect } from 'next/navigation';
+
+import { createSession } from '@/lib/session';
+
+import { signIn } from '../api';
 
 const signInSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email").trim(),
-  password: z
-    .string()
-    .min(8, "Password must contain at least 8 characters")
-    .trim(),
+  email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
+  password: z.string().min(8, 'Password must contain at least 8 characters').trim(),
 });
 
 type SignInState = {
@@ -28,8 +28,8 @@ export const signInAction = async (
   formData: FormData
 ): Promise<SignInState> => {
   const validatedFields = signInSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
+    email: formData.get('email'),
+    password: formData.get('password'),
   });
 
   if (!validatedFields.success) {
@@ -55,5 +55,5 @@ export const signInAction = async (
   }
 
   await createSession(res.access_token);
-  redirect("/dashboard");
+  redirect('/dashboard');
 };

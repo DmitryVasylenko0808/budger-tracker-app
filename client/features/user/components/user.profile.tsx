@@ -1,9 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { Button, Container } from "@/shared/ui";
-import { EditProfileModal } from "./edit.profile.modal";
-import { useModal } from "@/hooks";
+import Image from 'next/image';
+
+import { useModal } from '@/hooks';
+
+import { Button, Container } from '@/shared/ui';
+
+import { EditProfileModal } from './edit.profile.modal';
 
 type UserProfileProps = Readonly<{
   user: User;
@@ -22,7 +25,7 @@ export const UserProfile = ({ user }: UserProfileProps) => {
               alt="user-avatar"
               width={128}
               height={128}
-              className="w-32 h-32 rounded-full"
+              className="h-32 w-32 rounded-full"
             />
             <div>
               <h1 className="mb-1.5 text-2xl font-semibold">{user.name}</h1>

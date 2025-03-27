@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import { useModal } from "@/hooks";
-import { TransactionModal } from "./transaction.modal";
-import { cn } from "@/utils/cn";
+import { useModal } from '@/hooks';
+
+import { cn } from '@/utils/cn';
+
+import { TransactionModal } from './transaction.modal';
 
 type BaseTransactionsTableItemProps = {
   data: Transaction;
@@ -17,20 +19,16 @@ type TransactionsTableItemProps =
   | BaseTransactionsTableItemProps
   | SelectableTransactionsTableItemProps;
 
-export const TransactionsTableItem = ({
-  data,
-  ...props
-}: Readonly<TransactionsTableItemProps>) => {
+export const TransactionsTableItem = ({ data, ...props }: Readonly<TransactionsTableItemProps>) => {
   const modal = useModal();
 
-  const isSelectable = "selected" in props && "onSelect" in props;
+  const isSelectable = 'selected' in props && 'onSelect' in props;
   const date = new Date(data.createdAt).toLocaleDateString();
 
   return (
     <tr
-      className={cn("odd:bg-gray-100/10 hover:bg-primary-100/10", {
-        "bg-primary-100/10 odd:bg-primary-100/10":
-          isSelectable && props.selected === true,
+      className={cn('odd:bg-gray-100/10 hover:bg-primary-100/10', {
+        'bg-primary-100/10 odd:bg-primary-100/10': isSelectable && props.selected === true,
       })}
     >
       {isSelectable && (
@@ -45,15 +43,11 @@ export const TransactionsTableItem = ({
         </td>
       )}
 
-      <td className="px-3 py-1.5 text-left truncate">
-        <span onClick={modal.onOpen} className="hover:underline cursor-pointer">
+      <td className="truncate px-3 py-1.5 text-left">
+        <span onClick={modal.onOpen} className="cursor-pointer hover:underline">
           {data.name}
         </span>
-        <TransactionModal
-          transactionId={data.id}
-          open={modal.open}
-          onClose={modal.onClose}
-        />
+        <TransactionModal transactionId={data.id} open={modal.open} onClose={modal.onClose} />
       </td>
       <td className="px-3 py-1.5 text-left">{data.category.type}</td>
       <td className="px-3 py-1.5 text-left">{data.amount}</td>

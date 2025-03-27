@@ -1,10 +1,11 @@
-"use server";
+'use server';
 
-import { deleteSession } from "@/lib/session";
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
+
+import { deleteSession } from '@/lib/session';
 
 export const logOut = async () => {
   await deleteSession();
 
-  redirect("/sign-in");
+  redirect('/sign-in');
 };

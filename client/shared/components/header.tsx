@@ -1,10 +1,13 @@
-import Link from "next/link";
-import { Logo } from "./logo";
-import { NavBar } from "./navbar";
-import { Container } from "../ui";
-import { getUser } from "@/features/user/api";
-import { Account } from "@/features/user/components";
-import { verifySession } from "@/lib/session";
+import { getUser } from '@/features/user/api';
+import { Account } from '@/features/user/components';
+
+import Link from 'next/link';
+
+import { verifySession } from '@/lib/session';
+
+import { Container } from '../ui';
+import { Logo } from './logo';
+import { NavBar } from './navbar';
 
 export const Header = async () => {
   const session = await verifySession();
@@ -13,7 +16,7 @@ export const Header = async () => {
   return (
     <header className="h-16 border-b border-gray-100/15">
       <Container className="flex">
-        <div className="flex-1 h-full flex items-center">
+        <div className="flex h-full flex-1 items-center">
           <Link href="/">
             <span className="inline-flex items-center gap-2">
               <Logo />
@@ -21,11 +24,11 @@ export const Header = async () => {
             </span>
           </Link>
         </div>
-        <div className="flex-1 h-full flex items-center">
+        <div className="flex h-full flex-1 items-center">
           <NavBar />
         </div>
-        <div className="flex-1 h-full flex items-center">
-          <div className="w-full flex justify-end">
+        <div className="flex h-full flex-1 items-center">
+          <div className="flex w-full justify-end">
             <Account user={user} />
           </div>
         </div>

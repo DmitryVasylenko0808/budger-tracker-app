@@ -1,12 +1,14 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { editUser } from "../api";
-import { revalidatePath } from "next/cache";
+import { z } from 'zod';
+
+import { revalidatePath } from 'next/cache';
+
+import { editUser } from '../api';
 
 const editProfileSchema = z.object({
-  name: z.string().min(2, "Name must contain at least 2 characters").trim(),
-  email: z.string().min(1, "Email is required").email("Invalid email").trim(),
+  name: z.string().min(2, 'Name must contain at least 2 characters').trim(),
+  email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
   avatar: z.any().optional(),
 });
 
@@ -26,9 +28,9 @@ export const editProfileAction = async (
   formData: FormData
 ): Promise<EditProfileState> => {
   const validatedFields = editProfileSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    avatar: formData.get("avatar"),
+    name: formData.get('name'),
+    email: formData.get('email'),
+    avatar: formData.get('avatar'),
   });
 
   if (!validatedFields.success) {
@@ -52,7 +54,7 @@ export const editProfileAction = async (
     };
   }
 
-  revalidatePath("/profile");
+  revalidatePath('/profile');
 
   return { success: true };
 };

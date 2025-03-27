@@ -1,26 +1,22 @@
-"use client";
+'use client';
 
-import { TextField, Button, FileSelect } from "@/shared/ui";
-import { ModalProps, Modal } from "@/shared/ui/modal";
-import { LoaderCircle } from "lucide-react";
-import { editProfileAction } from "../actions/edit.user";
-import { useActionState, useEffect } from "react";
+import { LoaderCircle } from 'lucide-react';
+
+import { useActionState, useEffect } from 'react';
+
+import { Button, FileSelect, TextField } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { editProfileAction } from '../actions/edit.user';
 
 type EditProfileModalProps = ModalProps &
   Readonly<{
     user: User;
   }>;
 
-export const EditProfileModal = ({
-  user,
-  onClose,
-  ...modalProps
-}: EditProfileModalProps) => {
+export const EditProfileModal = ({ user, onClose, ...modalProps }: EditProfileModalProps) => {
   const editProfileActionWithId = editProfileAction.bind(null, user.id);
-  const [state, formAction, isPending] = useActionState(
-    editProfileActionWithId,
-    null
-  );
+  const [state, formAction, isPending] = useActionState(editProfileActionWithId, null);
 
   useEffect(() => {
     if (state?.success) {
@@ -52,17 +48,11 @@ export const EditProfileModal = ({
           className="mb-6"
         />
         {state?.errors?.server && (
-          <p className="mb-8 text-center text-sm text-error">
-            {state.errors.server}
-          </p>
+          <p className="mb-8 text-center text-sm text-error">{state.errors.server}</p>
         )}
         <div className="flex justify-end">
           <Button type="submit" variant="primary" disabled={isPending}>
-            {isPending ? (
-              <LoaderCircle size={20} className="text-white animate-spin" />
-            ) : (
-              "Edit"
-            )}
+            {isPending ? <LoaderCircle size={20} className="animate-spin text-white" /> : 'Edit'}
           </Button>
         </div>
       </form>

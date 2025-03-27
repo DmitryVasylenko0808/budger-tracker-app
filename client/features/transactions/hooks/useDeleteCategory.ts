@@ -1,8 +1,6 @@
-import { useState, useTransition } from "react";
-import {
-  deleteCategoryAction,
-  DeleteCategoryState,
-} from "../actions/delete.category";
+import { useState, useTransition } from 'react';
+
+import { deleteCategoryAction, DeleteCategoryState } from '../actions/delete.category';
 
 export const useDeleteCategory = (id: number) => {
   const [state, setState] = useState<DeleteCategoryState>(null);

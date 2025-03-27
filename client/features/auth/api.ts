@@ -1,5 +1,6 @@
-import axios from "axios";
-import { instance } from "../../lib/instance";
+import axios from 'axios';
+
+import { instance } from '../../lib/instance';
 
 type SignUpParams = {
   name: string;
@@ -31,7 +32,7 @@ type ChangePasswordParams = {
 
 export const signUp = async (data: SignUpParams) => {
   try {
-    const res = await instance.post("/auth/sign-up", data);
+    const res = await instance.post('/auth/sign-up', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -42,7 +43,7 @@ export const signUp = async (data: SignUpParams) => {
 
 export const signIn = async (data: SignInParams) => {
   try {
-    const res = await instance.post("/auth/sign-in", data);
+    const res = await instance.post('/auth/sign-in', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -53,7 +54,7 @@ export const signIn = async (data: SignInParams) => {
 
 export const confirmEmail = async (data: ConfirmEmailParams) => {
   try {
-    const res = await instance.post("/auth/email-confirmation/confirm", data);
+    const res = await instance.post('/auth/email-confirmation/confirm', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -62,11 +63,9 @@ export const confirmEmail = async (data: ConfirmEmailParams) => {
   }
 };
 
-export const resendConfirmationEmail = async (
-  data: ResendConfirmEmailParams
-) => {
+export const resendConfirmationEmail = async (data: ResendConfirmEmailParams) => {
   try {
-    const res = await instance.post("/auth/email-confirmation/resend", data);
+    const res = await instance.post('/auth/email-confirmation/resend', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -77,7 +76,7 @@ export const resendConfirmationEmail = async (
 
 export const resetPassword = async (data: ResetPasswordParams) => {
   try {
-    const res = await instance.post("/auth/password-recovery/reset", data);
+    const res = await instance.post('/auth/password-recovery/reset', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -88,10 +87,7 @@ export const resetPassword = async (data: ResetPasswordParams) => {
 
 export const changePassword = async (data: ChangePasswordParams) => {
   try {
-    const res = await instance.post(
-      "/auth/password-recovery/change-password",
-      data
-    );
+    const res = await instance.post('/auth/password-recovery/change-password', data);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

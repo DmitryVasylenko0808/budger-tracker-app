@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useFilterTransactions = () => {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
@@ -7,9 +7,7 @@ export const useFilterTransactions = () => {
     let updatedSelectedCategoryIds: number[];
 
     if (selectedCategoryIds.includes(id)) {
-      updatedSelectedCategoryIds = selectedCategoryIds.filter(
-        (cId) => cId !== id
-      );
+      updatedSelectedCategoryIds = selectedCategoryIds.filter((cId) => cId !== id);
     } else {
       updatedSelectedCategoryIds = [...selectedCategoryIds, id];
     }

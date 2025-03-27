@@ -1,7 +1,10 @@
-import { cn } from "@/utils/cn";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { ComponentProps } from "react";
+import { ChevronRight } from 'lucide-react';
+
+import { ComponentProps } from 'react';
+
+import Link from 'next/link';
+
+import { cn } from '@/utils/cn';
 
 type BreadCrumbsItem = {
   href: string;
@@ -10,7 +13,7 @@ type BreadCrumbsItem = {
 };
 
 type BreadCrumbsProps = Readonly<
-  ComponentProps<"ul"> & {
+  ComponentProps<'ul'> & {
     items: BreadCrumbsItem[];
   }
 >;
@@ -20,8 +23,8 @@ export const BreadCrumbs = ({ items, className }: BreadCrumbsProps) => {
     index < items.length - 1 ? (
       <>
         <li
-          className={cn("hover:underline", {
-            "text-black": item.active === true,
+          className={cn('hover:underline', {
+            'text-black': item.active === true,
           })}
           key={`${index} number`}
         >
@@ -35,8 +38,8 @@ export const BreadCrumbs = ({ items, className }: BreadCrumbsProps) => {
       </>
     ) : (
       <li
-        className={cn("hover:underline", {
-          "text-black": item.active === true,
+        className={cn('hover:underline', {
+          'text-black': item.active === true,
         })}
         key={index}
       >
@@ -48,12 +51,7 @@ export const BreadCrumbs = ({ items, className }: BreadCrumbsProps) => {
   );
 
   return (
-    <ul
-      className={cn(
-        "flex items-center space-x-1 text-gray-200 font-medium",
-        className
-      )}
-    >
+    <ul className={cn('flex items-center space-x-1 font-medium text-gray-200', className)}>
       {content}
     </ul>
   );

@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getOneCategory } from "@/features/transactions/api";
-import { CategoryTransactions } from "@/features/transactions/components";
-import { BreadCrumbs, Container } from "@/shared/ui";
+import { getOneCategory } from '@/features/transactions/api';
+import { CategoryTransactions } from '@/features/transactions/components';
+import type { Metadata } from 'next';
+
+import { notFound } from 'next/navigation';
+
+import { BreadCrumbs, Container } from '@/shared/ui';
 
 export const metadata: Metadata = {
-  title: "Categories",
+  title: 'Categories',
 };
 
 export default async function CategoryTransactionsPage({
@@ -26,7 +28,7 @@ export default async function CategoryTransactionsPage({
       <Container>
         <BreadCrumbs
           items={[
-            { href: "/categories", title: "Categories" },
+            { href: '/categories', title: 'Categories' },
             {
               href: `/categories/${data.id}/transactions`,
               title: data.name,
@@ -36,7 +38,7 @@ export default async function CategoryTransactionsPage({
           className="mb-5"
         />
         <h1 className="mb-4 text-3xl font-semibold">Categories: {data.name}</h1>
-        <div className="mb-5 w-full h-0.5 bg-gray-50" />
+        <div className="mb-5 h-0.5 w-full bg-gray-50" />
       </Container>
       <CategoryTransactions categoryId={data.id} />
     </section>

@@ -1,8 +1,9 @@
-import { z } from "zod";
-import { editCategory } from "../api";
+import { z } from 'zod';
+
+import { editCategory } from '../api';
 
 const editCategorySchema = z.object({
-  name: z.string().min(1, "Name is required").trim(),
+  name: z.string().min(1, 'Name is required').trim(),
 });
 
 type EditCategoryState = {
@@ -19,7 +20,7 @@ export const editCategoryAction = async (
   formData: FormData
 ): Promise<EditCategoryState> => {
   const validatedFields = editCategorySchema.safeParse({
-    name: formData.get("name"),
+    name: formData.get('name'),
   });
 
   if (!validatedFields.success) {

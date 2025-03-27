@@ -1,18 +1,21 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Container } from "@/shared/ui";
-import { Logo } from "@/shared/components";
-import { ReactQueryProvider } from "@/providers/react.query.provider";
-import "../globals.css";
+import { ReactQueryProvider } from '@/providers/react.query.provider';
+import type { Metadata } from 'next';
+
+import { Inter } from 'next/font/google';
+
+import { Logo } from '@/shared/components';
+import { Container } from '@/shared/ui';
+
+import '../globals.css';
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Budget Tracker",
-    template: "%s | Budget Tracker",
+    default: 'Budget Tracker',
+    template: '%s | Budget Tracker',
   },
 };
 
@@ -27,7 +30,7 @@ export default function AuthLayout({
         <ReactQueryProvider>
           <main className="h-full">
             <Container>
-              <div className="h-full flex items-center justify-center">
+              <div className="flex h-full items-center justify-center">
                 <div className="w-auth">
                   <div className="mb-10 flex justify-center">
                     <Logo size="lg" />

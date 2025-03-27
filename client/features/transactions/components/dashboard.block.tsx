@@ -1,17 +1,11 @@
-import { cn } from "@/utils/cn";
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-type DashboardBlockProps = ComponentProps<"div">;
+import { cn } from '@/utils/cn';
 
-export const DashboardBlock = ({
-  children,
-  className,
-}: Readonly<DashboardBlockProps>) => {
+type DashboardBlockProps = ComponentProps<'div'>;
+
+export const DashboardBlock = ({ children, className }: Readonly<DashboardBlockProps>) => {
   return (
-    <div
-      className={cn("py-4 px-5 border-2 rounded-lg border-gray-50", className)}
-    >
-      {children}
-    </div>
+    <div className={cn('rounded-lg border-2 border-gray-50 px-5 py-4', className)}>{children}</div>
   );
 };

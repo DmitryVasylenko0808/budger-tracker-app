@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import { Button } from "@/shared/ui";
-import { FileDown } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
-import { exportTransactions } from "../api";
+import { useMutation } from '@tanstack/react-query';
+import { FileDown } from 'lucide-react';
+
+import { Button } from '@/shared/ui';
+
+import { exportTransactions } from '../api';
 
 type ExportingTransactionsProps = {
   categoryIds: number[];
 };
 
-export const ExportingTransactions = ({
-  categoryIds,
-}: Readonly<ExportingTransactionsProps>) => {
+export const ExportingTransactions = ({ categoryIds }: Readonly<ExportingTransactionsProps>) => {
   const { mutate } = useMutation({
     mutationFn: exportTransactions,
     onSuccess: (data) => {
-      const blob = new Blob([data], { type: "text/csv" });
+      const blob = new Blob([data], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = url;
-      link.download = "transactions.csv";
+      link.download = 'transactions.csv';
       document.body.appendChild(link);
       link.click();
 
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     },
-    onError: () => alert("Ooops... something went wrong"),
+    onError: () => alert('Ooops... something went wrong'),
   });
 
   const handleClickExport = () => mutate({ categoryIds });

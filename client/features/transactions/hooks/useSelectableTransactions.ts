@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 type useSelectableTransactionsParams = {
   resetDependecies: any[];
@@ -9,9 +9,7 @@ export const useSelectableTransactions = ({
   resetDependecies,
   data = [],
 }: useSelectableTransactionsParams) => {
-  const [selectedTransactionsIds, setSelectedTransactionsIds] = useState<
-    number[]
-  >([]);
+  const [selectedTransactionsIds, setSelectedTransactionsIds] = useState<number[]>([]);
 
   useEffect(() => {
     setSelectedTransactionsIds([]);
@@ -32,9 +30,7 @@ export const useSelectableTransactions = ({
     let updatedSelectedTransactionsIds: number[];
 
     if (selectedTransactionsIds.includes(id)) {
-      updatedSelectedTransactionsIds = selectedTransactionsIds.filter(
-        (cId) => cId !== id
-      );
+      updatedSelectedTransactionsIds = selectedTransactionsIds.filter((cId) => cId !== id);
     } else {
       updatedSelectedTransactionsIds = [...selectedTransactionsIds, id];
     }

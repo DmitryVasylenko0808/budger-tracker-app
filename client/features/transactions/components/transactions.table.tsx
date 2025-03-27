@@ -1,5 +1,6 @@
-import { PropsWithChildren } from "react";
-import { cn } from "@/utils/cn";
+import { PropsWithChildren } from 'react';
+
+import { cn } from '@/utils/cn';
 
 type BaseTransactionTableProps = PropsWithChildren & {
   isFetching?: boolean;
@@ -10,21 +11,19 @@ type SelectableTransactionTableProps = BaseTransactionTableProps & {
   onSelectAll: () => void;
 };
 
-type TransactionsTableProps =
-  | BaseTransactionTableProps
-  | SelectableTransactionTableProps;
+type TransactionsTableProps = BaseTransactionTableProps | SelectableTransactionTableProps;
 
 export const TransactionsTable = ({
   isFetching,
   children,
   ...props
 }: Readonly<TransactionsTableProps>) => {
-  const isSelectable = "selectedAll" in props && "onSelectAll" in props;
+  const isSelectable = 'selectedAll' in props && 'onSelectAll' in props;
 
   return (
     <table
-      className={cn("w-full table-fixed border border-gray-100/25", {
-        "opacity-50": isFetching === true,
+      className={cn('w-full table-fixed border border-gray-100/25', {
+        'opacity-50': isFetching === true,
       })}
     >
       <thead className="border-b border-gray-100/25">

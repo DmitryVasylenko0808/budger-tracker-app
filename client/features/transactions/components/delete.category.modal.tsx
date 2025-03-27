@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { Button, Loader } from "@/shared/ui";
-import { Modal, ModalProps } from "@/shared/ui/modal";
-import { useEffect } from "react";
-import { useDeleteCategory } from "../hooks";
+import { useEffect } from 'react';
+
+import { Button, Loader } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { useDeleteCategory } from '../hooks';
 
 type DeleteCategoryModalProps = ModalProps & {
   category: Category;
@@ -27,19 +29,14 @@ export const DeleteCategoryModal = ({
 
   return (
     <Modal title="Delete Category" onClose={onClose} {...modalProps}>
-      <h4 className="mb-4 text-black font-semibold">{`Do you really want to delete the category "${category.name}"?`}</h4>
+      <h4 className="mb-4 font-semibold text-black">{`Do you really want to delete the category "${category.name}"?`}</h4>
       <p className="mb-8 text-gray-200">
-        If you delete the category, all transactions related to this category
-        will be permanently deleted.
+        If you delete the category, all transactions related to this category will be permanently
+        deleted.
       </p>
       <div className="flex justify-end">
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={onDelete}
-          disabled={isPending}
-        >
-          {isPending ? <Loader variant="secondary" /> : "Delete"}
+        <Button variant="primary" size="lg" onClick={onDelete} disabled={isPending}>
+          {isPending ? <Loader variant="secondary" /> : 'Delete'}
         </Button>
       </div>
     </Modal>

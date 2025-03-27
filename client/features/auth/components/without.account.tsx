@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export const WithoutAccount = () => {
   return (
-    <p className="text-center text-gray-200 font-normal">
-      Don't have an account?{" "}
+    <p className="text-center font-normal text-gray-200">
+      Don't have an account?{' '}
       <span>
-        <Link href="/sign-up" className="text-primary-100 font-semibold">
+        <Link href="/sign-up" className="font-semibold text-primary-100">
           Sign Up
         </Link>
       </span>

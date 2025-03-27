@@ -1,5 +1,6 @@
-import { Button, Select } from "@/shared/ui";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import { Button, Select } from '@/shared/ui';
 
 type TransactionsPaginationPanelProps = {
   page: number;
@@ -29,11 +30,7 @@ export const TransactionsPaginationPanel = ({
           <span className="font-semibold">
             {page}/{totalPages}
           </span>
-          <Button
-            variant="text"
-            onClick={onClickNextPage}
-            disabled={page >= totalPages}
-          >
+          <Button variant="text" onClick={onClickNextPage} disabled={page >= totalPages}>
             <ChevronRight size={20} />
           </Button>
         </div>
@@ -44,9 +41,9 @@ export const TransactionsPaginationPanel = ({
         <Select
           className="w-20"
           options={[
-            { id: "1", value: 20, title: "20" },
-            { id: "2", value: 30, title: "30" },
-            { id: "3", value: 50, title: "50" },
+            { id: '1', value: 20, title: '20' },
+            { id: '2', value: 30, title: '30' },
+            { id: '3', value: 50, title: '50' },
           ]}
           onChange={onSelectLimit}
           value={limit}

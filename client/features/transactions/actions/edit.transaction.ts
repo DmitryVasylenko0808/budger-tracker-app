@@ -1,19 +1,14 @@
-import { z } from "zod";
-import { editTransaction } from "../api";
+import { z } from 'zod';
+
+import { editTransaction } from '../api';
 
 const editTransactionSchema = z.object({
-  name: z.string().min(1, "Name is required").trim(),
-  amount: z.preprocess(
-    (val) => Number(val),
-    z.number().gt(0, "Amount must be greater than 0")
-  ),
-  categoryId: z.preprocess(
-    (val) => Number(val),
-    z.number({ message: "Invalid category" })
-  ),
+  name: z.string().min(1, 'Name is required').trim(),
+  amount: z.preprocess((val) => Number(val), z.number().gt(0, 'Amount must be greater than 0')),
+  categoryId: z.preprocess((val) => Number(val), z.number({ message: 'Invalid category' })),
   createdAt: z.preprocess(
     (val) => new Date(val as string),
-    z.date({ message: "Date is required" })
+    z.date({ message: 'Date is required' })
   ),
   notes: z.string().trim().optional(),
 });
@@ -36,11 +31,11 @@ export const editTransactionAction = async (
   formData: FormData
 ): Promise<EditTransactionState> => {
   const validatedFields = editTransactionSchema.safeParse({
-    name: formData.get("name"),
-    amount: formData.get("amount"),
-    categoryId: formData.get("categoryId"),
-    createdAt: formData.get("createdAt"),
-    notes: formData.get("notes"),
+    name: formData.get('name'),
+    amount: formData.get('amount'),
+    categoryId: formData.get('categoryId'),
+    createdAt: formData.get('createdAt'),
+    notes: formData.get('notes'),
   });
 
   if (!validatedFields.success) {

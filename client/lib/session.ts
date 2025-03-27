@@ -1,7 +1,9 @@
-import "server-only";
-import { cookies } from "next/headers";
-import { cache } from "react";
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import 'server-only';
+
+import { cache } from 'react';
+
+import { cookies } from 'next/headers';
 
 type JWTPayload = JwtPayload & { userId: string };
 
@@ -11,11 +13,11 @@ export const createSession = async (access_token: string) => {
   const expirationDate = currentDate.setDate(currentDate.getDate() + 30);
 
   cookieStore.set({
-    name: "access_token",
+    name: 'access_token',
     value: access_token,
     secure: true,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: 'lax',
     expires: expirationDate,
   });
 };
@@ -23,19 +25,19 @@ export const createSession = async (access_token: string) => {
 export const deleteSession = async () => {
   const cookieStore = await cookies();
 
-  cookieStore.delete("access_token");
+  cookieStore.delete('access_token');
 };
 
 export const getSession = cache(async () => {
   const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value;
+  const access_token = cookieStore.get('access_token')?.value;
 
   return access_token;
 });
 
 export const verifySession = cache(async () => {
   const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value;
+  const access_token = cookieStore.get('access_token')?.value;
 
   if (!access_token) {
     return null;

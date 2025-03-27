@@ -1,5 +1,3 @@
 export const BreakdownItemSkeleton = () => {
-  return (
-    <div className="flex-1 h-[480px] bg-gray-100/15 rounded-lg animate-pulse" />
-  );
+  return <div className="h-[480px] flex-1 animate-pulse rounded-lg bg-gray-100/15" />;
 };

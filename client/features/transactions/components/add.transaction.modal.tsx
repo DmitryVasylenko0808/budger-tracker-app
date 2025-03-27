@@ -1,25 +1,19 @@
-import { Modal, ModalProps } from "@/shared/ui/modal";
-import {
-  Button,
-  Loader,
-  RadioGroup,
-  Select,
-  TextArea,
-  TextField,
-} from "@/shared/ui";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useAddTransaction } from "../hooks";
-import { getCategories } from "../api";
+import { useQuery } from '@tanstack/react-query';
+
+import { useState } from 'react';
+
+import { Button, Loader, RadioGroup, Select, TextArea, TextField } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { getCategories } from '../api';
+import { useAddTransaction } from '../hooks';
 
 type AddTransactionModalProps = ModalProps;
 
-export const AddTransactionModal = ({
-  ...modalProps
-}: Readonly<AddTransactionModalProps>) => {
-  const [currentType, setCurrentType] = useState<TransactionType>("INCOME");
+export const AddTransactionModal = ({ ...modalProps }: Readonly<AddTransactionModalProps>) => {
+  const [currentType, setCurrentType] = useState<TransactionType>('INCOME');
   const { data: categories } = useQuery<Category[]>({
-    queryKey: ["categories", currentType],
+    queryKey: ['categories', currentType],
     queryFn: () => getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
@@ -41,12 +35,7 @@ export const AddTransactionModal = ({
   return (
     <Modal title="Add Transaction" {...modalProps}>
       <form action={onAdd}>
-        <TextField
-          label="Name"
-          name="name"
-          error={state?.errors?.name?.[0]}
-          className="mb-6"
-        />
+        <TextField label="Name" name="name" error={state?.errors?.name?.[0]} className="mb-6" />
         <TextField
           label="Amount"
           type="number"
@@ -58,8 +47,8 @@ export const AddTransactionModal = ({
           label="Type"
           name="type"
           items={[
-            { value: "INCOME", label: "Income" },
-            { value: "EXPENSE", label: "Expense" },
+            { value: 'INCOME', label: 'Income' },
+            { value: 'EXPENSE', label: 'Expense' },
           ]}
           value={currentType}
           onChange={handleChangeType}
@@ -84,13 +73,8 @@ export const AddTransactionModal = ({
           <p className="mb-8 text-center text-sm text-error">Server error</p>
         )}
         <div className="flex justify-end">
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            disabled={isPending}
-          >
-            {isPending ? <Loader variant="secondary" size="sm" /> : "Add"}
+          <Button type="submit" variant="primary" size="lg" disabled={isPending}>
+            {isPending ? <Loader variant="secondary" size="sm" /> : 'Add'}
           </Button>
         </div>
       </form>

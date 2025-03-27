@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Bar,
@@ -9,15 +9,13 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts";
+} from 'recharts';
 
 type IncomeExpenseChartProps = {
   data: any[];
 };
 
-export const IncomeExpenseChart = ({
-  data,
-}: Readonly<IncomeExpenseChartProps>) => {
+export const IncomeExpenseChart = ({ data }: Readonly<IncomeExpenseChartProps>) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} width={500} height={500}>
@@ -25,7 +23,7 @@ export const IncomeExpenseChart = ({
           dataKey="name"
           interval="equidistantPreserveStart"
           tick={{
-            stroke: "#808080",
+            stroke: '#808080',
             strokeWidth: 0.1,
             fontSize: 11,
           }}
@@ -34,7 +32,7 @@ export const IncomeExpenseChart = ({
           axisLine={false}
           tickLine={false}
           tick={{
-            stroke: "#808080",
+            stroke: '#808080',
             strokeWidth: 0.1,
             fontSize: 11,
           }}
@@ -45,7 +43,7 @@ export const IncomeExpenseChart = ({
           align="left"
           verticalAlign="top"
           formatter={(value: string) => (
-            <span className="text-gray-100 text-xs font-normal">{value}</span>
+            <span className="text-xs font-normal text-gray-100">{value}</span>
           )}
           height={50}
         />

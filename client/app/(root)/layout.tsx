@@ -1,17 +1,20 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "@/shared/components";
-import "../globals.css";
-import { ReactQueryProvider } from "@/providers/react.query.provider";
+import { ReactQueryProvider } from '@/providers/react.query.provider';
+import type { Metadata } from 'next';
+
+import { Inter } from 'next/font/google';
+
+import { Header } from '@/shared/components';
+
+import '../globals.css';
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Budget Tracker",
-    template: "%s | Budget Tracker",
+    default: 'Budget Tracker',
+    template: '%s | Budget Tracker',
   },
 };
 

@@ -1,8 +1,8 @@
-import { getAccessToken } from "@/features/auth/actions/get.access.token";
-import axios from "axios";
+import { getAccessToken } from '@/features/auth/actions/get.access.token';
+import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: 'http://localhost:3000/api',
 });
 
 instance.interceptors.request.use(async (cfg) => {

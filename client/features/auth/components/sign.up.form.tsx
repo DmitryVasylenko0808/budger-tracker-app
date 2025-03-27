@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import { useActionState } from "react";
-import { signUpAction } from "../actions/sign.up";
-import { TextField, Button, Loader } from "@/shared/ui";
+import { useActionState } from 'react';
+
+import { Button, Loader, TextField } from '@/shared/ui';
+
+import { signUpAction } from '../actions/sign.up';
 
 export const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(signUpAction, null);
@@ -10,12 +12,7 @@ export const SignUpForm = () => {
   return (
     <form action={formAction}>
       <h1 className="mb-12 text-center text-2xl font-semibold">Registration</h1>
-      <TextField
-        label="Name"
-        className="mb-6"
-        name="name"
-        error={state?.errors?.name?.[0]}
-      />
+      <TextField label="Name" className="mb-6" name="name" error={state?.errors?.name?.[0]} />
       <TextField
         label="Email"
         type="email"
@@ -39,19 +36,11 @@ export const SignUpForm = () => {
       />
 
       {state?.errors?.server && (
-        <p className="mb-8 text-center text-sm text-error">
-          {state.errors.server}
-        </p>
+        <p className="mb-8 text-center text-sm text-error">{state.errors.server}</p>
       )}
 
-      <Button
-        className="mb-5"
-        variant="primary"
-        size="lg"
-        disabled={isPending}
-        fullWidth
-      >
-        {isPending ? <Loader variant="secondary" /> : "Sign Up"}
+      <Button className="mb-5" variant="primary" size="lg" disabled={isPending} fullWidth>
+        {isPending ? <Loader variant="secondary" /> : 'Sign Up'}
       </Button>
     </form>
   );

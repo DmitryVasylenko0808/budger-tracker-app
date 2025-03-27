@@ -1,19 +1,15 @@
-import { useState, useTransition } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import {
-  deleteTransactionAction,
-  DeleteTransactionState,
-} from "../actions/delete.transaction";
+import { useQueryClient } from '@tanstack/react-query';
+
+import { useState, useTransition } from 'react';
+
+import { deleteTransactionAction, DeleteTransactionState } from '../actions/delete.transaction';
 
 type useDeleteTransactionsParams = {
   ids: number[];
   onSuccess?: () => void;
 };
 
-export const useDeleteTransactions = ({
-  ids,
-  onSuccess,
-}: useDeleteTransactionsParams) => {
+export const useDeleteTransactions = ({ ids, onSuccess }: useDeleteTransactionsParams) => {
   const [state, setState] = useState<DeleteTransactionState>(null);
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
@@ -30,9 +26,7 @@ export const useDeleteTransactions = ({
       }
 
       setState(res);
-      queryClient
-        .invalidateQueries({ queryKey: ["transactions"] })
-        .then(() => onSuccess?.());
+      queryClient.invalidateQueries({ queryKey: ['transactions'] }).then(() => onSuccess?.());
     });
 
   return { state, onDelete: handleClick, isPending };

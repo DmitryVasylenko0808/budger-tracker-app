@@ -1,20 +1,14 @@
-"use client";
+'use client';
 
-import { cn } from "@/utils/cn";
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-type ContainerProps = Readonly<ComponentProps<"div">>;
+import { cn } from '@/utils/cn';
 
-export const Container = ({
-  children,
-  className,
-  ...otherProps
-}: ContainerProps) => {
+type ContainerProps = Readonly<ComponentProps<'div'>>;
+
+export const Container = ({ children, className, ...otherProps }: ContainerProps) => {
   return (
-    <div
-      className={cn("mx-auto h-full max-w-container px-8", className)}
-      {...otherProps}
-    >
+    <div className={cn('mx-auto h-full max-w-container px-8', className)} {...otherProps}>
       {children}
     </div>
   );

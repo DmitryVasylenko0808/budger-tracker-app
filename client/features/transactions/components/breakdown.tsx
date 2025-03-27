@@ -1,5 +1,6 @@
-import { Container } from "@/shared/ui";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
+
+import { Container } from '@/shared/ui';
 
 type BreakdownProps = PropsWithChildren;
 

@@ -1,9 +1,12 @@
-"use client";
+'use client';
 
-import { useActionState } from "react";
-import { signInAction } from "../actions/sign.in";
-import { TextField, Button, Loader } from "@/shared/ui";
-import Link from "next/link";
+import { useActionState } from 'react';
+
+import Link from 'next/link';
+
+import { Button, Loader, TextField } from '@/shared/ui';
+
+import { signInAction } from '../actions/sign.in';
 
 export const SignInForm = () => {
   const [state, formAction, isPending] = useActionState(signInAction, null);
@@ -27,9 +30,7 @@ export const SignInForm = () => {
       />
 
       {state?.errors?.server && (
-        <p className="mb-8 text-center text-sm text-error">
-          {state.errors.server}
-        </p>
+        <p className="mb-8 text-center text-sm text-error">{state.errors.server}</p>
       )}
 
       <div className="mb-6 flex justify-center">
@@ -38,14 +39,8 @@ export const SignInForm = () => {
         </Link>
       </div>
 
-      <Button
-        className="mb-5"
-        variant="primary"
-        size="lg"
-        disabled={isPending}
-        fullWidth
-      >
-        {isPending ? <Loader variant="secondary" /> : "Sign In"}
+      <Button className="mb-5" variant="primary" size="lg" disabled={isPending} fullWidth>
+        {isPending ? <Loader variant="secondary" /> : 'Sign In'}
       </Button>
     </form>
   );

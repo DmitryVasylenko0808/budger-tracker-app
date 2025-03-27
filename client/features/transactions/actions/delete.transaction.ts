@@ -1,4 +1,4 @@
-import { deleteTransacitons } from "../api";
+import { deleteTransacitons } from '../api';
 
 export type DeleteTransactionState = {
   errors?: {
@@ -7,9 +7,7 @@ export type DeleteTransactionState = {
   success?: boolean;
 } | null;
 
-export const deleteTransactionAction = async (
-  ids: number[]
-): Promise<DeleteTransactionState> => {
+export const deleteTransactionAction = async (ids: number[]): Promise<DeleteTransactionState> => {
   const res = await deleteTransacitons({ ids });
 
   if (res?.error) {

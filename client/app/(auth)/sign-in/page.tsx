@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
-import {
-  SignInForm,
-  SocialsSignIn,
-  WithoutAccount,
-} from "@/features/auth/components";
+import { SignInForm, SocialsSignIn, WithoutAccount } from '@/features/auth/components';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Sign In",
+  title: 'Sign In',
 };
 
 export default async function SignInPage() {

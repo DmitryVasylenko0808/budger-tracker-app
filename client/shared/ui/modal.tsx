@@ -1,9 +1,11 @@
-import { ComponentProps } from "react";
-import { Button } from "./button";
-import { X } from "lucide-react";
-import { Portal } from "./portal";
+import { X } from 'lucide-react';
 
-export type ModalProps = ComponentProps<"div"> & {
+import { ComponentProps } from 'react';
+
+import { Button } from './button';
+import { Portal } from './portal';
+
+export type ModalProps = ComponentProps<'div'> & {
   open: boolean;
   title?: string;
 
@@ -17,8 +19,8 @@ export const Modal = ({ children, open, title, onClose }: ModalProps) => {
 
   return (
     <Portal targetId="modals-root">
-      <div className="fixed top-0 left-0 z-50 w-full min-h-screen flex items-center justify-center bg-black/30">
-        <div className="w-modal max-h-modal p-5 bg-white rounded-lg shadow-xl overflow-auto">
+      <div className="fixed left-0 top-0 z-50 flex min-h-screen w-full items-center justify-center bg-black/30">
+        <div className="max-h-modal w-modal overflow-auto rounded-lg bg-white p-5 shadow-xl">
           <div className="mb-7 flex items-center">
             <h3 className="flex-1 text-lg font-semibold">{title}</h3>
             <Button variant="text" onClick={onClose}>

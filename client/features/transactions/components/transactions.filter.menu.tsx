@@ -1,10 +1,13 @@
-"use client";
+'use client';
 
-import { ListFilter } from "lucide-react";
-import { Button, Menu } from "@/shared/ui";
-import { useToggleMenu } from "@/hooks";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getCategories } from "../api";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { ListFilter } from 'lucide-react';
+
+import { useToggleMenu } from '@/hooks';
+
+import { Button, Menu } from '@/shared/ui';
+
+import { getCategories } from '../api';
 
 type TransactionsFilterMenuProps = {
   selectedCategoryIds: number[];
@@ -17,7 +20,7 @@ export const TransactionsFilterMenu = ({
 }: Readonly<TransactionsFilterMenuProps>) => {
   const { open, ref, onToggle } = useToggleMenu();
   const { data: categories } = useQuery<Category[]>({
-    queryKey: ["categories"],
+    queryKey: ['categories'],
     queryFn: () => getCategories({}),
     placeholderData: keepPreviousData,
   });
@@ -28,13 +31,13 @@ export const TransactionsFilterMenu = ({
         <Button variant="filled" className="relative" onClick={onToggle}>
           <ListFilter size={20} />
           {!!selectedCategoryIds.length && (
-            <span className="absolute top-0 right-0 z-10 w-2 h-2 bg-primary-100 rounded-full" />
+            <span className="absolute right-0 top-0 z-10 h-2 w-2 rounded-full bg-primary-100" />
           )}
         </Button>
       }
       content={
-        <div className="min-w-48 max-h-64 p-2 overflow-auto">
-          <h4 className="mb-3 text-black font-semibold">Categories:</h4>
+        <div className="max-h-64 min-w-48 overflow-auto p-2">
+          <h4 className="mb-3 font-semibold text-black">Categories:</h4>
           <ul className="flex flex-col space-y-3">
             {categories?.map((c) => (
               <li className="flex" key={c.id}>

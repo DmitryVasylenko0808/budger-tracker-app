@@ -1,18 +1,14 @@
-"use client";
+'use client';
 
-import { Modal, ModalProps } from "@/shared/ui/modal";
-import {
-  Button,
-  Loader,
-  RadioGroup,
-  Select,
-  TextArea,
-  TextField,
-} from "@/shared/ui";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useEditTransaction } from "../hooks";
-import { getCategories, getOneTransaction } from "../api";
+import { useQuery } from '@tanstack/react-query';
+
+import { useEffect, useState } from 'react';
+
+import { Button, Loader, RadioGroup, Select, TextArea, TextField } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { getCategories, getOneTransaction } from '../api';
+import { useEditTransaction } from '../hooks';
 
 type EditTransactionModalProps = ModalProps & { transactionId: number };
 
@@ -20,16 +16,16 @@ export const EditTransactionModal = ({
   transactionId,
   ...modalProps
 }: Readonly<EditTransactionModalProps>) => {
-  const [currentType, setCurrentType] = useState<TransactionType>("INCOME");
+  const [currentType, setCurrentType] = useState<TransactionType>('INCOME');
   const [currentCategory, setCurrentCategory] = useState(0);
 
   const { data: transaction, isLoading } = useQuery<Transaction>({
-    queryKey: ["transactions", transactionId],
+    queryKey: ['transactions', transactionId],
     queryFn: () => getOneTransaction({ id: transactionId }),
     enabled: !!modalProps.open,
   });
   const { data: categories } = useQuery<Category[]>({
-    queryKey: ["categories", currentType],
+    queryKey: ['categories', currentType],
     queryFn: () => getCategories({ type: currentType }),
     enabled: !!modalProps.open,
   });
@@ -64,7 +60,7 @@ export const EditTransactionModal = ({
 
   if (isLoading) {
     <Modal title="Edit Transaction" {...modalProps}>
-      <div className="h-56 justify-center items-center">
+      <div className="h-56 items-center justify-center">
         <Loader variant="primary" size="lg" />
       </div>
     </Modal>;
@@ -92,8 +88,8 @@ export const EditTransactionModal = ({
           label="Type"
           name="type"
           items={[
-            { value: "INCOME", label: "Income" },
-            { value: "EXPENSE", label: "Expense" },
+            { value: 'INCOME', label: 'Income' },
+            { value: 'EXPENSE', label: 'Expense' },
           ]}
           value={currentType}
           onChange={handleChangeType}
@@ -115,23 +111,13 @@ export const EditTransactionModal = ({
           defaultValue={formattedDate}
           className="mb-6"
         />
-        <TextArea
-          label="Notes"
-          name="notes"
-          defaultValue={transaction?.notes}
-          className="mb-6"
-        />
+        <TextArea label="Notes" name="notes" defaultValue={transaction?.notes} className="mb-6" />
         {state?.errors?.server && (
           <p className="mb-8 text-center text-sm text-error">Server error</p>
         )}
         <div className="flex justify-end">
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            disabled={isPending}
-          >
-            {isPending ? <Loader variant="secondary" size="sm" /> : "Edit"}
+          <Button type="submit" variant="primary" size="lg" disabled={isPending}>
+            {isPending ? <Loader variant="secondary" size="sm" /> : 'Edit'}
           </Button>
         </div>
       </form>

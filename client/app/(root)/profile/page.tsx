@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
-import { getUser } from "@/features/user/api";
-import { verifySession } from "@/lib/session";
-import { UserProfile } from "@/features/user/components";
+import { getUser } from '@/features/user/api';
+import { UserProfile } from '@/features/user/components';
+import type { Metadata } from 'next';
+
+import { notFound, redirect } from 'next/navigation';
+
+import { verifySession } from '@/lib/session';
 
 export const metadata: Metadata = {
-  title: "Profile",
+  title: 'Profile',
 };
 
 export default async function ProfilePage() {
@@ -17,7 +19,7 @@ export default async function ProfilePage() {
   }
 
   if (data.statusCode === 401) {
-    redirect("/sign-in");
+    redirect('/sign-in');
   }
 
   return <UserProfile user={data} />;

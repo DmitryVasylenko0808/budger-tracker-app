@@ -1,5 +1,5 @@
-import { Logo } from "./logo";
-import { Header } from "./header";
-import { NavBar } from "./navbar";
+import { Header } from './header';
+import { Logo } from './logo';
+import { NavBar } from './navbar';
 
 export { Logo, Header, NavBar };

@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { resendConfirmationEmail } from "../api";
+import { resendConfirmationEmail } from '../api';
 
 type ResendConfirmationEmailState = {
   success: boolean;
@@ -13,7 +13,7 @@ export const resendConfirmationEmailAction = async (
   if (!email) {
     return {
       success: false,
-      error: "Invalid email",
+      error: 'Invalid email',
     };
   }
 

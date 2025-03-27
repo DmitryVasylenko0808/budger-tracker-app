@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
-import {
-  SignUpForm,
-  SocialsSignIn,
-  WithAccount,
-} from "@/features/auth/components";
+import { SignUpForm, SocialsSignIn, WithAccount } from '@/features/auth/components';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Sign Up",
+  title: 'Sign Up',
 };
 
 export default function SignUpPage() {

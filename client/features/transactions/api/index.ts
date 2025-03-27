@@ -1,5 +1,6 @@
-import { instance } from "@/lib/instance";
-import axios from "axios";
+import axios from 'axios';
+
+import { instance } from '@/lib/instance';
 
 type GetCategoriesParams = {
   type?: TransactionType;
@@ -75,7 +76,7 @@ export const getCategories = async (params: GetCategoriesParams) => {
   const { type, search } = params;
 
   try {
-    const res = await instance.get("/categories", {
+    const res = await instance.get('/categories', {
       params: {
         type,
         search,
@@ -102,9 +103,7 @@ export const getOneCategory = async (params: GetOneCategoryParams) => {
   }
 };
 
-export const getTransactionsByCategory = async (
-  params: GetTransactionsByCategoryParams
-) => {
+export const getTransactionsByCategory = async (params: GetTransactionsByCategoryParams) => {
   try {
     const { id, page, limit } = params;
 
@@ -122,7 +121,7 @@ export const getTransactionsByCategory = async (
 
 export const addCategory = async (params: AddCategoryParams) => {
   try {
-    const res = await instance.post("/categories", params);
+    const res = await instance.post('/categories', params);
 
     return res.data;
   } catch (err) {
@@ -163,8 +162,7 @@ export const getTransactions = async (params: GetTransactionsParams) => {
     const res = await instance.get<TransactionPagination>(`/transactions`, {
       params: {
         ...params,
-        category_ids:
-          params.category_ids?.map((item) => item.toString()).join(",") || null,
+        category_ids: params.category_ids?.map((item) => item.toString()).join(',') || null,
       },
     });
 
@@ -190,7 +188,7 @@ export const getOneTransaction = async (params: GetOneTransactionParams) => {
 
 export const createTransaction = async (params: CreateTransactionParams) => {
   try {
-    const res = await instance.post("/transactions", params);
+    const res = await instance.post('/transactions', params);
 
     return res.data;
   } catch (err) {
@@ -216,9 +214,9 @@ export const editTransaction = async (params: EditTransactionParams) => {
 
 export const deleteTransacitons = async (params: DeleteTransactionsParama) => {
   try {
-    const ids = params.ids.map((id) => id.toString()).join(",");
+    const ids = params.ids.map((id) => id.toString()).join(',');
 
-    const res = await instance.delete("/transactions", {
+    const res = await instance.delete('/transactions', {
       params: {
         ids,
       },
@@ -271,10 +269,9 @@ export const getBreakdown = async (params: GetBreakdownParams) => {
 export const exportTransactions = async (params: GetExportParams) => {
   try {
     const res = await instance.get(`/export/transactions`, {
-      responseType: "blob",
+      responseType: 'blob',
       params: {
-        category_ids:
-          params.categoryIds.map((item) => item.toString()).join(",") || null,
+        category_ids: params.categoryIds.map((item) => item.toString()).join(',') || null,
       },
     });
 

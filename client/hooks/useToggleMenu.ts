@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
-import { useClickOutside } from "./useClickOutside";
+import { useRef, useState } from 'react';
+
+import { useClickOutside } from './useClickOutside';
 
 export const useToggleMenu = () => {
   const [open, setOpen] = useState(false);

@@ -1,5 +1,5 @@
-import { Account } from "./account";
-import { UserProfile } from "./user.profile";
-import { EditProfileModal } from "./edit.profile.modal";
+import { Account } from './account';
+import { EditProfileModal } from './edit.profile.modal';
+import { UserProfile } from './user.profile';
 
 export { Account, UserProfile, EditProfileModal };

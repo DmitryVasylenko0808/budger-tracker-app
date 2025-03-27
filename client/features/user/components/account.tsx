@@ -1,10 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { Button, Menu } from "@/shared/ui";
-import { useRouter } from "next/navigation";
-import { useToggleMenu } from "@/hooks";
-import { logOut } from "@/features/auth/actions/log.out";
+import { logOut } from '@/features/auth/actions/log.out';
+
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { useToggleMenu } from '@/hooks';
+
+import { Button, Menu } from '@/shared/ui';
 
 type AccountProps = Readonly<{
   user: User;
@@ -14,7 +17,7 @@ export const Account = ({ user }: AccountProps) => {
   const router = useRouter();
   const { open, ref, onToggle } = useToggleMenu();
 
-  const handleClickMyProfile = () => router.push("/profile");
+  const handleClickMyProfile = () => router.push('/profile');
   const handleClickLogOut = () => logOut();
 
   return (
@@ -26,7 +29,7 @@ export const Account = ({ user }: AccountProps) => {
               width={32}
               height={32}
               src={user.avatar}
-              className="w-8 h-8 rounded-full duration-100 hover:w-9 hover:h-9"
+              className="h-8 w-8 rounded-full duration-100 hover:h-9 hover:w-9"
               alt="avatar"
             />
           </Button>

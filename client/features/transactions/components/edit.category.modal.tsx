@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { Button, Loader, TextField } from "@/shared/ui";
-import { Modal, ModalProps } from "@/shared/ui/modal";
-import { useEffect } from "react";
-import { useEditCategory } from "../hooks";
+import { useEffect } from 'react';
+
+import { Button, Loader, TextField } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { useEditCategory } from '../hooks';
 
 type EditCategoryModalProps = ModalProps & {
   category: Category;
@@ -36,18 +38,11 @@ export const EditCategoryModal = ({
           className="mb-6"
         />
         {state?.errors?.server && (
-          <p className="mb-8 text-center text-sm text-error">
-            {state.errors.server}
-          </p>
+          <p className="mb-8 text-center text-sm text-error">{state.errors.server}</p>
         )}
         <div className="flex justify-end">
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            disabled={isPending}
-          >
-            {isPending ? <Loader variant="secondary" /> : "Edit"}
+          <Button type="submit" variant="primary" size="lg" disabled={isPending}>
+            {isPending ? <Loader variant="secondary" /> : 'Edit'}
           </Button>
         </div>
       </form>

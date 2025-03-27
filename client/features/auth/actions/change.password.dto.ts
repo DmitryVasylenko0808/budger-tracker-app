@@ -1,22 +1,17 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { changePassword } from "../api";
+import { z } from 'zod';
+
+import { changePassword } from '../api';
 
 const changePasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, "Password must contain at least 8 characters")
-      .trim(),
-    confirmPassword: z
-      .string()
-      .min(8, "Password must contain at least 8 characters")
-      .trim(),
+    password: z.string().min(8, 'Password must contain at least 8 characters').trim(),
+    confirmPassword: z.string().min(8, 'Password must contain at least 8 characters').trim(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
+    path: ['confirmPassword'],
   });
 
 type ChangePasswordState = {
@@ -36,12 +31,12 @@ export const changePasswordAction = async (
   formData: FormData
 ): Promise<ChangePasswordState> => {
   if (!token) {
-    return { invalidToken: true, success: false, message: "Invalid token" };
+    return { invalidToken: true, success: false, message: 'Invalid token' };
   }
 
   const validatedFields = changePasswordSchema.safeParse({
-    password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword'),
   });
 
   if (!validatedFields.success) {
@@ -66,6 +61,6 @@ export const changePasswordAction = async (
 
   return {
     success: true,
-    message: "Your password has been successfully changed",
+    message: 'Your password has been successfully changed',
   };
 };

@@ -1,7 +1,8 @@
-import { Container } from "@/shared/ui";
-import { DashboardBlock } from "./dashboard.block";
-import { IncomeExpenseChart } from "./income.expense.chart";
-import { getMonthly } from "../api";
+import { Container } from '@/shared/ui';
+
+import { getMonthly } from '../api';
+import { DashboardBlock } from './dashboard.block';
+import { IncomeExpenseChart } from './income.expense.chart';
 
 export const IncomeExpenseReport = async () => {
   const data = await getMonthly();
@@ -13,9 +14,9 @@ export const IncomeExpenseReport = async () => {
       <Container>
         <DashboardBlock>
           <h2 className="mb-3 text-2xl font-semibold">Income & Expenses</h2>
-          <div className="w-full h-[480px] flex flex-col justify-center">
+          <div className="flex h-[480px] w-full flex-col justify-center">
             {isNoData ? (
-              <p className="text-center text-gray-200 text-lg">No Data</p>
+              <p className="text-center text-lg text-gray-200">No Data</p>
             ) : (
               <IncomeExpenseChart data={data} />
             )}

@@ -1,10 +1,11 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { resetPassword } from "../api";
+import { z } from 'zod';
+
+import { resetPassword } from '../api';
 
 const resetPasswordSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email").trim(),
+  email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
 });
 
 export type ResetPasswordState = {
@@ -21,7 +22,7 @@ export const resetPasswordAction = async (
   formData: FormData
 ): Promise<ResetPasswordState> => {
   const validatedFields = resetPasswordSchema.safeParse({
-    email: formData.get("email"),
+    email: formData.get('email'),
   });
 
   if (!validatedFields.success) {

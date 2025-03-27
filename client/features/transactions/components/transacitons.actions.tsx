@@ -1,11 +1,14 @@
-"use client";
+'use client';
 
-import { Button } from "@/shared/ui";
-import { Pencil, Plus, Trash } from "lucide-react";
-import { AddTransactionModal } from "./add.transaction.modal";
-import { EditTransactionModal } from "./edit.transaction.modal";
-import { DeleteTransactionsModal } from "./delete.transaction.modal";
-import { useModal } from "@/hooks";
+import { Pencil, Plus, Trash } from 'lucide-react';
+
+import { useModal } from '@/hooks';
+
+import { Button } from '@/shared/ui';
+
+import { AddTransactionModal } from './add.transaction.modal';
+import { DeleteTransactionsModal } from './delete.transaction.modal';
+import { EditTransactionModal } from './edit.transaction.modal';
 
 type TransactionsActionsProps = {
   selectedTransactionsIds: number[];

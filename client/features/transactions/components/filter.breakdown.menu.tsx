@@ -1,9 +1,12 @@
-"use client";
+'use client';
 
-import { useToggleMenu } from "@/hooks";
-import { Button, Menu, TextField } from "@/shared/ui";
-import { ListFilter } from "lucide-react";
-import { DateInterval } from "./breakdown.chart";
+import { ListFilter } from 'lucide-react';
+
+import { useToggleMenu } from '@/hooks';
+
+import { Button, Menu, TextField } from '@/shared/ui';
+
+import { DateInterval } from './breakdown.chart';
 
 type FilterBreakdownMenuProps = {
   filter: DateInterval | null;
@@ -23,10 +26,10 @@ export const FilterBreakdownMenu = ({
   return (
     <Menu
       trigger={
-        <Button variant="filled" className="relative " onClick={onToggle}>
+        <Button variant="filled" className="relative" onClick={onToggle}>
           <ListFilter size={20} />
           {isFiltering && (
-            <span className="absolute top-0 right-0 z-10 w-2 h-2 bg-primary-100 rounded-full" />
+            <span className="absolute right-0 top-0 z-10 h-2 w-2 rounded-full bg-primary-100" />
           )}
         </Button>
       }
@@ -38,22 +41,17 @@ export const FilterBreakdownMenu = ({
               label="From"
               name="from"
               onChange={onChange}
-              value={filter?.from || ""}
+              value={filter?.from || ''}
             />
             <TextField
               type="date"
               label="To"
               name="to"
               onChange={onChange}
-              value={filter?.to || ""}
+              value={filter?.to || ''}
             />
           </div>
-          <Button
-            variant="secondary"
-            className="flex-1"
-            onClick={onClear}
-            fullWidth
-          >
+          <Button variant="secondary" className="flex-1" onClick={onClear} fullWidth>
             Clear
           </Button>
         </div>

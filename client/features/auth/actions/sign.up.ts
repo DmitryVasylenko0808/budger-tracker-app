@@ -1,22 +1,21 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { signUp } from "../api";
-import { redirect } from "next/navigation";
+import { z } from 'zod';
+
+import { redirect } from 'next/navigation';
+
+import { signUp } from '../api';
 
 const signUpSchema = z
   .object({
-    name: z.string().min(2, "Name must contain at least 2 characters").trim(),
-    email: z.string().min(1, "Email is required").email("Invalid email").trim(),
-    password: z
-      .string()
-      .min(8, "Password must contain at least 8 characters")
-      .trim(),
+    name: z.string().min(2, 'Name must contain at least 2 characters').trim(),
+    email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
+    password: z.string().min(8, 'Password must contain at least 8 characters').trim(),
     confirmPassword: z.string().trim(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
+    path: ['confirmPassword'],
   });
 
 type SignUpState = {
@@ -35,10 +34,10 @@ export const signUpAction = async (
   formData: FormData
 ): Promise<SignUpState> => {
   const validatedFields = signUpSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
+    name: formData.get('name'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword'),
   });
 
   if (!validatedFields.success) {

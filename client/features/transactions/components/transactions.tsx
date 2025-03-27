@@ -1,16 +1,19 @@
-"use client";
+'use client';
 
-import { Container, Loader } from "@/shared/ui";
-import { TransactionsTable } from "./transactions.table";
-import { TransactionsTableItem } from "./transactions.table.item";
-import { TransactionsPaginationPanel } from "./transaction.pagination.panel";
-import { TransactionsFilterMenu } from "./transactions.filter.menu";
-import { TransactionsActions } from "./transacitons.actions";
-import { ExportingTransactions } from "./exporting.transactions";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { usePagination } from "@/hooks";
-import { useFilterTransactions, useSelectableTransactions } from "../hooks";
-import { getTransactions } from "../api";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
+import { usePagination } from '@/hooks';
+
+import { Container, Loader } from '@/shared/ui';
+
+import { getTransactions } from '../api';
+import { useFilterTransactions, useSelectableTransactions } from '../hooks';
+import { ExportingTransactions } from './exporting.transactions';
+import { TransactionsActions } from './transacitons.actions';
+import { TransactionsPaginationPanel } from './transaction.pagination.panel';
+import { TransactionsFilterMenu } from './transactions.filter.menu';
+import { TransactionsTable } from './transactions.table';
+import { TransactionsTableItem } from './transactions.table.item';
 
 export const Transactions = () => {
   const { selectedCategoryIds, onSelectCategoryId } = useFilterTransactions();
@@ -21,7 +24,7 @@ export const Transactions = () => {
     isLoading,
     isFetching,
   } = useQuery<TransactionPagination>({
-    queryKey: ["transactions", page, limit, selectedCategoryIds],
+    queryKey: ['transactions', page, limit, selectedCategoryIds],
     queryFn: () =>
       getTransactions({
         page: page,
@@ -30,18 +33,15 @@ export const Transactions = () => {
       }),
     placeholderData: keepPreviousData,
   });
-  const {
-    selectedTransactionsIds,
-    onSelectAllTransactions,
-    onSelectTransactionId,
-  } = useSelectableTransactions({
-    data: transactions?.data,
-    resetDependecies: [page, limit, selectedCategoryIds, transactions],
-  });
+  const { selectedTransactionsIds, onSelectAllTransactions, onSelectTransactionId } =
+    useSelectableTransactions({
+      data: transactions?.data,
+      resetDependecies: [page, limit, selectedCategoryIds, transactions],
+    });
 
   if (isLoading) {
     return (
-      <div className="py-10 flex justify-center">
+      <div className="flex justify-center py-10">
         <Loader variant="primary" size="lg" />
       </div>
     );
@@ -56,9 +56,7 @@ export const Transactions = () => {
             onSelectCategoryId={onSelectCategoryId}
           />
           <ExportingTransactions categoryIds={selectedCategoryIds} />
-          <TransactionsActions
-            selectedTransactionsIds={selectedTransactionsIds}
-          />
+          <TransactionsActions selectedTransactionsIds={selectedTransactionsIds} />
         </div>
         <TransactionsPaginationPanel
           page={page}
@@ -70,9 +68,7 @@ export const Transactions = () => {
         />
         <TransactionsTable
           isFetching={isFetching}
-          selectedAll={
-            selectedTransactionsIds.length === transactions?.data.length
-          }
+          selectedAll={selectedTransactionsIds.length === transactions?.data.length}
           onSelectAll={onSelectAllTransactions}
         >
           {transactions?.data.map((tr) => (

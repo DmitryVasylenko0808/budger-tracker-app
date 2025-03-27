@@ -1,5 +1,6 @@
-import axios from "axios";
-import { instance } from "../../lib/instance";
+import axios from 'axios';
+
+import { instance } from '../../lib/instance';
 
 type GetUserParams = {
   id: number;
@@ -33,7 +34,7 @@ export const editUser = async (params: EditUserParams) => {
   try {
     const res = await instance.patch(`/users/${id}`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
     return res.data;

@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/shared/ui";
-import Image from "next/image";
+import Image from 'next/image';
+
+import { Button } from '@/shared/ui';
 
 export const SocialsSignIn = () => {
   const handleClickGoogleSignIn = () => {
@@ -15,25 +16,15 @@ export const SocialsSignIn = () => {
   return (
     <div className="mb-4 flex flex-col space-y-2">
       <div className="flex items-center">
-        <div className="flex-1 h-[0.5px] bg-gray-100" />
+        <div className="h-[0.5px] flex-1 bg-gray-100" />
         <span className="mx-2 text-gray-100">OR</span>
-        <div className="flex-1 h-[0.5px] bg-gray-100" />
+        <div className="h-[0.5px] flex-1 bg-gray-100" />
       </div>
-      <Button
-        variant="secondary"
-        size="lg"
-        fullWidth
-        onClick={handleClickGoogleSignIn}
-      >
+      <Button variant="secondary" size="lg" fullWidth onClick={handleClickGoogleSignIn}>
         <Image src="/google.svg" alt="google-icon" width={20} height={20} />
         Sign In with Google
       </Button>
-      <Button
-        variant="secondary"
-        size="lg"
-        fullWidth
-        onClick={handleClickGithubSignIn}
-      >
+      <Button variant="secondary" size="lg" fullWidth onClick={handleClickGithubSignIn}>
         <Image src="/github.svg" alt="github-icon" width={20} height={20} />
         Sign In with Github
       </Button>

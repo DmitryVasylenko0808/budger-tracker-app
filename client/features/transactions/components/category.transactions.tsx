@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { Container, Loader } from "@/shared/ui";
-import { TransactionsTable } from "./transactions.table";
-import { TransactionsTableItem } from "./transactions.table.item";
-import { TransactionsPaginationPanel } from "./transaction.pagination.panel";
-import { ExportingTransactions } from "./exporting.transactions";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { usePagination } from "@/hooks";
-import { getTransactionsByCategory } from "../api";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
+import { usePagination } from '@/hooks';
+
+import { Container, Loader } from '@/shared/ui';
+
+import { getTransactionsByCategory } from '../api';
+import { ExportingTransactions } from './exporting.transactions';
+import { TransactionsPaginationPanel } from './transaction.pagination.panel';
+import { TransactionsTable } from './transactions.table';
+import { TransactionsTableItem } from './transactions.table.item';
 
 type CategoryTransactionsProps = {
   categoryId: number;
 };
 
-export const CategoryTransactions = ({
-  categoryId,
-}: Readonly<CategoryTransactionsProps>) => {
-  const { page, limit, onClickPrevPage, onClickNextPage, onChangeLimit } =
-    usePagination();
+export const CategoryTransactions = ({ categoryId }: Readonly<CategoryTransactionsProps>) => {
+  const { page, limit, onClickPrevPage, onClickNextPage, onChangeLimit } = usePagination();
   const {
     data: transactions,
     isLoading,
     isFetching,
     isError,
   } = useQuery<TransactionPagination>({
-    queryKey: ["transactions", categoryId, page, limit],
+    queryKey: ['transactions', categoryId, page, limit],
     queryFn: () =>
       getTransactionsByCategory({
         id: categoryId,
@@ -36,14 +36,14 @@ export const CategoryTransactions = ({
 
   if (isLoading) {
     return (
-      <div className="py-10 flex justify-center">
+      <div className="flex justify-center py-10">
         <Loader variant="primary" size="lg" />
       </div>
     );
   }
 
   if (isError) {
-    alert("Ooops... something went wrong");
+    alert('Ooops... something went wrong');
   }
 
   return (
@@ -63,9 +63,7 @@ export const CategoryTransactions = ({
           />
         </div>
         <TransactionsTable isFetching={isFetching}>
-          {transactions?.data?.map((tr) => (
-            <TransactionsTableItem data={tr} key={tr.id} />
-          ))}
+          {transactions?.data?.map((tr) => <TransactionsTableItem data={tr} key={tr.id} />)}
         </TransactionsTable>
       </Container>
     </section>

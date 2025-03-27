@@ -1,23 +1,24 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import { Cell, Legend, Pie, Tooltip } from "recharts";
-import { FilterBreakdownMenu } from "./filter.breakdown.menu";
-import { BreakdownItemSkeleton } from "./breakdown.item.skeleton";
-import { DashboardBlock } from "./dashboard.block";
-import { PieChartLoading } from "./pie.chart.loading";
-import React, { useState } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getBreakdown } from "../api";
-import { cn } from "@/utils/cn";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { Cell, Legend, Pie, Tooltip } from 'recharts';
 
-const PieChart = dynamic(
-  () => import("recharts").then((recharts) => recharts.PieChart),
-  {
-    ssr: false,
-    loading: () => <PieChartLoading />,
-  }
-);
+import React, { useState } from 'react';
+
+import dynamic from 'next/dynamic';
+
+import { cn } from '@/utils/cn';
+
+import { getBreakdown } from '../api';
+import { BreakdownItemSkeleton } from './breakdown.item.skeleton';
+import { DashboardBlock } from './dashboard.block';
+import { FilterBreakdownMenu } from './filter.breakdown.menu';
+import { PieChartLoading } from './pie.chart.loading';
+
+const PieChart = dynamic(() => import('recharts').then((recharts) => recharts.PieChart), {
+  ssr: false,
+  loading: () => <PieChartLoading />,
+});
 type BreakdownChartProps = {
   type: TransactionType;
 };
@@ -30,7 +31,7 @@ export type DateInterval = {
 export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
   const [fromTo, setFromTo] = useState<DateInterval | null>(null);
   const { data, isLoading, isFetching } = useQuery<BreakdownStats>({
-    queryKey: ["breakdown-chart", fromTo, type],
+    queryKey: ['breakdown-chart', fromTo, type],
     queryFn: () => getBreakdown({ type, ...fromTo }),
     placeholderData: keepPreviousData,
   });
@@ -42,7 +43,7 @@ export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
   };
 
   const isNoData = !data || !data.length;
-  const title = (type === "INCOME" ? "Income" : "Expenses") + " Breakdown";
+  const title = (type === 'INCOME' ? 'Income' : 'Expenses') + ' Breakdown';
 
   if (isLoading) {
     return <BreakdownItemSkeleton />;
@@ -61,13 +62,13 @@ export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
           />
         </div>
         {isNoData ? (
-          <div className="w-full h-[480px] flex justify-center items-center">
-            <p className="text-center text-gray-200 text-lg">No Data</p>
+          <div className="flex h-[480px] w-full items-center justify-center">
+            <p className="text-center text-lg text-gray-200">No Data</p>
           </div>
         ) : (
           <div
-            className={cn("w-full flex justify-center", {
-              "opacity-50": isFetching,
+            className={cn('flex w-full justify-center', {
+              'opacity-50': isFetching,
             })}
           >
             <PieChart width={350} height={350}>
@@ -78,9 +79,7 @@ export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
               />
               <Legend
                 formatter={(value: string) => (
-                  <span className="text-gray-100 text-xs font-normal">
-                    {value}
-                  </span>
+                  <span className="text-xs font-normal text-gray-100">{value}</span>
                 )}
               />
               <Pie
@@ -91,9 +90,7 @@ export const BreakdownChart = ({ type }: Readonly<BreakdownChartProps>) => {
                 innerRadius={55}
                 isAnimationActive={false}
               >
-                {data?.map((item) => (
-                  <Cell key={item.categoryId} fill={item.categoryColor} />
-                ))}
+                {data?.map((item) => <Cell key={item.categoryId} fill={item.categoryColor} />)}
               </Pie>
             </PieChart>
           </div>

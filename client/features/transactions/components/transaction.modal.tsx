@@ -1,20 +1,19 @@
-"use client";
+'use client';
 
-import { Modal, ModalProps } from "@/shared/ui/modal";
-import { Loader } from "@/shared/ui";
-import { useQuery } from "@tanstack/react-query";
-import { getOneTransaction } from "../api";
+import { useQuery } from '@tanstack/react-query';
+
+import { Loader } from '@/shared/ui';
+import { Modal, ModalProps } from '@/shared/ui/modal';
+
+import { getOneTransaction } from '../api';
 
 type TransactionModalProps = ModalProps & {
   transactionId: number;
 };
 
-export const TransactionModal = ({
-  transactionId,
-  ...props
-}: Readonly<TransactionModalProps>) => {
+export const TransactionModal = ({ transactionId, ...props }: Readonly<TransactionModalProps>) => {
   const { data, isFetching, isError } = useQuery<Transaction>({
-    queryKey: ["transactions", transactionId],
+    queryKey: ['transactions', transactionId],
     queryFn: () => getOneTransaction({ id: transactionId }),
     enabled: !!props.open,
   });
@@ -24,7 +23,7 @@ export const TransactionModal = ({
   if (isFetching) {
     return (
       <Modal title="Transaction Details" {...props}>
-        <div className="w-full py-10 flex justify-center">
+        <div className="flex w-full justify-center py-10">
           <Loader variant="primary" size="lg" />
         </div>
       </Modal>
@@ -32,7 +31,7 @@ export const TransactionModal = ({
   }
 
   if (isError) {
-    alert("Ooops... something went wrong");
+    alert('Ooops... something went wrong');
   }
 
   return (
@@ -47,9 +46,7 @@ export const TransactionModal = ({
           <span className="block text-gray-200">{data?.category.type}</span>
         </div>
         <div>
-          <span className="mb-0.5 block font-semibold text-black">
-            Category
-          </span>
+          <span className="mb-0.5 block font-semibold text-black">Category</span>
           <span className="block text-gray-200">{data?.category.name}</span>
         </div>
         <div>
