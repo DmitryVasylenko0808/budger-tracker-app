@@ -1,23 +1,10 @@
-import { BreadCrumbs } from './breadcrumbs';
-import { Button } from './button';
-import { Container } from './container';
-import { FileSelect } from './file.select';
-import { Loader } from './loader';
-import { Menu } from './menu';
-import { RadioGroup } from './radio.group';
-import { Select } from './select';
-import { TextArea } from './textarea';
-import { TextField } from './textfield';
-
-export {
-  Container,
-  TextField,
-  TextArea,
-  Button,
-  Menu,
-  FileSelect,
-  Loader,
-  Select,
-  RadioGroup,
-  BreadCrumbs,
-};
+export * from './breadcrumbs';
+export * from './button';
+export * from './container';
+export * from './file.select';
+export * from './loader';
+export * from './menu';
+export * from './radio.group';
+export * from './select';
+export * from './textarea';
+export * from './textfield';
