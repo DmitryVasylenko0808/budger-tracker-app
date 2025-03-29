@@ -22,6 +22,7 @@ model User {
   name         String
   avatar       String?
   verified     Boolean       @default(false)
+  twoFa        Boolean       @default(false) @map("two_fa")
 
   categories   Category[]
   transactions Transaction[]
@@ -77,6 +78,7 @@ enum ProviderType {
 enum ConfirmationTokenType {
   EMAIL_CONFIRMATION
   RESET_PASSWORD
+  TWO_FA
 }
 
 enum TransactionType {

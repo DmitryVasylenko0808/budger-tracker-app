@@ -26,7 +26,10 @@ export class PasswordRecoveryService {
 
     await this.confirmationTokensService.deleteTokens(email, 'RESET_PASSWORD');
 
-    const token = await this.confirmationTokensService.generateToken(email, 'RESET_PASSWORD');
+    const token = await this.confirmationTokensService.generateToken({
+      email,
+      type: 'RESET_PASSWORD',
+    });
 
     await this.emailService.sendEmailChangePasswordLink(
       existedUser.email,

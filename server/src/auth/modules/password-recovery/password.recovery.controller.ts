@@ -11,7 +11,6 @@ export class PasswordRecoveryController {
   @Post('reset')
   @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-    console.log(resetPasswordDto);
     return await this.passwordRecoveryService.resetPassword(resetPasswordDto);
   }
 

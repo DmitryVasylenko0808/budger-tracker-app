@@ -110,4 +110,20 @@ export class UsersService {
 
     return user;
   }
+
+  async toggleTwoFa(id: number, twoFaValue: boolean) {
+    await this.getByIdOrThrow(id);
+
+    const user = await this.prismaService.user.update({
+      where: { id },
+      data: {
+        twoFa: !twoFaValue,
+      },
+      omit: {
+        passwordHash: true,
+      },
+    });
+
+    return user;
+  }
 }

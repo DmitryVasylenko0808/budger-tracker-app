@@ -54,6 +54,10 @@ export const signInAction = async (
     redirect(`/email-confirm?email=${res.email}`);
   }
 
+  if (res.userTwoFaEnabled) {
+    redirect(`/two-fa?email=${res.email}`);
+  }
+
   await createSession(res.access_token);
   redirect('/dashboard');
 };

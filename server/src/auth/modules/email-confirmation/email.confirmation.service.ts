@@ -22,10 +22,10 @@ export class EmailConfirmationService {
 
     await this.confirmationTokensService.deleteTokens(user.email, 'EMAIL_CONFIRMATION');
 
-    const token = await this.confirmationTokensService.generateToken(
-      user.email,
-      'EMAIL_CONFIRMATION'
-    );
+    const token = await this.confirmationTokensService.generateToken({
+      email: user.email,
+      type: 'EMAIL_CONFIRMATION',
+    });
 
     await this.emailService.sendEmailConfirmationLink(user.email, user.name, token.value);
   }

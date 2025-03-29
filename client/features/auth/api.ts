@@ -30,6 +30,18 @@ type ChangePasswordParams = {
   token: string;
 };
 
+type VerifyToggleTwoFaParams = {
+  code: string;
+};
+
+type TwoFaVerifyParams = {
+  code: string;
+};
+
+type ResendTwoFaCodeParamas = {
+  email: string;
+};
+
 export class AuthApi {
   static async signUp(data: SignUpParams) {
     try {
@@ -89,6 +101,50 @@ export class AuthApi {
   static async changePassword(data: ChangePasswordParams) {
     try {
       const res = await instance.post('/auth/password-recovery/change-password', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
+    }
+  }
+
+  static async toggleTwoFa() {
+    try {
+      const res = await instance.post('/auth/two-factor/toggle');
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
+    }
+  }
+
+  static async verifyToggleTwoFa(data: VerifyToggleTwoFaParams) {
+    try {
+      const res = await instance.post('/auth/two-factor/toggle/verify', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
+    }
+  }
+
+  static async twoFaVerify(data: TwoFaVerifyParams) {
+    try {
+      const res = await instance.post('/auth/two-factor/verify', data);
+      return res.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      }
+    }
+  }
+
+  static async resendTwoFaCode(data: ResendTwoFaCodeParamas) {
+    try {
+      const res = await instance.post('/auth/two-factor/resend-code', data);
       return res.data;
     } catch (err) {
       if (axios.isAxiosError(err)) {

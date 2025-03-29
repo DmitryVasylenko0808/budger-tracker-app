@@ -8,3 +8,4 @@ export * from './radio.group';
 export * from './select';
 export * from './textarea';
 export * from './textfield';
+export * from './block';

@@ -1,5 +1,6 @@
+import { UserSecurity } from '@/features/auth/components';
 import { UsersApi } from '@/features/user/api';
-import { UserProfile } from '@/features/user/components';
+import { UserData } from '@/features/user/components';
 import type { Metadata } from 'next';
 
 import { notFound, redirect } from 'next/navigation';
@@ -22,5 +23,10 @@ export default async function ProfilePage() {
     redirect('/sign-in');
   }
 
-  return <UserProfile user={data} />;
+  return (
+    <>
+      <UserData user={data} />
+      <UserSecurity user={data} />
+    </>
+  );
 }

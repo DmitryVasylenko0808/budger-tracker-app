@@ -43,4 +43,19 @@ export class EmailService {
         `,
     });
   }
+
+  async sendEmailVerificationCode(email: string, name: string, code: string) {
+    await this.resendService.send({
+      from: 'budget-tracker@resend.dev',
+      to: email,
+      subject: 'Verification 2FA',
+      html: `
+        <p>Hello, ${name}!</p> 
+
+        <p>Here is your code: ${code}</p>
+
+        <p>This code will expire in 5 minutes.</p>
+        `,
+    });
+  }
 }

@@ -5,6 +5,8 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 
+import { GenerateTokenArgs } from './types/generate-token.args';
+
 @Injectable()
 export class ConfirmationTokensService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -20,15 +22,17 @@ export class ConfirmationTokensService {
     return token;
   }
 
-  async generateToken(email: string, type: ConfirmationTokenType) {
-    const generatedtoken = uuidv4();
+  async generateToken(args: GenerateTokenArgs) {
+    const { email, type, variant = 'token', expiresIn = 1000 * 60 * 60 } = args;
+
+    const generatedToken = variant === 'token' ? uuidv4() : this.generateCode();
 
     const currentDate = new Date();
-    const expiresAt = new Date(currentDate.getTime() + 1000 * 60 * 60);
+    const expiresAt = new Date(currentDate.getTime() + expiresIn);
 
     const token = await this.prismaService.confirmationToken.create({
       data: {
-        value: generatedtoken.toString(),
+        value: generatedToken.toString(),
         email,
         type,
         expiresAt,
@@ -47,5 +51,9 @@ export class ConfirmationTokensService {
     });
 
     return tokens;
+  }
+
+  private generateCode(length: number = 6) {
+    return [...Array(length)].map(() => Math.floor(Math.random() * 10)).join('');
   }
 }

@@ -8,14 +8,10 @@ import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign.up.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { VerifiedUserGuard } from './guards/verified-user.guard';
-import { AccessTokensService } from './modules/access-tokens/access-tokens.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly accessTokensService: AccessTokensService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('sign-up')
   async signUp(@Body() signUpDto: SignUpDto) {
@@ -26,7 +22,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard, VerifiedUserGuard)
   @HttpCode(HttpStatus.OK)
   async signIn(@CurrentUser() user: User) {
-    return await this.accessTokensService.genererate(user);
+    return await this.authService.signIn(user);
   }
 
   @Get('me')

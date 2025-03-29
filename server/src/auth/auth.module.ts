@@ -11,6 +11,7 @@ import { EmailConfirmationModule } from './modules/email-confirmation/email-conf
 import { GithubOauthModule } from './modules/github-oauth/github-oauth.module';
 import { GoogleOauthModule } from './modules/google-oauth/google-oauth.module';
 import { PasswordRecoveryModule } from './modules/password-recovery/password-recovery.module';
+import { TwoFactorModule } from './modules/two-factor/two-factor.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PasswordRecoveryModule } from './modules/password-recovery/password-rec
     PasswordRecoveryModule,
     GoogleOauthModule,
     GithubOauthModule,
+    TwoFactorModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy],

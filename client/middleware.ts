@@ -9,6 +9,7 @@ const authRoutes = [
   '/verifying-email',
   '/reset-password',
   '/change-password',
+  '/two-fa',
 ];
 const privateRoutes = ['/dashboard', '/transactions', '/categories', '/profile'];
 
