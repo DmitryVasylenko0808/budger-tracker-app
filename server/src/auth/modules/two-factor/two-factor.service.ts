@@ -48,16 +48,12 @@ export class TwoFactorService {
   }
 
   async toggleVerify(toggleVerifyDto: ToggleVerifyDto, userId: number) {
-    const code = await this.confirmationTokensService.findToken(toggleVerifyDto.code, 'TWO_FA');
+    const { code } = toggleVerifyDto;
 
-    if (!code) {
-      throw new BadRequestException('Invalid code');
-    }
+    const verifiedToken = await this.confirmationTokensService.verify(code, 'TWO_FA');
 
-    const isExpired = code.expiresAt < new Date();
-
-    if (isExpired) {
-      throw new BadRequestException('Code is expired');
+    if (!verifiedToken) {
+      throw new BadRequestException('Token is invalid or expired');
     }
 
     const user = await this.usersService.getByIdOrThrow(userId);
@@ -69,19 +65,15 @@ export class TwoFactorService {
   }
 
   async verify(twoFactorVerifyDto: TwoFactorVerifyDto) {
-    const code = await this.confirmationTokensService.findToken(twoFactorVerifyDto.code, 'TWO_FA');
+    const { code } = twoFactorVerifyDto;
 
-    if (!code) {
-      throw new BadRequestException('Invalid code');
+    const verifiedCode = await this.confirmationTokensService.verify(code, 'TWO_FA');
+
+    if (!verifiedCode) {
+      throw new BadRequestException('Token is invalid or expired');
     }
 
-    const isExpired = code.expiresAt < new Date();
-
-    if (isExpired) {
-      throw new BadRequestException('Code is expired');
-    }
-
-    const user = await this.usersService.getByEmail(code.email);
+    const user = await this.usersService.getByEmail(verifiedCode.email);
 
     if (!user) {
       throw new NotFoundException('User is not found');

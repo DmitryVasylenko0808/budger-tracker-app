@@ -53,6 +53,22 @@ export class ConfirmationTokensService {
     return tokens;
   }
 
+  async verify(token: string, type: ConfirmationTokenType) {
+    const existedToken = await this.findToken(token, type);
+
+    if (!existedToken) {
+      return null;
+    }
+
+    const isExpired = existedToken.expiresAt < new Date();
+
+    if (isExpired) {
+      return null;
+    }
+
+    return existedToken;
+  }
+
   private generateCode(length: number = 6) {
     return [...Array(length)].map(() => Math.floor(Math.random() * 10)).join('');
   }

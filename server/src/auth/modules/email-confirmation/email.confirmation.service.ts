@@ -31,22 +31,13 @@ export class EmailConfirmationService {
   }
 
   async confirmEmail(token: string) {
-    const existedToken = await this.confirmationTokensService.findToken(
-      token,
-      'EMAIL_CONFIRMATION'
-    );
+    const verifiedToken = await this.confirmationTokensService.verify(token, 'EMAIL_CONFIRMATION');
 
-    if (!existedToken) {
-      throw new NotFoundException("This token doesn't exist");
+    if (!verifiedToken) {
+      throw new BadRequestException('Invalid token or expired');
     }
 
-    const isExpired = existedToken.expiresAt < new Date();
-
-    if (isExpired) {
-      throw new BadRequestException('This token is expired');
-    }
-
-    const user = await this.usersService.getByEmail(existedToken.email);
+    const user = await this.usersService.getByEmail(verifiedToken.email);
 
     if (!user) {
       throw new NotFoundException('User is not found');
@@ -54,7 +45,7 @@ export class EmailConfirmationService {
 
     const verifiedUser = await this.usersService.markAsVerified(user.id);
 
-    await this.confirmationTokensService.deleteTokens(existedToken.email, 'EMAIL_CONFIRMATION');
+    await this.confirmationTokensService.deleteTokens(verifiedToken.email, 'EMAIL_CONFIRMATION');
 
     return verifiedUser;
   }

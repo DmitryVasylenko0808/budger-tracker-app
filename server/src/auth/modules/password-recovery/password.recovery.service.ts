@@ -41,19 +41,13 @@ export class PasswordRecoveryService {
   async changePassword(data: ChangePasswordDto) {
     const { password, token } = data;
 
-    const existedToken = await this.confirmationTokensService.findToken(token, 'RESET_PASSWORD');
+    const verifiedToken = await this.confirmationTokensService.verify(token, 'RESET_PASSWORD');
 
-    if (!existedToken) {
-      throw new NotFoundException("This token doesn't exist");
+    if (!verifiedToken) {
+      throw new BadRequestException('Token is invalid or expired');
     }
 
-    const isExpired = existedToken.expiresAt < new Date();
-
-    if (isExpired) {
-      throw new BadRequestException('This token is expired');
-    }
-
-    const user = await this.usersService.getByEmail(existedToken.email);
+    const user = await this.usersService.getByEmail(verifiedToken.email);
 
     if (!user || !user.passwordHash) {
       throw new NotFoundException('User is not found');
