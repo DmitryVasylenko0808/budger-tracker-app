@@ -13,14 +13,12 @@ import { TransactionsPagination } from './types/transactions.pagination';
 export class TransactionsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async get(userId: number, page: number = 1, limit: number = 30, categoryIds?: string) {
-    const numberCategoryIds = categoryIds?.split(',').map((id) => Number(id));
-
+  async get(userId: number, page: number = 1, limit: number = 30, categoryIds: number[]) {
     const transactions = await this.prismaService.transaction.findMany({
       where: {
         userId,
         categoryId: {
-          in: numberCategoryIds,
+          in: categoryIds.length ? categoryIds : undefined,
         },
       },
       orderBy: {
@@ -40,7 +38,7 @@ export class TransactionsService {
       where: {
         userId,
         categoryId: {
-          in: numberCategoryIds,
+          in: categoryIds,
         },
       },
     });
@@ -61,7 +59,7 @@ export class TransactionsService {
       where: {
         userId,
         categoryId: {
-          in: categoryIds,
+          in: categoryIds?.length ? categoryIds : undefined,
         },
       },
       orderBy: {

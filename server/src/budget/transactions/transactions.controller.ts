@@ -3,6 +3,7 @@ import { Response } from 'express';
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
@@ -16,6 +17,7 @@ import {
 
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { ParseNumberArrayPipe } from 'src/common/pipes/parse-number-array.pipe';
 
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 
@@ -32,7 +34,7 @@ export class TransactionsController {
   async get(
     @Query('page', ParseIntPipe) page: number,
     @Query('limit', ParseIntPipe) limit: number,
-    @Query('category_ids') categoryIds: string,
+    @Query('category_ids', ParseNumberArrayPipe) categoryIds: number[],
     @CurrentUser() user: TokenPayload
   ) {
     return await this.transactionsService.get(user.userId, page, limit, categoryIds);

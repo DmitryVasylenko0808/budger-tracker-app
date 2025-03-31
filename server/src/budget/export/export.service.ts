@@ -8,10 +8,8 @@ import { TransactionsService } from '../transactions/transactions.service';
 export class ExportService {
   constructor(private readonly transactionsService: TransactionsService) {}
 
-  async exportTransactions(userId: number, categoryIds?: string) {
-    const numberCategoryIds = categoryIds?.split(',').map((id) => Number(id));
-
-    const data = await this.transactionsService.getAll(userId, 'desc', numberCategoryIds);
+  async exportTransactions(userId: number, categoryIds: number[]) {
+    const data = await this.transactionsService.getAll(userId, 'desc', categoryIds);
 
     const cvsStringifier = createObjectCsvStringifier({
       header: [

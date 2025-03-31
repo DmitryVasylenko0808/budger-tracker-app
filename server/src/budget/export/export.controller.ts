@@ -4,6 +4,7 @@ import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
 
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { ParseNumberArrayPipe } from 'src/common/pipes/parse-number-array.pipe';
 
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 
@@ -16,7 +17,7 @@ export class ExportController {
 
   @Get('transactions')
   async exportTransactions(
-    @Query('category_ids') categoryIds: string,
+    @Query('category_ids', ParseNumberArrayPipe) categoryIds: number[],
     @Res() res: Response,
     @CurrentUser() user: TokenPayload
   ) {
