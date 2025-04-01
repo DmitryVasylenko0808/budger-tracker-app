@@ -35,4 +35,4 @@ type BreakdownStatsItem = {
 
 type BreakdownStats = BreakdownStatsItem[];
 
-type ExportFormat = 'csv' | 'xls' | 'json';
+type ExportFormat = 'csv' | 'xls' | 'pdf' | 'json';

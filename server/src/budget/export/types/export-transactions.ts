@@ -1,4 +1,4 @@
-export type ExportFormat = 'csv' | 'xls' | 'json';
+export type ExportFormat = 'csv' | 'xls' | 'pdf' | 'json';
 
 export type ExportTransactions = {
   format: ExportFormat;

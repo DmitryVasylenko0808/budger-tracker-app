@@ -23,7 +23,6 @@ export class ExportController {
     @CurrentUser() user: TokenPayload,
     @Res({ passthrough: true }) res: Response
   ) {
-    console.log(format);
     return await this.exportService.exportTransactions(
       { format, userId: user.userId, categoryIds },
       res

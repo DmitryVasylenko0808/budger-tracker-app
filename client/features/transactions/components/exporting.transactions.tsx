@@ -57,6 +57,11 @@ export const ExportingTransactions = ({ categoryIds }: Readonly<ExportingTransac
             </Button>
           </li>
           <li>
+            <Button variant="menu" onClick={() => handleClickExport('pdf')}>
+              <Image src="/pdf.svg" alt="csv-icon" width={20} height={20} /> Export PDF
+            </Button>
+          </li>
+          <li>
             <Button variant="menu" onClick={() => handleClickExport('json')}>
               <Image src="/json.svg" alt="csv-icon" width={20} height={20} /> Export JSON
             </Button>

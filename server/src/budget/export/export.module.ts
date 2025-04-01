@@ -8,16 +8,18 @@ import { ExportFactory } from './providers/export-factory';
 import { CsvExportService } from './services/csv-export.service';
 import { ExportService } from './services/export.service';
 import { JsonExportService } from './services/json-export.service';
+import { PdfExportService } from './services/pdf-export.service';
 import { XlsExportService } from './services/xls-export.service';
 
 @Module({
   imports: [TransactionsModule],
   providers: [
-    ExportService,
     ParseNumberArrayPipe,
+    ExportService,
     JsonExportService,
     CsvExportService,
     XlsExportService,
+    PdfExportService,
     ExportFactory,
   ],
   controllers: [ExportController],
