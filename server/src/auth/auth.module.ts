@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { EmailModule } from 'src/email/email.module';
 import { UsersModule } from 'src/users/users.module';
 
 import { AuthController } from './auth.controller';
@@ -16,6 +17,7 @@ import { TwoFactorModule } from './modules/two-factor/two-factor.module';
 @Module({
   imports: [
     UsersModule,
+    EmailModule,
     AccessTokensModule,
     ConfirmationTokensModule,
     EmailConfirmationModule,
