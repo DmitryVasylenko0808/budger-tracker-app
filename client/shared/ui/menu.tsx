@@ -14,7 +14,7 @@ export const Menu = ({ trigger, content, open, ref }: MenuProps) => {
       {open && (
         <div
           ref={ref}
-          className="absolute right-0 top-full z-10 rounded-lg border border-gray-200/15 bg-white p-1 shadow-2xl"
+          className="absolute right-0 top-full z-10 my-1 rounded-lg border border-gray-200/15 bg-white p-1 shadow-2xl"
         >
           {content}
         </div>
