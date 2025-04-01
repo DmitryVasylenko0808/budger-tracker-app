@@ -1,36 +1,40 @@
-import { createObjectCsvStringifier } from 'csv-writer';
+import { Response } from 'express';
 
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { TransactionsService } from '../transactions/transactions.service';
+import { IExportService } from './interfaces/export-service.interface';
+import { CsvExportService } from './services/csv-export.service';
+import { JsonExportService } from './services/json-export.service';
+import { XlsExportService } from './services/xls-export.service';
+import { ExportFormat, ExportTransactions } from './types/export-transactions';
 
 @Injectable()
 export class ExportService {
-  constructor(private readonly transactionsService: TransactionsService) {}
+  private readonly exportersMap: Map<ExportFormat, IExportService>;
 
-  async exportTransactions(userId: number, categoryIds: number[]) {
-    const data = await this.transactionsService.getAll(userId, 'desc', categoryIds);
+  constructor(
+    private readonly transactionsService: TransactionsService,
+    private readonly csvExportService: CsvExportService,
+    private readonly jsonExportService: JsonExportService,
+    private readonly xlsExportService: XlsExportService
+  ) {
+    this.exportersMap = new Map();
 
-    const cvsStringifier = createObjectCsvStringifier({
-      header: [
-        { id: 'name', title: 'Name' },
-        { id: 'type', title: 'Type' },
-        { id: 'amount', title: 'Amount' },
-        { id: 'category', title: 'Category' },
-        { id: 'date', title: 'Date' },
-      ],
-    });
+    this.exportersMap.set('csv', csvExportService);
+    this.exportersMap.set('json', jsonExportService);
+    this.exportersMap.set('xls', xlsExportService);
+  }
 
-    const records = data.map((tr) => ({
-      name: tr.name,
-      type: tr.category.type,
-      amount: tr.amount,
-      category: tr.category.name,
-      date: tr.createdAt.toLocaleString(),
-    }));
+  async exportTransactions(exportParams: ExportTransactions, res: Response) {
+    const { format, ...transactionsSelection } = exportParams;
 
-    const csvData = cvsStringifier.getHeaderString() + cvsStringifier.stringifyRecords(records);
+    const exporter = this.exportersMap.get(format);
 
-    return csvData;
+    if (!exporter) {
+      throw new BadRequestException('Unsupported export type');
+    }
+
+    return await exporter.exportTransactions(transactionsSelection, res);
   }
 }

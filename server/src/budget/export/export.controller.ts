@@ -9,6 +9,7 @@ import { ParseNumberArrayPipe } from 'src/common/pipes/parse-number-array.pipe';
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 
 import { ExportService } from './export.service';
+import { ExportFormat } from './types/export-transactions';
 
 @Controller('export')
 @UseGuards(JwtAuthGuard)
@@ -17,16 +18,15 @@ export class ExportController {
 
   @Get('transactions')
   async exportTransactions(
+    @Query('format') format: ExportFormat,
     @Query('category_ids', ParseNumberArrayPipe) categoryIds: number[],
-    @Res() res: Response,
-    @CurrentUser() user: TokenPayload
+    @CurrentUser() user: TokenPayload,
+    @Res({ passthrough: true }) res: Response
   ) {
-    const data = await this.exportService.exportTransactions(user.userId, categoryIds);
-
-    res.set({
-      'Content-Type': 'text/csv',
-      'Content-Disposition': 'attachment; filename="transactions.csv"',
-    });
-    res.send(data);
+    console.log(format);
+    return await this.exportService.exportTransactions(
+      { format, userId: user.userId, categoryIds },
+      res
+    );
   }
 }

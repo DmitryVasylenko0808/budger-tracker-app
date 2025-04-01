@@ -3,6 +3,7 @@ import axios from 'axios';
 import { instance } from '@/lib/instance';
 
 type GetExportParams = {
+  format: ExportFormat;
   categoryIds: number[];
 };
 
@@ -12,6 +13,7 @@ export class ExportApi {
       const res = await instance.get(`/export/transactions`, {
         responseType: 'blob',
         params: {
+          format: params.format,
           category_ids: params.categoryIds.map((item) => item.toString()).join(',') || null,
         },
       });
