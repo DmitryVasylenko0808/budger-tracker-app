@@ -24,8 +24,8 @@ export const UserData = ({ user }: UserDataProps) => {
               <Image
                 src={user.avatar}
                 alt="user-avatar"
-                width={24}
-                height={24}
+                width={96}
+                height={96}
                 className="h-24 w-24 rounded-full"
               />
               <div>
