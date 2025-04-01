@@ -38,7 +38,7 @@ export class TransactionsService {
       where: {
         userId,
         categoryId: {
-          in: categoryIds,
+          in: categoryIds.length ? categoryIds : undefined,
         },
       },
     });
