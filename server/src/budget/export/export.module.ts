@@ -4,8 +4,9 @@ import { ParseNumberArrayPipe } from 'src/common/pipes/parse-number-array.pipe';
 
 import { TransactionsModule } from '../transactions/transactions.module';
 import { ExportController } from './export.controller';
-import { ExportService } from './export.service';
+import { ExportFactory } from './providers/export-factory';
 import { CsvExportService } from './services/csv-export.service';
+import { ExportService } from './services/export.service';
 import { JsonExportService } from './services/json-export.service';
 import { XlsExportService } from './services/xls-export.service';
 
@@ -17,6 +18,7 @@ import { XlsExportService } from './services/xls-export.service';
     JsonExportService,
     CsvExportService,
     XlsExportService,
+    ExportFactory,
   ],
   controllers: [ExportController],
 })

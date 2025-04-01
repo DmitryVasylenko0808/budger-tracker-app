@@ -8,7 +8,7 @@ import { ParseNumberArrayPipe } from 'src/common/pipes/parse-number-array.pipe';
 
 import { TokenPayload } from 'src/auth/modules/access-tokens/types/token.payload';
 
-import { ExportService } from './export.service';
+import { ExportService } from './services/export.service';
 import { ExportFormat } from './types/export-transactions';
 
 @Controller('export')
