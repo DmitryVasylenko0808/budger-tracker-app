@@ -18,7 +18,7 @@ export const TransactionModal = ({ transactionId, ...props }: Readonly<Transacti
     enabled: !!props.open,
   });
 
-  const date = data && new Date(data.createdAt).toLocaleDateString();
+  const date = data && new Date(data.createdAt).toLocaleString();
 
   if (isFetching) {
     return (

@@ -23,7 +23,7 @@ export const TransactionsTableItem = ({ data, ...props }: Readonly<TransactionsT
   const modal = useModal();
 
   const isSelectable = 'selected' in props && 'onSelect' in props;
-  const date = new Date(data.createdAt).toLocaleDateString();
+  const date = new Date(data.createdAt).toLocaleString();
 
   return (
     <tr
