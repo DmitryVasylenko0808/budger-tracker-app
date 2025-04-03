@@ -3,6 +3,7 @@ export * from './breakdown';
 export * from './breakdown.chart';
 export * from './breakdown.item.skeleton';
 export * from './categories';
+export * from './categories.manager';
 export * from './categories.list';
 export * from './category.item';
 export * from './category.transactions';

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { cn } from '@/utils/cn';
 
-type BreadCrumbsItem = {
+export type BreadCrumbsItem = {
   href: string;
   title: string;
   active?: boolean;

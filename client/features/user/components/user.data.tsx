@@ -16,7 +16,7 @@ export const UserData = ({ user }: UserDataProps) => {
   const modal = useModal();
 
   return (
-    <section className="py-10">
+    <section className="pb-10">
       <Container>
         <Block title="Personal Details">
           <div className="mb-2">

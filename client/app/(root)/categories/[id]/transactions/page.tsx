@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
 
-import { BreadCrumbs, Container } from '@/shared/ui';
+import { PageHeader } from '@/shared/components';
 
 export const metadata: Metadata = {
   title: 'Categories',
@@ -16,7 +16,6 @@ export default async function CategoryTransactionsPage({
   params: Promise<{ id: number }>;
 }) {
   const { id } = await params;
-
   const data = await CategoriesApi.getOneCategory({ id: Number(id) });
 
   if (data.statusCode === 404) {
@@ -24,23 +23,19 @@ export default async function CategoryTransactionsPage({
   }
 
   return (
-    <section className="py-10">
-      <Container>
-        <BreadCrumbs
-          items={[
-            { href: '/categories', title: 'Categories' },
-            {
-              href: `/categories/${data.id}/transactions`,
-              title: data.name,
-              active: true,
-            },
-          ]}
-          className="mb-5"
-        />
-        <h1 className="mb-4 text-3xl font-semibold">Categories: {data.name}</h1>
-        <div className="mb-5 h-0.5 w-full bg-gray-50" />
-      </Container>
+    <>
+      <PageHeader
+        title={`Categories: ${data.name}`}
+        breadCrumbs={[
+          { href: '/categories', title: 'Categories' },
+          {
+            href: `/categories/${data.id}/transactions`,
+            title: data.name,
+            active: true,
+          },
+        ]}
+      />
       <CategoryTransactions categoryId={data.id} />
-    </section>
+    </>
   );
 }

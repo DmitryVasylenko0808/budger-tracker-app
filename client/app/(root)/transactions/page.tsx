@@ -1,7 +1,7 @@
 import { Transactions } from '@/features/transactions/components';
 import type { Metadata } from 'next';
 
-import { Container } from '@/shared/ui';
+import { PageHeader } from '@/shared/components';
 
 export const metadata: Metadata = {
   title: 'Transactions',
@@ -10,13 +10,7 @@ export const metadata: Metadata = {
 export default async function TransactionsPage() {
   return (
     <div>
-      <section className="pb-8 pt-10">
-        <Container>
-          <h1 className="mb-4 text-3xl font-semibold">Transactions</h1>
-          <div className="h-0.5 w-full bg-gray-50" />
-        </Container>
-      </section>
-
+      <PageHeader title="Transactions" />
       <Transactions />
     </div>
   );

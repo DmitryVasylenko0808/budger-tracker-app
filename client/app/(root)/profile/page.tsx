@@ -7,6 +7,8 @@ import { notFound, redirect } from 'next/navigation';
 
 import { verifySession } from '@/lib/session';
 
+import { PageHeader } from '@/shared/components';
+
 export const metadata: Metadata = {
   title: 'Profile',
 };
@@ -25,6 +27,7 @@ export default async function ProfilePage() {
 
   return (
     <>
+      <PageHeader title="Profile" />
       <UserData user={data} />
       <UserSecurity user={data} />
     </>
