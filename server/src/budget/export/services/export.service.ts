@@ -1,5 +1,3 @@
-import { Response } from 'express';
-
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { ExportFactory } from '../providers/export-factory';
@@ -9,15 +7,15 @@ import { ExportTransactions } from '../types/export-transactions';
 export class ExportService {
   constructor(private readonly exportFactory: ExportFactory) {}
 
-  async exportTransactions(exportParams: ExportTransactions, res: Response) {
+  async exportTransactions(exportParams: ExportTransactions) {
     const { format, ...transactionsSelection } = exportParams;
 
-    const exporter = this.exportFactory.createExport(format);
+    const exporter = this.exportFactory.createExporter(format);
 
     if (!exporter) {
       throw new BadRequestException('Unsupported export type');
     }
 
-    return await exporter.exportTransactions(transactionsSelection, res);
+    return await exporter.exportTransactions(transactionsSelection);
   }
 }

@@ -1,7 +1,8 @@
-import { Response } from 'express';
-
-import { ExportTransactionsSelection } from '../types/export-transactions';
+import {
+  ExportTransactionsResult,
+  ExportTransactionsSelection,
+} from '../types/export-transactions';
 
 export interface IExportService {
-  exportTransactions(selection: ExportTransactionsSelection, res: Response): Promise<void>;
+  exportTransactions(selection: ExportTransactionsSelection): Promise<ExportTransactionsResult>;
 }

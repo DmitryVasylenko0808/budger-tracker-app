@@ -21,11 +21,18 @@ export class ExportController {
     @Query('format') format: ExportFormat,
     @Query('category_ids', ParseNumberArrayPipe) categoryIds: number[],
     @CurrentUser() user: TokenPayload,
-    @Res({ passthrough: true }) res: Response
+    @Res() res: Response
   ) {
-    return await this.exportService.exportTransactions(
-      { format, userId: user.userId, categoryIds },
-      res
-    );
+    const result = await this.exportService.exportTransactions({
+      format,
+      userId: user.userId,
+      categoryIds,
+    });
+
+    res.set({
+      'Content-Type': result.contentType,
+      'Content-Disposition': `attachment; filename="${result.fileName}"`,
+    });
+    res.end(result.data);
   }
 }

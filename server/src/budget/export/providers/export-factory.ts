@@ -16,7 +16,7 @@ export class ExportFactory {
     private readonly jsonExportService: JsonExportService
   ) {}
 
-  createExport(format: ExportFormat): IExportService {
+  createExporter(format: ExportFormat): IExportService {
     switch (format) {
       case 'csv':
         return this.csvExportService;

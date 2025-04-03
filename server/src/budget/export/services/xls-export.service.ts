@@ -1,18 +1,22 @@
 import * as ExcelJS from 'exceljs';
-import { Response } from 'express';
 
 import { Injectable } from '@nestjs/common';
 
 import { TransactionsService } from 'src/budget/transactions/transactions.service';
 
 import { IExportService } from '../interfaces/export-service.interface';
-import { ExportTransactionsSelection } from '../types/export-transactions';
+import {
+  ExportTransactionsResult,
+  ExportTransactionsSelection,
+} from '../types/export-transactions';
 
 @Injectable()
 export class XlsExportService implements IExportService {
   constructor(private readonly transactionsService: TransactionsService) {}
 
-  async exportTransactions(selection: ExportTransactionsSelection, res: Response) {
+  async exportTransactions(
+    selection: ExportTransactionsSelection
+  ): Promise<ExportTransactionsResult> {
     const { userId, categoryIds } = selection;
 
     const data = await this.transactionsService.getAll(userId, 'desc', categoryIds);
@@ -40,10 +44,10 @@ export class XlsExportService implements IExportService {
 
     const buffer = await workBook.xlsx.writeBuffer();
 
-    res.set({
-      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': 'attachment; filename=transactions.xlsx',
-    });
-    res.send(buffer);
+    return {
+      contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      fileName: 'transactions.xlsx',
+      data: buffer,
+    };
   }
 }

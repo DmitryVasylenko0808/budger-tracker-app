@@ -7,3 +7,9 @@ export type ExportTransactions = {
 };
 
 export type ExportTransactionsSelection = Omit<ExportTransactions, 'format'>;
+
+export type ExportTransactionsResult = {
+  contentType: string;
+  fileName: string;
+  data: unknown;
+};

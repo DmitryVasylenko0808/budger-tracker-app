@@ -1,17 +1,20 @@
-import { Response } from 'express';
-
 import { Injectable } from '@nestjs/common';
 
 import { TransactionsService } from 'src/budget/transactions/transactions.service';
 
 import { IExportService } from '../interfaces/export-service.interface';
-import { ExportTransactionsSelection } from '../types/export-transactions';
+import {
+  ExportTransactionsResult,
+  ExportTransactionsSelection,
+} from '../types/export-transactions';
 
 @Injectable()
 export class JsonExportService implements IExportService {
   constructor(private readonly transactionsService: TransactionsService) {}
 
-  async exportTransactions(selection: ExportTransactionsSelection, res: Response): Promise<void> {
+  async exportTransactions(
+    selection: ExportTransactionsSelection
+  ): Promise<ExportTransactionsResult> {
     const { userId, categoryIds } = selection;
 
     const data = await this.transactionsService.getAll(userId, 'desc', categoryIds);
@@ -26,10 +29,10 @@ export class JsonExportService implements IExportService {
 
     const jsonData = JSON.stringify(records, null, 2);
 
-    res.set({
-      'Content-Type': 'application/json',
-      'Content-Disposition': 'attachment; filename="transactions.json"',
-    });
-    res.send(jsonData);
+    return {
+      contentType: 'application/json',
+      fileName: 'transactions.json',
+      data: jsonData,
+    };
   }
 }
