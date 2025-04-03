@@ -18,7 +18,7 @@ type IncomeExpenseChartProps = {
 export const IncomeExpenseChart = ({ data }: Readonly<IncomeExpenseChartProps>) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={data} width={500} height={500}>
+      <BarChart data={data} width={500} height={500} barGap="5%">
         <XAxis
           dataKey="name"
           interval="equidistantPreserveStart"
